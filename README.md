@@ -7,7 +7,7 @@ Ecosystem of tools for power grid visualization, modelling and analysis. Documen
 ## Supported integrations
 
 | Data format       | powerflow | geodata | calculation in cloud | solver        | examples                         |
-| ----------------- | --------- | ------- | -------------------- | ------------- | -------------------------------- |
+|-------------------|-----------|---------|----------------------|---------------|----------------------------------|
 | psse              | yes       | no      | no                   | Siemens PSS®E | `data/gridcapacity/savnw`        |
 | pandapower (json) | yes       | yes     | yes                  | PandaPower    | `data/gridcapacity/mv_oberrhein` |
 | CIM CGMES         | yes       | yes     | yes                  | PandaPower    | `data/gridcapacity/cim_cgmes`    |
@@ -25,13 +25,13 @@ Ecosystem of tools for power grid visualization, modelling and analysis. Documen
 
 ## Setup
 
-Spin up infra with syntetic demo data
+Spin up infra with synthetic demo data
 
 ```
 docker-compose up
 ```
 
-Syntetic data used for visualization is sourced from `data` dir.
+Synthetic data used for visualization is sourced from `data` dir.
 It can be imported from [swagger UI](http://localhost:8000/docs) and will be visualized on [webgis](http://localhost:3000).
 Default username and password for authentication is `demo`.
 

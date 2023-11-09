@@ -16,7 +16,7 @@ services:
       - VITE_OIDC_CLIENT_ID=spa
       - VITE_OIDC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
     ports:
-      - 3000:3000
+      - "3000:3000"
 
   backend:
     image: python:3.10-slim
@@ -42,7 +42,7 @@ services:
       - KC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
       - KC_REALM=aad
     ports:
-      - 8000:8000
+      - "8000:8000"
 
   gridcapacity_worker:
     image: python:3.10-slim
@@ -63,7 +63,7 @@ services:
   adminer:
     image: michalhosna/adminer:4.8.1-en_v1
     ports:
-      - 8080:8080
+      - "8080:8080"
     environment:
       ADMINER_DB: gridmapdb
       ADMINER_DRIVER: pgsql
@@ -78,7 +78,7 @@ services:
     environment:
       - REDIS_HOSTS=redis
     ports:
-      - 8083:8081
+      - "8083:8081"
 
   keycloak:
     build:
