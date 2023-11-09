@@ -1,0 +1,51 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-docker-compose
+{
+  "name": "gridmap-devcontainer",
+  "image": "python:3.10-slim",
+  "workspaceFolder": "/workspaces",
+  "workspaceMount": "",
+  "runArgs": [
+    "--security-opt=label:disable",
+    "--network=gridmap_default",
+    "--volume=${localWorkspaceFolder}:/workspaces:Z",
+    "--volume=gridmap_backend_pip_cache:/root/.cache/pip:Z",
+    "--volume=gridmap_backend_site_packages:/usr/local/lib/python3.9/site-packages:Z",
+    "--volume=gridmap_backend_local_bin:/usr/local/bin:Z"
+  ],
+  "shutdownAction": "stopContainer",
+  "postCreateCommand": "pip install black pylint && pip install -r /workspaces/backend/requirements.txt",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "bash",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.formatting.provider": "none",
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "isort.args": ["--profile", "black"],
+        "[javascript,javascriptreact,typescript,typescriptreact,json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        }
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "DATABASE_URL": "postgresql+asyncpg://postgres_user:password@postgreshost:5432/gridmapdb"
+  }
+}

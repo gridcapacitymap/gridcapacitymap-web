@@ -1,0 +1,17 @@
+*.pem
+*.war
+*.swp
+*.gz
+*~*
+*.backup
+.tfstate
+.terraform
+*.iml
+.idea
+.*.env
+util/
+tmp/
+data/backup/
+maplibre/node_modules
+gridcapacity_worker/gridcapacity
+__pycache__

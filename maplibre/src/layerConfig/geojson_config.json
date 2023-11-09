@@ -1,0 +1,295 @@
+[
+  {
+    "id": "connection_requests_hexagonal_heatmap",
+    "source": "connection_requests_density",
+    "type": "fill",
+    "maxzoom": 14,
+    "paint": {
+      "fill-color": "#088",
+      "fill-opacity": [
+        "interpolate",
+        ["linear"],
+        ["get", "power_increase_total"],
+        0,
+        0,
+        1000,
+        0.5
+      ]
+    }
+  },
+  {
+    "id": "calculated_connection_requests_line",
+    "source": "scenario-connections-lines",
+    "type": "line",
+    "minzoom": 5,
+    "paint": {
+      "line-width": 1,
+      "line-color": "rgb(242, 155, 68)"
+    }
+  },
+  {
+    "id": "hexagons_connection_requests",
+    "source": "hexagons_connection_requests",
+    "type": "circle",
+    "minzoom": 4,
+    "paint": {
+      "circle-color": "rgb(242, 155, 68)",
+      "circle-stroke-color": "rgba(0,0,0,0.45)",
+      "circle-stroke-width": 1,
+      "circle-radius": [
+        "step",
+        ["zoom"],
+        ["interpolate", ["linear"], ["get", "power_increase"], 0, 1, 1000, 4],
+        5,
+        ["interpolate", ["linear"], ["get", "power_increase"], 0, 1, 1000, 8],
+        8,
+        ["interpolate", ["linear"], ["get", "power_increase"], 0, 2, 1000, 32]
+      ]
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "connection"
+    }
+  },
+  {
+    "id": "hexagons_connection_requests_labels",
+    "source": "hexagons_connection_requests",
+    "type": "symbol",
+    "minzoom": 10,
+    "layout": {
+      "text-field": "{project_id}",
+      "text-font": ["Klokantech Noto Sans Bold"],
+      "text-size": 11,
+      "text-offset": [0, 2]
+    },
+    "paint": {
+      "text-color": "rgba(0,0,0,0.7)",
+      "text-halo-color": "white",
+      "text-halo-width": 2
+    }
+  },
+  {
+    "id": "selected_connection_requests",
+    "source": "connections/geo/connection_requests",
+    "type": "circle",
+    "minzoom": 4,
+    "paint": {
+      "circle-color": "rgb(242, 155, 68)",
+      "circle-stroke-color": "rgb(130, 81, 31)",
+      "circle-stroke-width": 3,
+      "circle-radius": [
+        "step",
+        ["zoom"],
+        ["interpolate", ["linear"], ["get", "power_increase"], 0, 1, 1000, 4],
+        5,
+        ["interpolate", ["linear"], ["get", "power_increase"], 0, 1, 1000, 8],
+        8,
+        ["interpolate", ["linear"], ["get", "power_increase"], 0, 2, 1000, 32]
+      ]
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "connection"
+    }
+  },
+  {
+    "id": "selected_connection_requests_labels",
+    "source": "connections/geo/connection_requests",
+    "type": "symbol",
+    "minzoom": 10,
+    "layout": {
+      "text-field": "{project_id}",
+      "text-font": ["Klokantech Noto Sans Bold"],
+      "text-size": 11,
+      "text-offset": [0, 2]
+    },
+    "paint": {
+      "text-color": "black",
+      "text-halo-color": "white",
+      "text-halo-width": 2
+    }
+  },
+  {
+    "id": "branches",
+    "source": "powergrid/geo/branches",
+    "type": "line",
+    "minzoom": 5,
+    "paint": {
+      "line-width": 1,
+      "line-color": ["get", "color"]
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  },
+  {
+    "id": "branches_labels",
+    "source": "powergrid/geo/branches",
+    "type": "symbol",
+    "minzoom": 5,
+    "layout": {
+      "text-field": [
+        "concat",
+        ["get", "name", ["get", "from_bus"]],
+        "  -  ",
+        ["get", "name", ["get", "to_bus"]]
+      ],
+      "symbol-placement": "line-center",
+      "text-font": ["Klokantech Noto Sans Bold"],
+      "text-size": 10,
+      "text-offset": [0, 1]
+    },
+    "paint": {
+      "text-color": "black",
+      "text-halo-color": "white",
+      "text-halo-width": 1
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  },
+  {
+    "id": "branches_with_transformer",
+    "source": "powergrid/geo/trafos2w",
+    "type": "line",
+    "minzoom": 5,
+    "paint": {
+      "line-width": 1,
+      "line-color": ["get", "color"]
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  },
+  {
+    "id": "branches_with_transformers_labels",
+    "source": "powergrid/geo/trafos2w",
+    "type": "symbol",
+    "minzoom": 5,
+    "layout": {
+      "text-field": [
+        "concat",
+        ["get", "name", ["get", "from_bus"]],
+        "  -  ",
+        ["get", "name", ["get", "to_bus"]]
+      ],
+      "symbol-placement": "line-center",
+      "text-font": ["Klokantech Noto Sans Bold"],
+      "text-size": 10,
+      "text-offset": [0, 1.5]
+    },
+    "paint": {
+      "text-color": "black",
+      "text-halo-color": "white",
+      "text-halo-width": 1
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  },
+  {
+    "id": "buses",
+    "source": "powergrid/geo/buses",
+    "type": "circle",
+    "minzoom": 5,
+    "paint": {
+      "circle-color": ["get", "color"],
+      "circle-stroke-color": "rgba(0,0,0,0.5)",
+      "circle-stroke-width": 1,
+      "circle-radius": ["interpolate", ["linear"], ["zoom"], 1, 2, 12, 6]
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "bus"
+    }
+  },
+  {
+    "id": "buses-labels",
+    "source": "powergrid/geo/buses",
+    "type": "symbol",
+    "minzoom": 6,
+    "layout": {
+      "text-field": ["get", "name"],
+      "text-font": ["Klokantech Noto Sans Bold"],
+      "text-size": 10,
+      "text-offset": [0, 2]
+    },
+    "paint": {
+      "text-color": "black",
+      "text-halo-color": "white",
+      "text-halo-width": 2
+    }
+  },
+  {
+    "id": "branches_directions_icon",
+    "source": "powergrid/geo/branches",
+    "type": "symbol",
+    "minzoom": 4,
+    "layout": {
+      "symbol-placement": "line-center",
+      "icon-size": ["interpolate", ["linear"], ["zoom"], 2, 0.2, 10, 0.5],
+      "icon-image": "arrow",
+      "icon-rotate": 90,
+      "icon-rotation-alignment": "map",
+      "icon-allow-overlap": true,
+      "icon-ignore-placement": true
+    },
+    "paint": {
+      "icon-color": ["get", "color"]
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  },
+  {
+    "id": "branches_with_transformer_directions_icon",
+    "source": "powergrid/geo/trafos2w",
+    "type": "symbol",
+    "minzoom": 5,
+    "layout": {
+      "symbol-placement": "line-center",
+      "icon-size": ["interpolate", ["linear"], ["zoom"], 2, 0.2, 12, 0.5],
+      "icon-anchor": "bottom",
+      "icon-image": "arrow",
+      "icon-rotate": 90,
+      "icon-rotation-alignment": "map"
+    },
+    "paint": {
+      "icon-color": ["get", "color"],
+      "icon-halo-color": "#fff",
+      "icon-halo-width": 1
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  },
+  {
+    "id": "transformer_icon",
+    "source": "powergrid/geo/trafos2w",
+    "type": "symbol",
+    "minzoom": 5,
+    "layout": {
+      "symbol-placement": "line-center",
+      "icon-size": ["interpolate", ["linear"], ["zoom"], 2, 0.3, 12, 0.6],
+      "icon-anchor": "right",
+      "icon-image": "transformer",
+      "icon-allow-overlap": true,
+      "icon-ignore-placement": true
+    },
+    "paint": {
+      "icon-color": ["get", "color"],
+      "icon-halo-color": "#fff",
+      "icon-halo-width": 1
+    },
+    "metadata": {
+      "showPopup": true,
+      "type": "branch"
+    }
+  }
+]

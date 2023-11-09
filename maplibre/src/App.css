@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.pa-2 {
+  padding: 8px;
+}
+
+.ma-2 {
+  margin: 8px;
+}
+
+.ma-4 {
+  margin: 16px;
+}
+
+.mr-2 {
+  margin-right: 16px;
+}
+
+.mx-2 {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.flex {
+  display: flex;
+}
+
+.d-none {
+  display: none;
+}
+
+.layers-control-menu {
+  position: absolute;
+  top: 10px;
+  right: 45px;
+  max-height: 30vh;
+  overflow-y: auto;
+  max-width: 20vw;
+  background: #fff;
+  border-radius: 3px;
+  padding: 0.5rem;
+}
+
+.popup {
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+.ml-4 {
+  margin-left: 16px;
+}
+
+.ml-6 {
+  margin-left: 24px;
+}
+
+.new-scenario {
+  background-color: rgba(22, 119, 255, 0.04);
+}

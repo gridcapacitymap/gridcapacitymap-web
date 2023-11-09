@@ -1,0 +1,22 @@
+{
+    "case_name": "mv_oberrhein.json",
+    "upper_load_limit_p_mw": 100.0,
+    "upper_gen_limit_p_mw": 80.0,
+    "load_power_factor": 0.9,
+    "gen_power_factor": 0.9,
+    "headroom_tolerance_p_mw": 5.0,
+    "max_iterations": 10,
+    "normal_limits": {
+        "max_bus_voltage_pu": 1.1,
+        "min_bus_voltage_pu": 0.9,
+        "max_branch_loading_pct": 100.0,
+        "max_trafo_loading_pct": 110.0,
+        "max_swing_bus_power_p_mw": 1000.0,
+        "branch_rate": "Rate1",
+        "trafo_rate": "Rate1"
+    },
+    "contingency_scenario": {
+        "branches": [],
+        "trafos": []
+    }
+}

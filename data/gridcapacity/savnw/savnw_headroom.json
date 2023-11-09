@@ -1,0 +1,588 @@
+{
+  "headroom": [
+    {
+      "bus": {
+        "number": 101,
+        "ex_name": "NUC-A       21.600",
+        "type": 2
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        750.0,
+        89.0278549194336
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        80.0,
+        38.74576838702821
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 102,
+        "ex_name": "NUC-B       21.600",
+        "type": 2
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        750.0,
+        92.94170379638672
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        80.0,
+        38.74576838702821
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 151,
+        "ex_name": "NUCPANT     500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 152,
+        "ex_name": "MID500      500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 153,
+        "ex_name": "MID230      230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        200.0,
+        100.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 154,
+        "ex_name": "DOWNTN      230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        1000.0,
+        800.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        71.875,
+        34.81065128522066
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 201,
+        "ex_name": "HYDRO       500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 202,
+        "ex_name": "EAST500     500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 203,
+        "ex_name": "EAST230     230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        300.0,
+        150.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 204,
+        "ex_name": "SUB500      500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 205,
+        "ex_name": "SUB230      230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        1200.0,
+        700.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        87.5,
+        42.3781841733121
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      },
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 206,
+        "ex_name": "URBGEN      18.000",
+        "type": 2
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        800.0,
+        600.0
+      ],
+      "load_avail_mva": [
+        87.5,
+        42.3781841733121
+      ],
+      "gen_avail_mva": [
+        27.5,
+        13.318857883040945
+      ],
+      "load_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      },
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 211,
+        "ex_name": "HYDRO_G     20.000",
+        "type": 2
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        600.0,
+        -63.62884521484375
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        80.0,
+        38.74576838702821
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3001,
+        "ex_name": "MINE        230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3002,
+        "ex_name": "E. MINE     500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3003,
+        "ex_name": "S. MINE     230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3004,
+        "ex_name": "WEST        500.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3005,
+        "ex_name": "WEST        230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        100.0,
+        50.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3006,
+        "ex_name": "UPTOWN      230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3007,
+        "ex_name": "RURAL       230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        200.0,
+        75.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3008,
+        "ex_name": "CATDOG      230.00",
+        "type": 1
+      },
+      "actual_load_mva": [
+        200.0,
+        75.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3011,
+        "ex_name": "MINE_G      13.800",
+        "type": 3
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        364.299560546875,
+        87.8750991821289
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        80.0,
+        38.74576838702821
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": 3018,
+        "ex_name": "CATDOG_G    13.800",
+        "type": 2
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        100.0,
+        80.0
+      ],
+      "load_avail_mva": [
+        100.0,
+        48.432210483785255
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.NOT_CONVERGED",
+        "ss": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+celery[redis]==5.3.4
+sqlalchemy[asyncio]~=2.0.21
+asyncpg~=0.28.0
+GeoAlchemy2~=0.14.1
+https://github.com/gridcapacitymap/gridcapacity/releases/download/0.3.2/gridcapacity-0.3.2-py3-none-any.whl

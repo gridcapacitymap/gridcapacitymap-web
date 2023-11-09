@@ -1,0 +1,16 @@
+FROM python:3.10-slim
+
+ARG APP_VERSION
+ARG APP_COMMIT
+
+ENV APP_VERSION $APP_VERSION
+ENV APP_COMMIT $APP_COMMIT
+
+WORKDIR /app
+COPY ./gridcapacity_worker /app/gridcapacity_worker
+COPY ./backend/gridmap /app/gridmap
+COPY ./data/gridcapacity /app/data
+
+RUN pip3 install -r ./gridcapacity_worker/requirements.txt
+
+CMD bash -c 'celery -A gridmap.tasks.gridcapacity_task.celery worker --loglevel=info'
