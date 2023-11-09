@@ -1,0 +1,9 @@
+server {
+	include /etc/nginx/base/nginx.server.config;
+		# reverse proxy to backend
+	location ~* ^/(api|docs|openapi.json) {
+		proxy_pass $BACKEND_API_URL;
+		include /etc/nginx/base/nginx.proxy.config;
+		include /etc/nginx/mime.types;
+	}
+}

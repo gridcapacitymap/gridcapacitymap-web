@@ -1,0 +1,4515 @@
+{
+  "headroom": [
+    {
+      "bus": {
+        "number": "Bus 0",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.12215,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        15.0,
+        7.264831572567789
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING|BUS_OVERVOLTAGE",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 1",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0916125,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        10.0,
+        4.843221048378526
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 2",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.07634375,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        10.0,
+        4.843221048378526
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 3",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.07634375,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        10.0,
+        4.843221048378526
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 4",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0916125,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        15.0,
+        7.264831572567789
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING|BUS_OVERVOLTAGE",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 5",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.07634375,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        10.0,
+        4.843221048378526
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 6",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 7",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 8",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.13741875,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        15.0,
+        7.264831572567789
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING|BUS_OVERVOLTAGE",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 9",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.4,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        20.0,
+        9.686442096757052
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BUS_OVERVOLTAGE",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 10",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 11",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 12",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 13",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 14",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 15",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 16",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 17",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 18",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 19",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 20",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 21",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 22",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 23",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 24",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 25",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 26",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 27",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 28",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 29",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 30",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 31",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 32",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 33",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 34",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 35",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 36",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 37",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 38",
+        "ex_name": "110.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 39",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 40",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 41",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 42",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 43",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 44",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 45",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 46",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 47",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 48",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 49",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 50",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 51",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 52",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 53",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 54",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 55",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 56",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 57",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 58",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 59",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 60",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 61",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 62",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 63",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.25,
+        0.050764665158501
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 64",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 65",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 66",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 67",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 68",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 69",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 70",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 71",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 72",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 73",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 74",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 75",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 76",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 77",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 78",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 79",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 80",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 81",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 82",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 83",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 84",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 85",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 86",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 87",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 88",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 89",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 90",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.23269396545,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        17.5,
+        8.47563683466242
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 91",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.23269396545,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        17.5,
+        8.47563683466242
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 92",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.13741875,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        5.0,
+        2.421610524189263
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BUS_OVERVOLTAGE",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 93",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.09307758618,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        20.0,
+        9.686442096757052
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 94",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.07634375,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        5.0,
+        2.421610524189263
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BUS_OVERVOLTAGE",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 95",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.09307758618,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        15.0,
+        7.264831572567789
+      ],
+      "load_lf": null,
+      "gen_lf": {
+        "v": "Violations.BRANCH_LOADING",
+        "ss": null
+      }
+    },
+    {
+      "bus": {
+        "number": "Bus 96",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0679477612,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        7.5,
+        3.6324157862838944
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 97",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.04076865672,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        7.5,
+        3.6324157862838944
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 98",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0679477612,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        7.5,
+        3.6324157862838944
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 99",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.4,
+        0.081223464253602
+      ],
+      "actual_gen_mva": [
+        0.0679477612,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        7.5,
+        3.6324157862838944
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 100",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 101",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 102",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 103",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 104",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 105",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 106",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 107",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 108",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 109",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 110",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 111",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 112",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 113",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 114",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 115",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 116",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 117",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 118",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 119",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 120",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 121",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 122",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 123",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 124",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 125",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 126",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 127",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 128",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 129",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 130",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 131",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 132",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 133",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 134",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 135",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 136",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 137",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 138",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 139",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 140",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 141",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 142",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 143",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 144",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 145",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 146",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 147",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 148",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 149",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 150",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 151",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 152",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 153",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 154",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 155",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 156",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 157",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 158",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 159",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 160",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 161",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 162",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 163",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 164",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 165",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 166",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 167",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 168",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 169",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 170",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 171",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 172",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 173",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 174",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 175",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 176",
+        "ex_name": "20.0 None",
+        "type": 0
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 177",
+        "ex_name": "110.0 None",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    },
+    {
+      "bus": {
+        "number": "Bus 178",
+        "ex_name": "20.0 None",
+        "type": 1
+      },
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ],
+      "load_avail_mva": [
+        200.0,
+        96.86442096757051
+      ],
+      "gen_avail_mva": [
+        0.0,
+        0.0
+      ],
+      "load_lf": null,
+      "gen_lf": null
+    }
+  ]
+}

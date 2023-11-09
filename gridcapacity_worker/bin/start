@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Verify python requirements are satisfied
+pip3 install -q -r ./gridcapacity_worker/requirements.txt
+
+# Start celery worker
+celery -A gridmap.tasks.gridcapacity_task.celery worker --loglevel=info

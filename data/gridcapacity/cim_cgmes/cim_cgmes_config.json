@@ -1,0 +1,9 @@
+{
+    "case_name": "cim_cgmes.json",
+    "upper_load_limit_p_mw": 200.0,
+    "upper_gen_limit_p_mw": 100.0,
+    "contingency_scenario": {
+        "branches": [],
+        "trafos": []
+    }
+}

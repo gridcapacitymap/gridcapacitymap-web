@@ -1,0 +1,101 @@
+{
+  "allowRemoteResourceManagement": true,
+  "policyEnforcementMode": "ENFORCING",
+  "resources": [
+    {
+      "name": "networks",
+      "type": "urn:network",
+      "ownerManagedAccess": false,
+      "displayName": "Network RESTful API resource",
+      "attributes": {},
+      "_id": "cf379b7a-5f5e-4001-92fe-91c2dab78442",
+      "uris": [
+        "/api/nets/*"
+      ],
+      "scopes": [
+        {
+          "name": "net:5b3ed0c7-20d3-45fe-8c3b-84acb64750d3:read"
+        },
+        {
+          "name": "net:5b3ed0c7-20d3-45fe-8c3b-84acb64750d3:update"
+        },
+        {
+          "name": "net:*"
+        }
+      ],
+      "icon_uri": ""
+    }
+  ],
+  "policies": [
+    {
+      "id": "1a9c3688-b70a-4ad9-b9a0-ddae742b942c",
+      "name": "Administrators group policy",
+      "description": "Grants networks access to members of grid-administrators group",
+      "type": "group",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "groups": "[{\"path\":\"/grid-administrators\",\"extendChildren\":false}]",
+        "groupsClaim": ""
+      }
+    },
+    {
+      "id": "3eb93418-25d3-4021-975b-3cb54da81394",
+      "name": "Default Policy",
+      "description": "A policy that grants access only for users within this realm",
+      "type": "js",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
+      }
+    },
+    {
+      "id": "fc3b6c76-ce9d-4f3b-9803-bd96de5529ed",
+      "name": "Networks administration",
+      "description": "Allows using all API endpoint across gridcapacity-map networks",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "defaultResourceType": "",
+        "resources": "[\"networks\"]",
+        "scopes": "[\"net:*\"]",
+        "applyPolicies": "[\"Administrators group policy\"]"
+      }
+    },
+    {
+      "id": "5a45080a-e4c1-47ca-9633-21e15b714a44",
+      "name": "Public networks guest access",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"networks\"]",
+        "scopes": "[\"net:5b3ed0c7-20d3-45fe-8c3b-84acb64750d3:read\"]",
+        "applyPolicies": "[\"Default Policy\"]"
+      }
+    }
+  ],
+  "scopes": [
+    {
+      "id": "4b20b197-b7c6-447d-a7f2-a1cfaf10d53e",
+      "name": "net:*",
+      "iconUri": ""
+    },
+    {
+      "id": "04d909c8-c528-41bf-b6f3-6a1390147931",
+      "name": "net:5b3ed0c7-20d3-45fe-8c3b-84acb64750d3:read",
+      "iconUri": "",
+      "displayName": "Read CIM CGMES network data"
+    },
+    {
+      "id": "683fbbaa-f34b-4886-bcd3-3cf65fcd7647",
+      "name": "net:5b3ed0c7-20d3-45fe-8c3b-84acb64750d3:update",
+      "iconUri": "",
+      "displayName": "Update CIM CGMES network data"
+    }
+  ],
+  "decisionStrategy": "UNANIMOUS"
+}

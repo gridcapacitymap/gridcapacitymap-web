@@ -1,0 +1,116 @@
+version: "3.8"
+
+services:
+  maplibre:
+    image: node:18
+    restart: on-failure
+    working_dir: /app
+    container_name: conn_req_webgis
+    command: bash -c 'yarn check --verify-tree || yarn install --non-interactive; yarn start'
+    volumes:
+      - ./maplibre:/app:z
+    environment:
+      - BACKEND_API_URL=http://backend:8000
+      - VITE_DEFAULT_NETWORK_ID=5b3ed0c7-20d3-45fe-8c3b-84acb64750d3
+      - VITE_OIDC_AUTHORITY=https://localhost:8443/realms/aad
+      - VITE_OIDC_CLIENT_ID=spa
+      - VITE_OIDC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
+    ports:
+      - 3000:3000
+
+  backend:
+    image: python:3.10-slim
+    working_dir: /app
+    command: bash -c '/app/bin/startdebug'
+    volumes:
+      - python_pip_cache:/root/.cache/pip
+      - python_site_packages:/usr/local/lib/python3.10/site-packages
+      - python_local_bin:/usr/local/bin
+      - ./backend:/app:Z
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DATABASE_URL=postgresql+asyncpg://postgres_user:password@postgreshost:5432/gridmapdb
+      - PIP_ROOT_USER_ACTION=ignore
+
+      - KC_DOCS_CLIENT_ID=spa
+      - KC_SCOPES=openid profile
+      - KC_AUTHORIZATION_URL=https://localhost:8443/realms/aad/protocol/openid-connect/auth
+      - KC_TOKEN_URL=https://localhost:8443/realms/aad/protocol/openid-connect/token
+      - KC_SERVER_URL=http://keycloak:8080
+      - KC_CLIENT_ID=spa
+      - KC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
+      - KC_REALM=aad
+    ports:
+      - 8000:8000
+
+  gridcapacity_worker:
+    image: python:3.10-slim
+    working_dir: /app
+    restart: on-failure
+    command: bash -c '/app/gridcapacity_worker/bin/start'
+    volumes:
+      - python_pip_cache:/root/.cache/pip
+      - ./data/gridcapacity:/app/data:Z
+      - ./backend/gridmap:/app/gridmap:Z
+      - ./gridcapacity_worker:/app/gridcapacity_worker:Z
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DATABASE_URL=postgresql+asyncpg://postgres_user:password@postgreshost:5432/gridmapdb
+      - PIP_ROOT_USER_ACTION=ignore
+
+  adminer:
+    image: michalhosna/adminer:4.8.1-en_v1
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DB: gridmapdb
+      ADMINER_DRIVER: pgsql
+      ADMINER_PASSWORD: password
+      ADMINER_SERVER: postgreshost
+      ADMINER_USERNAME: postgres_user
+      ADMINER_AUTOLOGIN: 0
+
+  redis_ui:
+    image: rediscommander/redis-commander:latest
+    restart: unless-stopped
+    environment:
+      - REDIS_HOSTS=redis
+    ports:
+      - 8083:8081
+
+  keycloak:
+    build:
+      context: ./keycloak
+      args:
+        KEYCLOAK_VERSION: 22.0.5
+    command:
+      [
+        "start",
+        "--optimized",
+        "--https-certificate-file=/tmp/certs/keycloak-server.crt.pem",
+        "--https-certificate-key-file=/tmp/certs/keycloak-server.key.pem",
+      ]
+    environment:
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.upload_scripts=enabled
+      KC_DB_PASSWORD: password
+      KC_DB_URL: jdbc:postgresql://postgreshost/keycloak
+      KC_DB_USERNAME: postgres_user
+      KC_HEALTH_ENABLED: "true"
+      KC_HTTP_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+      KC_HOSTNAME_URL: https://localhost:8443
+      KC_PROXY: reencrypt
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    ports:
+      - "8180:8080"
+      - "8443:8443"
+    # depends_on:
+    #   postgreshost:
+    #     condition: service_healthy
+    volumes:
+      - ./keycloak/certs:/tmp/certs:z
+      - ./keycloak/customtheme:/opt/keycloak/themes/customtheme:z
+    restart: unless-stopped

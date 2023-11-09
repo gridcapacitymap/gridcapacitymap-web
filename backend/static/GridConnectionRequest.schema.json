@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft-04/schema#",
+  "id": "https://lfenergy.org/projects/grid-capacity-map/schema/gridConnectionRequest#",
+  "definitions": {
+    "IdentifiedObject": {
+      "type": "object",
+      "properties": {
+        "id": { "type": ["integer", "string"] },
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "Person": {
+      "type": "object",
+      "required": ["fullName"],
+      "properties": {
+        "fullName": { "type": "string" },
+        "jobTitle": { "type": "string" }
+      }
+    },
+    "GeoRegion": {
+      "type": "object",
+      "properties": {
+        "code": { "type": ["integer", "string"] },
+        "level0_code": { "type": ["integer", "string"] },
+        "level0_name": { "type": "string" },
+        "level1_code": { "type": ["integer", "string"] },
+        "level1_name": { "type": "string" },
+        "level2_code": { "type": ["integer", "string"] },
+        "level2_name": { "type": "string" }
+      }
+    },
+    "ConnectivityNode": {
+      "allOf": [
+        { "$ref": "#/definitions/IdentifiedObject" },
+        {
+          "type": "object",
+          "properties": {}
+        }
+      ]
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "remark": { "type": "string" },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "1_request",
+            "2_reservation",
+            "3_estimation",
+            "4_planning",
+            "5_connection",
+            "6_network",
+            "0_cancelled"
+          ]
+        },
+        "dateTime": { "type": "string" }
+      }
+    },
+    "Organization": {
+      "allOf": [
+        { "$ref": "#/definitions/IdentifiedObject" },
+        {
+          "type": "object",
+          "properties": {
+            "otherAttributes": { "type": "object" }
+          }
+        }
+      ]
+    },
+    "ConnectionRequestDocument": {
+      "required": [
+        "milestone",
+        "organization",
+        "createdDateTime",
+        "status",
+        "connectionKind"
+      ],
+      "allOf": [
+        { "$ref": "#/definitions/IdentifiedObject" },
+        {
+          "type": "object",
+          "properties": {
+            "otherAttributes": { "type": "object" },
+            "accountManager": { "$ref": "#/definitions/Person" },
+            "adminGeo": { "$ref": "#/definitions/GeoRegion" },
+            "connectivityNode": { "$ref": "#/definitions/ConnectivityNode" },
+            "gridAnalyst": { "$ref": "#/definitions/Person" },
+            "internalGeo": { "$ref": "#/definitions/GeoRegion" },
+            "milestone": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Status" },
+              "minItems": 1
+            },
+            "organization": { "$ref": "#/definitions/Organization" },
+            "dateDesired": { "type": "string" },
+            "createdDateTime": { "type": "string" },
+            "status": {
+              "type": "string",
+              "enum": [
+                "1_request",
+                "2_reservation",
+                "3_estimation",
+                "4_planning",
+                "5_connection",
+                "6_network",
+                "0_cancelled"
+              ]
+            },
+            "powerIncrease": { "type": "integer" },
+            "powerTotal": { "type": "integer" },
+            "connectionKind": { "$ref": "#/definitions/ConnectionKind" },
+            "connectionEnergyKind": {
+              "$ref": "#/definitions/ConnectionEnergyKind"
+            },
+            "customerKind": { "type": "string" },
+            "industryKind": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "GridConnectionRequestList": {
+      "type": "object",
+      "properties": {
+        "gridConnectionRequest": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ConnectionRequestDocument" },
+          "minItems": 0
+        }
+      }
+    },
+    "StatusList": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Status" },
+          "minItems": 0
+        }
+      }
+    },
+    "ConnectionKind": {
+      "type": "string",
+      "enum": ["new", "other", "expansion", "move"]
+    },
+    "ConnectionEnergyKind": {
+      "type": "string",
+      "enum": ["consumption", "production", "consumptionProduction", "other"]
+    },
+    "IndustryKind": {
+      "type": "string",
+      "enum": [
+        "Chemistry",
+        "Cogeneration",
+        "Data Center",
+        "Energy storage",
+        "Other",
+        "Steel/Metal",
+        "Sun",
+        "Water",
+        "Wind"
+      ]
+    },
+    "CustomerKind": {
+      "type": "string",
+      "enum": [
+        "energyStorage",
+        "industry",
+        "municipality",
+        "networkCompany",
+        "other",
+        "producer"
+      ]
+    }
+  },
+  "properties": {
+    "gridConnectionRequestList": {
+      "$ref": "#/definitions/GridConnectionRequestList"
+    }
+  }
+}

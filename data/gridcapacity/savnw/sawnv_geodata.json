@@ -1,0 +1,258 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-17.43734235, 65.59337339]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 101
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-17.14996403, 65.67074237]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 102
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-17.26561305, 65.53654027]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 151
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-18.59729177, 64.7918252]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 152
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-19.46376489, 64.25563463]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 153
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-20.3709543, 63.78333924]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 154
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-16.18157612, 65.00076434]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 201
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-16.89444539, 64.40526144]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 202
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-18.21595662, 64.07910801]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 203
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-15.89514004, 64.42914602]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 204
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-18.66003332, 63.74181102]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 205
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-19.50150277, 63.55231692]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 206
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-14.38467003, 65.30561227]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-20.79417961, 65.36051744]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3001
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-19.92659386, 65.51328208]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3002
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-21.40381535, 65.11873899]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3003
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-20.20847376, 64.83541396]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3004
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-21.85067713, 64.59798918]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3005
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-20.4679232, 64.17785852]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3006
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-21.05851517, 63.9976795]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3007
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-21.73991645, 64.03489691]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3008
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-19.64469762, 65.71338132]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3011
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-22.44795187, 63.94365893]
+      },
+      "properties": {
+        "typ": "bus",
+        "number": 3018
+      }
+    }
+  ]
+}

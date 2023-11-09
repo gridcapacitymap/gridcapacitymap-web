@@ -1,0 +1,850 @@
+{
+  "buses": [
+    {
+      "number": 101,
+      "name": "NUC-A       ",
+      "bus_type": 2,
+      "base_kv": 22.031999588012695,
+      "voltage_pu": 1.0199999809265137,
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "PLANT       ",
+      "zone_number": 77,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        750.0,
+        81.30931854248047
+      ]
+    },
+    {
+      "number": 102,
+      "name": "NUC-B       ",
+      "bus_type": 2,
+      "base_kv": 22.031999588012695,
+      "voltage_pu": 1.0199999809265137,
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "PLANT       ",
+      "zone_number": 77,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        750.0,
+        81.30931854248047
+      ]
+    },
+    {
+      "number": 151,
+      "name": "NUCPANT     ",
+      "bus_type": 1,
+      "base_kv": 505.9412841796875,
+      "voltage_pu": 1.0118825435638428,
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 152,
+      "name": "MID500      ",
+      "bus_type": 1,
+      "base_kv": 508.49163818359375,
+      "voltage_pu": 1.0169832706451416,
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 153,
+      "name": "MID230      ",
+      "bus_type": 1,
+      "base_kv": 228.49655151367188,
+      "voltage_pu": 0.9934632778167725,
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "actual_load_mva": [
+        200.0,
+        100.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 154,
+      "name": "DOWNTN      ",
+      "bus_type": 1,
+      "base_kv": 216.010986328125,
+      "voltage_pu": 0.9391782283782959,
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "actual_load_mva": [
+        1000.0,
+        800.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 201,
+      "name": "HYDRO       ",
+      "bus_type": 1,
+      "base_kv": 520.0,
+      "voltage_pu": 1.0399999618530273,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 202,
+      "name": "EAST500     ",
+      "bus_type": 1,
+      "base_kv": 504.3914794921875,
+      "voltage_pu": 1.008782982826233,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 203,
+      "name": "EAST230     ",
+      "bus_type": 1,
+      "base_kv": 222.3274383544922,
+      "voltage_pu": 0.9666410088539124,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        300.0,
+        150.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 204,
+      "name": "SUB500      ",
+      "bus_type": 1,
+      "base_kv": 489.44427490234375,
+      "voltage_pu": 0.9788885712623596,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 205,
+      "name": "SUB230      ",
+      "bus_type": 1,
+      "base_kv": 218.3271026611328,
+      "voltage_pu": 0.9492482542991638,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        1200.0,
+        700.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 206,
+      "name": "URBGEN      ",
+      "bus_type": 2,
+      "base_kv": 18.429004669189453,
+      "voltage_pu": 1.0238336324691772,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        800.0,
+        600.0
+      ]
+    },
+    {
+      "number": 211,
+      "name": "HYDRO_G     ",
+      "bus_type": 2,
+      "base_kv": 20.80702781677246,
+      "voltage_pu": 1.040351390838623,
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        600.0,
+        17.320363998413086
+      ]
+    },
+    {
+      "number": 3001,
+      "name": "MINE        ",
+      "bus_type": 1,
+      "base_kv": 236.86215209960938,
+      "voltage_pu": 1.0298354625701904,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3002,
+      "name": "E. MINE     ",
+      "bus_type": 1,
+      "base_kv": 513.9801025390625,
+      "voltage_pu": 1.027960181236267,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3003,
+      "name": "S. MINE     ",
+      "bus_type": 1,
+      "base_kv": 235.3809814453125,
+      "voltage_pu": 1.0233955383300781,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3004,
+      "name": "WEST        ",
+      "bus_type": 1,
+      "base_kv": 508.27288818359375,
+      "voltage_pu": 1.0165457725524902,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3005,
+      "name": "WEST        ",
+      "bus_type": 1,
+      "base_kv": 228.83731079101562,
+      "voltage_pu": 0.9949448108673096,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        100.0,
+        50.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3006,
+      "name": "UPTOWN      ",
+      "bus_type": 1,
+      "base_kv": 228.71707153320312,
+      "voltage_pu": 0.9944220781326294,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3007,
+      "name": "RURAL       ",
+      "bus_type": 1,
+      "base_kv": 221.69720458984375,
+      "voltage_pu": 0.9639008641242981,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        200.0,
+        75.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3008,
+      "name": "CATDOG      ",
+      "bus_type": 1,
+      "base_kv": 220.5316162109375,
+      "voltage_pu": 0.9588330984115601,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        200.0,
+        75.0
+      ],
+      "actual_gen_mva": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "number": 3011,
+      "name": "MINE_G      ",
+      "bus_type": 3,
+      "base_kv": 14.351999282836914,
+      "voltage_pu": 1.0399999618530273,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        258.6356506347656,
+        103.61113739013672
+      ]
+    },
+    {
+      "number": 3018,
+      "name": "CATDOG_G    ",
+      "bus_type": 2,
+      "base_kv": 14.103279113769531,
+      "voltage_pu": 1.0219767093658447,
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "actual_load_mva": [
+        0.0,
+        0.0
+      ],
+      "actual_gen_mva": [
+        100.0,
+        80.0
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "from_number": 151,
+      "to_number": 152,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 151,
+      "to_number": 152,
+      "branch_id": "2 ",
+      "in_service": true
+    },
+    {
+      "from_number": 151,
+      "to_number": 201,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 152,
+      "to_number": 202,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 152,
+      "to_number": 3004,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 153,
+      "to_number": 154,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 153,
+      "to_number": 154,
+      "branch_id": "2 ",
+      "in_service": true
+    },
+    {
+      "from_number": 153,
+      "to_number": 3006,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 154,
+      "to_number": 203,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 154,
+      "to_number": 205,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 154,
+      "to_number": 3008,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 201,
+      "to_number": 202,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 201,
+      "to_number": 204,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 203,
+      "to_number": 205,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 203,
+      "to_number": 205,
+      "branch_id": "2 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3001,
+      "to_number": 3003,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3002,
+      "to_number": 3004,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3003,
+      "to_number": 3005,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3003,
+      "to_number": 3005,
+      "branch_id": "2 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3005,
+      "to_number": 3006,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3005,
+      "to_number": 3007,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3005,
+      "to_number": 3008,
+      "branch_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3007,
+      "to_number": 3008,
+      "branch_id": "1 ",
+      "in_service": true
+    }
+  ],
+  "trafos": [
+    {
+      "from_number": 101,
+      "to_number": 151,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 102,
+      "to_number": 151,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 152,
+      "to_number": 153,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 201,
+      "to_number": 211,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 202,
+      "to_number": 203,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 204,
+      "to_number": 205,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 205,
+      "to_number": 206,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3001,
+      "to_number": 3002,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3001,
+      "to_number": 3011,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3004,
+      "to_number": 3005,
+      "trafo_id": "1 ",
+      "in_service": true
+    },
+    {
+      "from_number": 3008,
+      "to_number": 3018,
+      "trafo_id": "1 ",
+      "in_service": true
+    }
+  ],
+  "trafos3w": [],
+  "loads": [
+    {
+      "number": 153,
+      "name": "MID230      ",
+      "load_id": "1 ",
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "in_service": true,
+      "mva_act": [
+        200.0,
+        100.0
+      ]
+    },
+    {
+      "number": 154,
+      "name": "DOWNTN      ",
+      "load_id": "1 ",
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "in_service": true,
+      "mva_act": [
+        600.0,
+        450.0
+      ]
+    },
+    {
+      "number": 154,
+      "name": "DOWNTN      ",
+      "load_id": "2 ",
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "FIRST       ",
+      "zone_number": 1,
+      "in_service": true,
+      "mva_act": [
+        400.0,
+        350.0
+      ]
+    },
+    {
+      "number": 203,
+      "name": "EAST230     ",
+      "load_id": "1 ",
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "in_service": true,
+      "mva_act": [
+        300.0,
+        150.0
+      ]
+    },
+    {
+      "number": 205,
+      "name": "SUB230      ",
+      "load_id": "1 ",
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "in_service": true,
+      "mva_act": [
+        1200.0,
+        700.0
+      ]
+    },
+    {
+      "number": 3005,
+      "name": "WEST        ",
+      "load_id": "1 ",
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "in_service": true,
+      "mva_act": [
+        100.0,
+        50.0
+      ]
+    },
+    {
+      "number": 3007,
+      "name": "RURAL       ",
+      "load_id": "1 ",
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "in_service": true,
+      "mva_act": [
+        200.0,
+        75.0
+      ]
+    },
+    {
+      "number": 3008,
+      "name": "CATDOG      ",
+      "load_id": "1 ",
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "in_service": true,
+      "mva_act": [
+        200.0,
+        75.0
+      ]
+    }
+  ],
+  "gens": [
+    {
+      "number": 101,
+      "name": "NUC-A       ",
+      "machine_id": "1 ",
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "PLANT       ",
+      "zone_number": 77,
+      "in_service": true,
+      "pq_gen": [
+        750.0,
+        81.30931854248047
+      ]
+    },
+    {
+      "number": 102,
+      "name": "NUC-B       ",
+      "machine_id": "1 ",
+      "area_name": "FLAPCO      ",
+      "area_number": 1,
+      "zone_name": "PLANT       ",
+      "zone_number": 77,
+      "in_service": true,
+      "pq_gen": [
+        750.0,
+        81.30931854248047
+      ]
+    },
+    {
+      "number": 206,
+      "name": "URBGEN      ",
+      "machine_id": "1 ",
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "in_service": true,
+      "pq_gen": [
+        800.0,
+        600.0
+      ]
+    },
+    {
+      "number": 211,
+      "name": "HYDRO_G     ",
+      "machine_id": "1 ",
+      "area_name": "LIGHTCO     ",
+      "area_number": 2,
+      "zone_name": "SECOND      ",
+      "zone_number": 2,
+      "in_service": true,
+      "pq_gen": [
+        600.0,
+        17.320363998413086
+      ]
+    },
+    {
+      "number": 3011,
+      "name": "MINE_G      ",
+      "machine_id": "1 ",
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "in_service": true,
+      "pq_gen": [
+        258.6356506347656,
+        103.61113739013672
+      ]
+    },
+    {
+      "number": 3018,
+      "name": "CATDOG_G    ",
+      "machine_id": "1 ",
+      "area_name": "WORLD       ",
+      "area_number": 5,
+      "zone_name": "FIFTH       ",
+      "zone_number": 5,
+      "in_service": true,
+      "pq_gen": [
+        100.0,
+        80.0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Verify python requirements are satisfied
+pip3 install -q -r requirements.txt
+
+# Wait until db is up
+python -m gridmap.wait_for_db
+
+# Initialize database
+python -m gridmap.database.manage
+
+# Run migrations
+alembic upgrade head
+
+# Start application in debug mode
+pip3 install -q debugpy==1.8.0
+python -m debugpy --listen 0.0.0.0:5678 -m uvicorn gridmap.main:app --reload --host 0.0.0.0 --log-level=info
