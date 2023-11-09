@@ -2,7 +2,7 @@
 
 # Development setup
 
-This frontend is part of monorepository, see instructions on setup from repo's root `README.md`
+This frontend is part of monorepo, see instructions on setup from repo's root `README.md`
 
 Frontend api client module is auto-generated based on openapi json spec.
 

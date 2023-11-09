@@ -46,7 +46,7 @@ services:
       - "5432:5432"
     volumes:
       # updating initial data dumps from terminal
-      # CAUTION: these dumps should be used for development puprposes
+      # CAUTION: these dumps should be used for development purposes
       # docker-compose exec postgreshost sh -c 'pg_dump -C -h localhost -d gridmapdb -p 5432 -U postgres_user -W | gzip > /docker-entrypoint-initdb.d/gridmapdb.sql.gz'
       # docker-compose exec postgreshost sh -c 'pg_dump -C -h localhost -d keycloak -p 5432 -U postgres_user -W | gzip > /docker-entrypoint-initdb.d/keycloak.sql.gz'
       - ./data/initdb:/docker-entrypoint-initdb.d:Z

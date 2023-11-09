@@ -4,7 +4,7 @@ As an example Azure ISP is used.
 
 ```mermaid
 C4Component
-      Enterprise_Boundary(b0, "Enterprize Boundary") {
+      Enterprise_Boundary(b0, "Enterprise Boundary") {
         Person(customerA, "User A", "Grid analyst")
         Person(customerB, "User B", "Coordinator")
         Person(customerC, "User C", "Load Forecast Analyst")
@@ -19,7 +19,7 @@ C4Component
             }
 
             Enterprise_Boundary(b5, "Gridmap Services") {
-                System(SystemAA, "Web Frontend", "Single Page Application (SPA)<br />UI to manage network sybsystems, connection scenarios<br />(typescript/React/Ant Design/maplibre)")
+                System(SystemAA, "Web Frontend", "Single Page Application (SPA)<br />UI to manage network subsystems, connection scenarios<br />(typescript/React/Ant Design/maplibre)")
 
                 System(SystemE, "Backend", "Provides data management REST API for SPA <br />(python/asyncio/fastapi/sqlalchemy)")
 
@@ -87,11 +87,11 @@ Build with Open Source Software(OSS). Highlights:
 - pydantic
 - celery
 
-Suggested way to grow is service-oriented architechture (SOA) using message queues to communicate between services.
+Suggested way to grow is service-oriented architecture (SOA) using message queues to communicate between services.
 
 ### Gridcapacity worker
 
-Gridcapacity is a standalone command-line interface (CLI) tool that provides easy integration with popular solutions to perform powerflow calculations for electrical networks. Currently gridcapacity focuses on working with Siemens PSSE and pandapower.
+Gridcapacity is a standalone command-line interface (CLI) tool that provides easy integration with popular solutions to perform powerflow calculations for electrical networks. Currently, gridcapacity focuses on working with Siemens PSSE and pandapower.
 
 Tech stack highlights:
 
@@ -102,7 +102,7 @@ Tech stack highlights:
 
 Gridcapacity worker is a service that receives configuration for powerflow calculation via celery (task queue) and runs gridcapacity under the hood.
 
-Service requres network models to be available on file system. This can be acieved by mounting corresponding volume into container with the data.
+Service requires network models to be available on file system. This can be achieved by mounting corresponding volume into container with the data.
 
 ### Web Frontend
 
@@ -114,7 +114,7 @@ Classical SPA providing
 - run powerflow calculations for selected scenarios & inspect results
 - assist in analysis of network bottlenecks
 - possibility to share connection scenarios between users
-- authentication against configured indentity provider (Azure AD) - TBD
+- authentication against configured identity provider (Azure AD) - TBD
 - features for ACL (access control list) management - TBD
 
 Tech stack highlights:
@@ -129,11 +129,11 @@ Tech stack highlights:
 
 ### Map Tiles
 
-Vector tiles are required as base layer for redering map view. This can be either in-house deployment, or 3rd party service, like maptiler.com
+Vector tiles are required as base layer for rendering map view. This can be either in-house deployment, or 3rd party service, like maptiler.com
 
 ### Data Service
 
-Provides connection requests on regular basis to backend, eg. via REST API. Connection request data is not updated often (?) and this process can be done weekly.
+Provides connection requests on regular basis to backend, e.g. via REST API. Connection request data is not updated often (?) and this process can be done weekly.
 
 Another essential component to visualize powergrid is network geospatial data. It is expected to be provided as geojson data by data service. This data is mostly static(?) and can be uploaded once per network.
 
@@ -145,7 +145,7 @@ Provides a way to mount powergrid case files into gridcapacity worker container.
 
 ### PostgreSQL & PostGIS
 
-Used as main data storage for backend. PostGIS is used for quering and aggregating geospatial data of connection requests and network subsystems.
+Used as main data storage for backend. PostGIS is used for querying and aggregating geospatial data of connection requests and network subsystems.
 
 ![alt text](gridmapdb_er_diagram.png "Title")
 
