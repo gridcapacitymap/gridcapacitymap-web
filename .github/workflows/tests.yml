@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test-backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +26,24 @@ jobs:
       run: |
         black --exclude="migrations" --check ./backend
         mypy --install-types --non-interactive --ignore-missing-imports ./backend
+
+  test-frontend:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+    - run: cd ./maplibre
+    - run: yarn install --non-interactive
+    - run: yarn formatcheck
+    - run: yarn lint
+    - run: yarn build
