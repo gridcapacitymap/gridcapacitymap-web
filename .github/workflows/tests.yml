@@ -29,7 +29,10 @@ jobs:
 
   test-frontend:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: maplibre
+        
     strategy:
       matrix:
         node-version: [18.x]
@@ -42,7 +45,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - run: cd ./maplibre
     - run: yarn install --non-interactive
     - run: yarn formatcheck
     - run: yarn lint
