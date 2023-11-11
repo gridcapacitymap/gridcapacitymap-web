@@ -12,7 +12,10 @@ permissions:
 jobs:
   test-backend:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: backend
+    
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -24,8 +27,8 @@ jobs:
         pip install mypy black
     - name: Check formatting
       run: |
-        black --exclude="migrations" --check ./backend
-        mypy --install-types --non-interactive --ignore-missing-imports ./backend
+        black --exclude="migrations" --check .
+        mypy --install-types --non-interactive --ignore-missing-imports .
 
   test-frontend:
     runs-on: ubuntu-latest
@@ -45,6 +48,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
+        cache-dependency-path: maplibre/yarn.lock
+    
     - run: yarn install --non-interactive
     - run: yarn formatcheck
     - run: yarn lint
