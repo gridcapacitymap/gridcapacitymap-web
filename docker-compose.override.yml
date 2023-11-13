@@ -12,7 +12,7 @@ services:
     environment:
       - BACKEND_API_URL=http://backend:8000
       - VITE_DEFAULT_NETWORK_ID=5b3ed0c7-20d3-45fe-8c3b-84acb64750d3
-      - VITE_OIDC_AUTHORITY=https://localhost:8443/realms/aad
+      - VITE_OIDC_AUTHORITY=http://localhost:8180/realms/aad
       - VITE_OIDC_CLIENT_ID=spa
       - VITE_OIDC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
     ports:
@@ -35,8 +35,8 @@ services:
 
       - KC_DOCS_CLIENT_ID=spa
       - KC_SCOPES=openid profile
-      - KC_AUTHORIZATION_URL=https://localhost:8443/realms/aad/protocol/openid-connect/auth
-      - KC_TOKEN_URL=https://localhost:8443/realms/aad/protocol/openid-connect/token
+      - KC_AUTHORIZATION_URL=http://localhost:8180/realms/aad/protocol/openid-connect/auth
+      - KC_TOKEN_URL=http://localhost:8180/realms/aad/protocol/openid-connect/token
       - KC_SERVER_URL=http://keycloak:8080
       - KC_CLIENT_ID=spa
       - KC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
@@ -100,7 +100,7 @@ services:
       KC_HEALTH_ENABLED: "true"
       KC_HTTP_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
-      KC_HOSTNAME_URL: https://localhost:8443
+      KC_HOSTNAME_URL: http://localhost:8180 # or https://localhost:8443
       KC_PROXY: reencrypt
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: password
