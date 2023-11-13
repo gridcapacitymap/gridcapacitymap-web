@@ -1,5 +1,7 @@
 # Gridcapacity web
 
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/gridcapacitymap/gridcapacitymap-web/badge)](https://securityscorecards.dev/viewer/?uri=github.com/gridcapacitymap/gridcapacitymap-web)
+
 Ecosystem of tools for power grid visualization, modelling and analysis. Documentation (work in progress) is available in `docs/`.
 
 ![alt text](docs/screenshot_webgis_2.png "Title")
