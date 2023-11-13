@@ -19,7 +19,7 @@ import { useMainContext } from '../../context/MainContext';
 
 import { addLayersControl } from '../../helpers/controls';
 import { emptySource } from '../../helpers/baseData';
-import { parseFeaturesProperties } from '../../helpers/dataConvertation';
+import { parseFeaturesProperties } from '../../helpers/dataConverting';
 
 export const MapComponent: FC = () => {
   const mapContainer = useRef<HTMLElement>(null);
@@ -49,120 +49,107 @@ export const MapComponent: FC = () => {
     if (map?.current) {
       map.current.on('load', () => {
         mainContext.setMap(map.current);
-
-        map.current!.loadImage(arrowImage, (error, image) => {
-          if (error) throw error;
-          image && map.current!.addImage('arrow', image, { sdf: true });
-        });
-
-        map.current!.loadImage(transformerImage, (error, image) => {
-          if (error) throw error;
-          image && map.current!.addImage('transformer', image, { sdf: true });
-        });
-
-        map.current!.addSource(
-          ISourcesIdsEnum.connectionRequestsDensity,
-          emptySource
-        );
-        map.current!.addSource(
-          ISourcesIdsEnum.connectionRequestsSourceId,
-          emptySource
-        );
-        map.current!.addSource(ISourcesIdsEnum.branchesSourceId, emptySource);
-        map.current!.addSource(ISourcesIdsEnum.busesSourceId, emptySource);
-        map.current!.addSource(ISourcesIdsEnum.trafosSourceId, emptySource);
-        map.current!.addSource(
-          ISourcesIdsEnum.scenarioConnectionsLinesSourceId,
-          emptySource
-        );
-        map.current!.addSource(
-          ISourcesIdsEnum.hexagonsConnectionRequest,
-          emptySource
-        );
-
-        layersSpecificationList.forEach(
-          (layer: maplibregl.LayerSpecification) => {
-            map.current!.addLayer(layer);
-          }
-        );
-
-        const nav = new maplibregl.NavigationControl();
-        map.current!.addControl(nav, 'top-right');
-
-        addLayersControl(
-          map.current!,
-          layersSpecificationList.map((layer) => layer.id)
-        );
-
-        layersSpecificationList
-          .reduce(
-            (
-              layersWithPopup: maplibregl.LayerSpecification[],
-              layer: maplibregl.LayerSpecification
-            ) => {
-              if (
-                (layer.metadata as ILayerMetadata)?.showPopup &&
-                (layer.metadata as ILayerMetadata)?.type
-              ) {
-                return [...layersWithPopup, layer];
-              } else {
-                return layersWithPopup;
-              }
-            },
-            []
-          )
-          .forEach((layer) => {
-            map.current!.on(
-              'click',
-              layer.id,
-              (event: maplibregl.MapLayerMouseEvent) => {
-                const pickedFeatureProperties = parseFeaturesProperties(
-                  event.features?.[0]?.properties || {}
-                );
-                const pickedFeatureType = (layer.metadata as ILayerMetadata)
-                  .type;
-
-                if (
-                  pickedFeatureProperties &&
-                  Object.values(Object.keys(PickedElementTypeEnum)).includes(
-                    pickedFeatureType
-                  )
-                ) {
-                  mainContext.setPickedElement({
-                    type: pickedFeatureType,
-                    properties: pickedFeatureProperties,
-                  });
-                }
-              }
-            );
-
-            map.current!.on(
-              'mouseenter',
-              layer.id,
-              (event: maplibregl.MapLayerMouseEvent) => {
-                (map.current as maplibregl.Map).getCanvas().style.cursor =
-                  'pointer';
-              }
-            );
-
-            map.current!.on('mouseleave', layer.id, () => {
-              (map.current as maplibregl.Map).getCanvas().style.cursor = '';
-            });
-          });
-
-        map.current!.on(
-          'click',
-          'connection_requests_hexagonal_heatmap',
-          (e) => {
-            const hexagonCoordinates = (e.features?.[0].geometry as any)
-              .coordinates[0] as [number, number][];
-            hexagonCoordinates &&
-              mainContext.setPickedHexagonCoordinates(hexagonCoordinates);
-          }
-        );
       });
     }
   });
+
+  useEffect(() => {
+    if (mainContext.map) {
+      const map = mainContext.map;
+
+      map.loadImage(arrowImage, (error, image) => {
+        if (error) throw error;
+        image && map.addImage('arrow', image, { sdf: true });
+      });
+
+      map.loadImage(transformerImage, (error, image) => {
+        if (error) throw error;
+        image && map.addImage('transformer', image, { sdf: true });
+      });
+
+      map.addSource(ISourcesIdsEnum.connectionRequestsDensity, emptySource);
+      map.addSource(ISourcesIdsEnum.connectionRequestsSourceId, emptySource);
+      map.addSource(ISourcesIdsEnum.branchesSourceId, emptySource);
+      map.addSource(ISourcesIdsEnum.busesSourceId, emptySource);
+      map.addSource(ISourcesIdsEnum.trafosSourceId, emptySource);
+      map.addSource(
+        ISourcesIdsEnum.scenarioConnectionsLinesSourceId,
+        emptySource
+      );
+      map.addSource(ISourcesIdsEnum.hexagonsConnectionRequest, emptySource);
+
+      layersSpecificationList.forEach(
+        (layer: maplibregl.LayerSpecification) => {
+          map.addLayer(layer);
+        }
+      );
+
+      const nav = new maplibregl.NavigationControl();
+      map.addControl(nav, 'top-right');
+
+      addLayersControl(
+        map,
+        layersSpecificationList.map((layer) => layer.id)
+      );
+
+      layersSpecificationList
+        .reduce(
+          (
+            layersWithPopup: maplibregl.LayerSpecification[],
+            layer: maplibregl.LayerSpecification
+          ) => {
+            if (
+              (layer.metadata as ILayerMetadata)?.showPopup &&
+              (layer.metadata as ILayerMetadata)?.type
+            ) {
+              return [...layersWithPopup, layer];
+            } else {
+              return layersWithPopup;
+            }
+          },
+          []
+        )
+        .forEach((layer) => {
+          map.on('click', layer.id, (event: maplibregl.MapLayerMouseEvent) => {
+            const pickedFeatureProperties = parseFeaturesProperties(
+              event.features?.[0]?.properties || {}
+            );
+            const pickedFeatureType = (layer.metadata as ILayerMetadata).type;
+
+            if (
+              pickedFeatureProperties &&
+              Object.values(Object.keys(PickedElementTypeEnum)).includes(
+                pickedFeatureType
+              )
+            ) {
+              mainContext.setPickedElement({
+                type: pickedFeatureType,
+                properties: pickedFeatureProperties,
+              });
+            }
+          });
+
+          map.on(
+            'mouseenter',
+            layer.id,
+            (event: maplibregl.MapLayerMouseEvent) => {
+              map.getCanvas().style.cursor = 'pointer';
+            }
+          );
+
+          map.on('mouseleave', layer.id, () => {
+            map.getCanvas().style.cursor = '';
+          });
+        });
+
+      map.on('click', 'connection_requests_hexagonal_heatmap', (e) => {
+        const hexagonCoordinates = (e.features?.[0].geometry as any)
+          .coordinates[0] as [number, number][];
+        hexagonCoordinates &&
+          mainContext.setPickedHexagonCoordinates(hexagonCoordinates);
+      });
+    }
+  }, [mainContext.map]);
 
   return (
     <div

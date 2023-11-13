@@ -17,7 +17,7 @@ import { ExpandedRow } from './components/ExpandedRow';
 import {
   ConnectionEnergyKindEnum,
   ConnectionKindEnum,
-  ConnectionRequestUnified,
+  ConnectionRequestApiSchema,
   ConnectionStatusEnum,
   ConnectionsService,
   GeoFeature_PointGeometry_,
@@ -71,12 +71,12 @@ export const ConnectionsTable: FC = () => {
   const [filters, setFilters] =
     useState<ConnectionRequestsTableFilters>(defaultFilters);
   const [connectionRequests, setConnectionRequests] = useState<
-    ConnectionRequestUnified[]
+    ConnectionRequestApiSchema[]
   >([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
   const allColumns = useMemo(
-    (): TableColumnsType<ConnectionRequestUnified> => [
+    (): TableColumnsType<ConnectionRequestApiSchema> => [
       {
         key: columnKeysEnum.projectId,
         title: 'Project',
@@ -99,7 +99,7 @@ export const ConnectionsTable: FC = () => {
               value: b.properties.id,
             })) || [],
         filterSearch: (input, record) =>
-          (record.text as string)?.includes(input),
+          (record.text as string).toLowerCase().includes(input.toLowerCase()),
         render: (value, record) => (
           <BusNumberColumn busNumber={value} record={record} />
         ),

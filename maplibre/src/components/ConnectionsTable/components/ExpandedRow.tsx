@@ -2,11 +2,11 @@ import { FC, useState } from 'react';
 import { IFormatToShow, ISetStateOnChange } from '../../../helpers/interfaces';
 import { Button, Card, Tree } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import { propertiesToTreeData } from '../../../helpers/dataConvertation';
-import { ConnectionRequestUnified } from '../../../client';
+import { propertiesToTreeData } from '../../../helpers/dataConverting';
+import { ConnectionRequestApiSchema } from '../../../client';
 
 interface IProps {
-  record: ConnectionRequestUnified;
+  record: ConnectionRequestApiSchema;
 }
 
 export const ExpandedRow: FC<IProps> = ({ record }) => {

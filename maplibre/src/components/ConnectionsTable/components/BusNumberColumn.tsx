@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ConnectionRequestUnified } from '../../../client';
+import { ConnectionRequestApiSchema } from '../../../client';
 import { Button } from 'antd';
 import { ZoomInOutlined } from '@ant-design/icons';
 import { useMainContext } from '../../../context/MainContext';
@@ -8,13 +8,13 @@ import { LngLatLike } from 'maplibre-gl';
 
 type Props = {
   busNumber?: string | number;
-  record: ConnectionRequestUnified;
+  record: ConnectionRequestApiSchema;
 };
 
 export const BusNumberColumn: FC<Props> = ({ busNumber, record }) => {
   const mainContext = useMainContext();
 
-  const zoomBus = (record: ConnectionRequestUnified) => {
+  const zoomBus = (record: ConnectionRequestApiSchema) => {
     const connectivityBusCoordinates =
       mainContext.busesGeoSource.data.features.find(
         (b) => b.properties.number === record.connectivity_node.id

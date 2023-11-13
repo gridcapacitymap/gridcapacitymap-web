@@ -21,10 +21,10 @@ import {
   addColorToBusesFeaturesProperties,
   convertScenarioConnectionRequestsToGeoSource,
   convertSelectedConnectionsToGeoSource,
-} from '../helpers/dataConvertation';
+} from '../helpers/dataConverting';
 import {
   BusHeadroomSchema_Output,
-  ConnectionRequestUnified,
+  ConnectionRequestApiSchema,
   ConnectionsService,
   NetworksService,
   ScenarioDetailsApiSchema,
@@ -34,6 +34,7 @@ import {
 import { showMessage } from '../helpers/message';
 import { emptySource } from '../helpers/baseData';
 import { FitBoundsOptions, LngLatLike, Map } from 'maplibre-gl';
+import { useConReqEnergyKindWarnings } from '../hooks/useConReqEnergyKindWarnings';
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -45,14 +46,15 @@ export interface IMainContext {
   currentScenarioDetails: ScenarioDetailsApiSchema | null;
   createdScenariosIds: string[];
   headroom: BusHeadroomSchema_Output[];
-  selectedConnectionRequestsUnified: ConnectionRequestUnified[];
-  currentScenarioConnectionRequestsUnified: ConnectionRequestUnified[];
-  prevScenarioConnectionRequestsUnified: ConnectionRequestUnified[];
+  selectedConnectionRequestsUnified: ConnectionRequestApiSchema[];
+  currentScenarioConnectionRequestsUnified: ConnectionRequestApiSchema[];
+  prevScenarioConnectionRequestsUnified: ConnectionRequestApiSchema[];
   connectionRequestGeoSource: IAnyGeojsonSource;
   branchesGeoSource: IAnyGeojsonSource;
   trafoBranchesGeoSource: IAnyGeojsonSource;
   busesGeoSource: IAnyGeojsonSource;
   pickedElement: IPickedElement | null;
+  conReqEnergyKindsWarnings: Record<string, string>;
   pickedHexagonCoordinates: [number, number][];
   setMap: SetState<Map | null>;
   setCurrentNetworkId: (netId: string) => void;
@@ -61,7 +63,7 @@ export interface IMainContext {
   setCurrentScenarioDetails: SetState<ScenarioDetailsApiSchema | null>;
   setCreatedScenariosIds: SetState<string[]>;
   setHeadroom: SetState<BusHeadroomSchema_Output[]>;
-  setSelectedConnectionRequestsUnified: SetState<ConnectionRequestUnified[]>;
+  setSelectedConnectionRequestsUnified: SetState<ConnectionRequestApiSchema[]>;
   setConnectionRequestGeoSource: SetState<IAnyGeojsonSource>;
   setBranchesGeoSource: SetState<IAnyGeojsonSource>;
   setTrafoBranchesGeoSource: SetState<IAnyGeojsonSource>;
@@ -99,15 +101,15 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [
     selectedConnectionRequestsUnified,
     setSelectedConnectionRequestsUnified,
-  ] = useState<ConnectionRequestUnified[]>([]);
+  ] = useState<ConnectionRequestApiSchema[]>([]);
   const [
     currentScenarioConnectionRequestsUnified,
     setCurrentScenarioConnectionRequestsUnified,
-  ] = useState<ConnectionRequestUnified[]>([]);
+  ] = useState<ConnectionRequestApiSchema[]>([]);
   const [
     prevScenarioConnectionRequestsUnified,
     setPrevScenarioConnectionRequestsUnified,
-  ] = useState<ConnectionRequestUnified[]>([]);
+  ] = useState<ConnectionRequestApiSchema[]>([]);
 
   const [connectionRequestGeoSource, setConnectionRequestGeoSource] =
     useState<IAnyGeojsonSource>(emptySource);
@@ -130,8 +132,14 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     [number, number][]
   >([]);
   const [hexagonsConnectionRequests, setHexagonsConnectionRequests] = useState<
-    Record<string, ConnectionRequestUnified[]>
+    Record<string, ConnectionRequestApiSchema[]>
   >({});
+
+  const conReqEnergyKindsWarnings = useConReqEnergyKindWarnings(
+    selectedConnectionRequestsUnified,
+    busesGeoSource,
+    currentNetworkId
+  );
 
   const zoomToCoordinates = useMemo(() => {
     return (coordinates: LngLatLike[], options: FitBoundsOptions = {}) => {
@@ -207,11 +215,13 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [currentScenarioId]);
 
   useEffect(() => {
-    setHeadroom(currentScenarioDetails?.headroom || []);
-    setCurrentScenarioConnectionRequestsUnified((prev) => {
-      setPrevScenarioConnectionRequestsUnified(prev);
-      return currentScenarioDetails?.connection_requests_list || [];
-    });
+    if (currentScenarioDetails) {
+      setHeadroom(currentScenarioDetails.headroom || []);
+      setCurrentScenarioConnectionRequestsUnified((prev) => {
+        setPrevScenarioConnectionRequestsUnified(prev);
+        return currentScenarioDetails.connection_requests_list || [];
+      });
+    }
   }, [currentScenarioDetails]);
 
   useEffect(() => {
@@ -387,6 +397,7 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     trafoBranchesGeoSource,
     busesGeoSource,
     pickedElement,
+    conReqEnergyKindsWarnings,
     pickedHexagonCoordinates,
     setMap,
     setCurrentNetworkId,

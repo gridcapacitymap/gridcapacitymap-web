@@ -21,18 +21,6 @@ export enum ISourcesIdsEnum {
 
 export type ISourcesId = `${ISourcesIdsEnum}`;
 
-export interface IBranchLimitingFactor {
-  from_number: number;
-  to_number: number;
-  branch_id: number | string;
-}
-
-export interface ITrafoLimitingFactor {
-  from_number: number;
-  to_number: number;
-  trafo_id: number | string;
-}
-
 export enum IViolations {
   'Violations.O_VIOLATIONS',
   'Violations.NOT_CONVERGED',
@@ -42,39 +30,6 @@ export enum IViolations {
   'Violations.TRAFO_LOADING',
   'Violations.TRAFO_3W_LOADING',
   'Violations.SWING_BUS_LOADING',
-}
-
-export interface ILimitingFactor {
-  v: keyof typeof IViolations;
-  ss: IBranchLimitingFactor | ITrafoLimitingFactor;
-}
-
-export interface IHeadroom {
-  bus: {
-    number: number;
-    ex_name: string;
-    type: number;
-  };
-  actual_load_mva: [number, number];
-  actual_gen_mva: [number, number];
-  load_avail_mva: [number, number];
-  gen_avail_mva: [number, number];
-  load_lf: ILimitingFactor | null;
-  gen_lf: ILimitingFactor | null;
-}
-
-export interface ISavnwHeadroom {
-  headroom: IHeadroom[];
-}
-
-export interface IScenarioConfig {
-  connection_scenario: {
-    [x: string | number]: {
-      connection_request_ids: string[];
-      load: [number, number] | [number];
-      gen: [number, number] | [number];
-    };
-  };
 }
 
 export interface ILayerMetadata {
@@ -103,6 +58,7 @@ export enum IFormatToShow {
 }
 
 export enum CardTabEnum {
+  warnings = 'warnings',
   tree = 'tree',
   json = 'json',
   power = 'power',

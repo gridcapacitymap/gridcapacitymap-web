@@ -1,14 +1,49 @@
-import { Button, Col, Input, Modal, Row } from 'antd';
-import { FC, useEffect, useState } from 'react';
+import { Button, Col, Divider, Input, Modal, Row, Tag, Tooltip } from 'antd';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { ConnectionStatusEnum, ScenariosService } from '../../client';
 import { showMessage } from '../../helpers/message';
 import { useMainContext } from '../../context/MainContext';
+import { SelectableConnectionsTree } from './components/SelectableConnectionsTree';
 
 export const CreateScenarioModal: FC = () => {
   const mainContext = useMainContext();
   const [open, setOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
+  const [preselectedConnectionIds, setPreselectedConnectionIds] = useState<
+    string[]
+  >([]);
+  const [selectionApplyDisabled, setSelectionApplyDisabled] =
+    useState<boolean>(true);
+  const [createScenarioTooltip, setCreateScenarioTooltip] = useState<string>();
+  const warnings = useMemo<string[]>(() => {
+    return mainContext.selectedConnectionRequestsUnified
+      .filter((sc) => mainContext.conReqEnergyKindsWarnings[sc.id])
+      .map((sc) => mainContext.conReqEnergyKindsWarnings[sc.id]);
+  }, [mainContext.conReqEnergyKindsWarnings]);
+
+  useEffect(() => {
+    if (warnings.length) {
+      setCreateScenarioTooltip('Selected connection requests contain warnings');
+    } else if (name.length < 3) {
+      setCreateScenarioTooltip('Incorrect scenario name');
+    }
+  }, [warnings, name]);
+
+  useEffect(() => {
+    setSelectionApplyDisabled(
+      !(
+        preselectedConnectionIds.length <
+        mainContext.selectedConnectionRequestsUnified.length
+      )
+    );
+  }, [preselectedConnectionIds, mainContext.selectedConnectionRequestsUnified]);
+
+  const onSelectionApply = () => {
+    mainContext.setSelectedConnectionRequestsUnified((prev) =>
+      prev.filter((sc) => preselectedConnectionIds.includes(sc.id))
+    );
+  };
 
   const onCancel = () => {
     setOpen(false);
@@ -38,11 +73,19 @@ export const CreateScenarioModal: FC = () => {
   };
 
   useEffect(() => {
-    setDisabled(
-      1 >
-        mainContext.selectedConnectionRequestsUnified.length -
-          mainContext.currentScenarioConnectionRequestsUnified.length
-    );
+    const caseNoSelection =
+      mainContext.selectedConnectionRequestsUnified.length < 1;
+    const caseNoSelectionExcludingScenario =
+      mainContext.selectedConnectionRequestsUnified.length -
+        mainContext.currentScenarioConnectionRequestsUnified.length <
+      1;
+
+    if (caseNoSelection || caseNoSelectionExcludingScenario) {
+      setDisabled(true);
+      onCancel();
+    } else {
+      setDisabled(false);
+    }
   }, [mainContext.selectedConnectionRequestsUnified]);
 
   return (
@@ -52,27 +95,85 @@ export const CreateScenarioModal: FC = () => {
       </Button>
       <Modal
         open={open}
-        title="Create scenario"
+        title={
+          <Row justify="center">
+            <h2>Create scenario</h2>
+          </Row>
+        }
         onCancel={onCancel}
         onOk={onAccept}
         okText="Create scenario"
         centered={true}
         okButtonProps={{
-          disabled: name.length < 3,
+          disabled: name.length < 3 || warnings.length > 0,
         }}
-        width={400}
+        width={500}
+        footer={[
+          <Button
+            key="applySelection"
+            onClick={onSelectionApply}
+            type="primary"
+            disabled={selectionApplyDisabled}
+          >
+            Apply selection
+          </Button>,
+          <Button key="cancel" onClick={onCancel}>
+            Cancel
+          </Button>,
+          <Tooltip key="createScenario" title={createScenarioTooltip}>
+            <Button
+              onClick={onAccept}
+              type="primary"
+              disabled={name.length < 3 || warnings.length > 0}
+            >
+              Create scenario
+            </Button>
+          </Tooltip>,
+        ]}
       >
         <Col>
-          <Row style={{ padding: '8px 0' }}>
+          {warnings.length
+            ? warnings.map((w) => (
+                <Row key={w} style={{ margin: '8px 0' }}>
+                  <Tag style={{ width: '100%', margin: 0 }} color="error">
+                    {w}
+                  </Tag>
+                </Row>
+              ))
+            : null}
+          <Row style={{ margin: '24px 0' }} justify="space-between">
+            <Col span={14}>Network:</Col>
+            <Col span={10}>
+              <b>
+                {mainContext.networks?.find(
+                  (n) => n.id === mainContext.currentNetworkId
+                )?.title || 'Not found'}
+              </b>
+            </Col>
+          </Row>
+          <Row style={{ margin: '24px 0' }} justify="space-between">
+            <Col span={14}>Connection requests count:</Col>
+            <Col span={10}>
+              <b>{mainContext.selectedConnectionRequestsUnified.length}</b>
+            </Col>
+          </Row>
+          <Row>Connection requests per bus:</Row>
+          <Row>
+            <SelectableConnectionsTree
+              onPreSelectedIdsChange={setPreselectedConnectionIds}
+            />
+          </Row>
+          <Row style={{ margin: '24px 0' }}>
             <Input
               placeholder="Name"
-              defaultValue={name}
+              value={name}
               status={name.length < 3 ? 'error' : ''}
               type="string"
               onChange={(e) => setName(e.target.value)}
             />
           </Row>
         </Col>
+        <Divider />
       </Modal>
     </>
   );

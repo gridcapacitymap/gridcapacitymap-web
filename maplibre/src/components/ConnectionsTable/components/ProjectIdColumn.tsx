@@ -3,18 +3,18 @@ import { Button } from 'antd';
 import { ZoomInOutlined } from '@ant-design/icons';
 import { showMessage } from '../../../helpers/message';
 import { useMainContext } from '../../../context/MainContext';
-import { ConnectionRequestUnified } from '../../../client';
+import { ConnectionRequestApiSchema } from '../../../client';
 import { LngLatLike } from 'maplibre-gl';
 
 type Props = {
   projectId?: string;
-  record: ConnectionRequestUnified;
+  record: ConnectionRequestApiSchema;
 };
 
 export const ProjectIdColumn: FC<Props> = ({ projectId, record }) => {
   const mainContext = useMainContext();
 
-  const zoomConnectionRequest = (record: ConnectionRequestUnified) => {
+  const zoomConnectionRequest = (record: ConnectionRequestApiSchema) => {
     if (record.extra?.wsg84lat && record.extra?.wsg84lon) {
       const requestCoordinates = [record.extra.wsg84lon, record.extra.wsg84lat];
 
