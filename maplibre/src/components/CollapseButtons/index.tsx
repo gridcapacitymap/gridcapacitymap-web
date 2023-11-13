@@ -5,11 +5,10 @@ import {
   PicLeftOutlined,
   PicCenterOutlined,
 } from '@ant-design/icons';
+import { isMobile } from '../../helpers/checkups';
 
 export type LayoutSize = 0 | 12 | 24;
 export type TwoColLayout = [LayoutSize, LayoutSize];
-
-export const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 const ButtonStyle: CSSProperties = {
   borderRadius: 0,
@@ -42,6 +41,8 @@ export const CollapseButtons: FC<IProps> = ({
         onLayoutChange([12, 12]);
         break;
     }
+    // disable warning about missing dependency onLayoutChange
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layoutSizeState]);
 
   return (
@@ -51,7 +52,7 @@ export const CollapseButtons: FC<IProps> = ({
       onChange={(e) => {
         const l = parseInt(e.target.value);
         const w = layoutSizeState[0] + layoutSizeState[1];
-        return setLayoutSizeState([l, w - l] as any);
+        return setLayoutSizeState([l, w - l] as TwoColLayout);
       }}
     >
       <Radio.Button style={ButtonStyle} value={0}>

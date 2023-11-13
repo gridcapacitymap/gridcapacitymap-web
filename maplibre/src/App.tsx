@@ -6,11 +6,7 @@ import { ConnectionsTable } from './components/ConnectionsTable';
 import { MapComponent } from './components/MapComponent';
 import { PickedElementCard } from './components/PickedElementCard';
 import { ScenariosTab } from './components/ScenariosTab';
-import {
-  CollapseButtons,
-  TwoColLayout,
-  isMobile,
-} from './components/CollapseButtons';
+import { CollapseButtons, TwoColLayout } from './components/CollapseButtons';
 import { NetworkSelect } from './components/NetworkSelect';
 
 import { MainContextProvider } from './context/MainContext';
@@ -19,6 +15,7 @@ import { PoweroffOutlined } from '@ant-design/icons';
 import { AuthModal } from './auth/AuthModal';
 
 import './App.css';
+import { isMobile } from './helpers/checkups';
 
 const { Content, Header } = Layout;
 
@@ -63,7 +60,7 @@ export const App: FC = () => {
   ];
 
   if (auth.isAuthenticated) {
-    const logout = async (e: any) => {
+    const logout: React.MouseEventHandler<HTMLAnchorElement> = async (e) => {
       e.preventDefault();
       auth.signoutRedirect({
         post_logout_redirect_uri: window.location.origin,
