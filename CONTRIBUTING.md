@@ -28,7 +28,7 @@ Follow styleguides whenever possible
 
 ## Git Strategy
 
-We follow the [Github flow](https://githubflow.github.io/) strategy based on it's simplicity. The only difference is that our principal branch is called `main` instead of `master`.
+We follow the [GitHub flow](https://githubflow.github.io/) strategy based on its simplicity. The only difference is that our principal branch is called `main` instead of `master`.
 
 All the changes to the codebase must be reviewed by our peers before merging to the `main` branch.
 
@@ -38,9 +38,9 @@ We keep the `main` branch always `green` by ensuring the new changes don't break
 
 For now, we will value unit-testing over every other form of tests. We should strive to always test the business logic of the new changes while not breaking the previously coded unit tests.
 
-In the future, we will introduce other forms of testing (UI, Snapshot, Integration testing, etc).
+In the future, we will introduce other forms of testing (UI, Snapshot, Integration testing, etc.).
 
 ## Coding Conventions
 
-We have a formatter and a linter set up in the repository that will enforce must of the conventions. Checkout the rules we have by looking at the `.github/workflows/tests.yml`.
+We have a formatter and a linter set up in the repository that will enforce most of the conventions. Checkout the rules we have by looking at the `.github/workflows/tests.yml`.
 

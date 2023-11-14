@@ -1,4 +1,4 @@
-# Create gridcapacitymap releases
+# Creating gridcapacitymap-web releases
 
 ### Create release on GitHub
 

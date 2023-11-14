@@ -1,6 +1,6 @@
 ## Introduction
 
-High-level overview of project compoments is available in [architechture.md](architechture.md)
+High-level overview of project components is available in [architecture.md](architecture.md)
 
 The project uses docker as platform both for development and deployment.
 
