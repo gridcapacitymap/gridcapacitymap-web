@@ -147,7 +147,7 @@ Provides a way to mount powergrid case files into gridcapacity worker container.
 
 Used as main data storage for backend. PostGIS is used for querying and aggregating geospatial data of connection requests and network subsystems.
 
-![alt text](gridmapdb_er_diagram.png "Title")
+![alt text](img/gridmapdb_er_diagram.png "Title")
 
 ### Azure AD
 
