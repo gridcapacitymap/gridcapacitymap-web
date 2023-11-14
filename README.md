@@ -1,29 +1,31 @@
-# Gridcapacity web
+# Gridcapacity Map
 
-Ecosystem of tools for power grid visualization, modelling and analysis. Documentation (work in progress) is available in `docs/`.
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/8073/badge)](https://bestpractices.coreinfrastructure.org/projects/8073)
 
-![alt text](docs/screenshot_webgis_2.png "Title")
+Ecosystem of tools for power grid visualization, modelling and analysis
 
-## Supported integrations
+![alt text](docs/img/screenshot_webgis_2.png "Title")
+
+## Integrations
 
 | Data format       | powerflow | geodata | calculation in cloud | solver        | examples                         |
-|-------------------|-----------|---------|----------------------|---------------|----------------------------------|
+| ----------------- | --------- | ------- | -------------------- | ------------- | -------------------------------- |
 | psse              | yes       | no      | no                   | Siemens PSS®E | `data/gridcapacity/savnw`        |
 | pandapower (json) | yes       | yes     | yes                  | PandaPower    | `data/gridcapacity/mv_oberrhein` |
 | CIM CGMES         | yes       | yes     | yes                  | PandaPower    | `data/gridcapacity/cim_cgmes`    |
 | pypower, matpower | yes       | no      | yes                  | PandaPower    |                                  |
 | PowSyBl           | WIP       | WIP     | WIP                  | WIP           |                                  |
 
-# Development setup
+## Development
 
-## Prerequisites
+### Prerequisites
 
-- `podman`, `podman-docker` preferred due to [licensing issues with docker](https://docs.docker.com/subscription/desktop-license/)
+- `podman`, `podman-docker` preferred due to docker [licensing policy](https://docs.docker.com/subscription/desktop-license/)
 - `docker`, `docker-compose` are supported as alternative
 - `vscode` with [devcontainer](https://microsoft.github.io/code-with-engineering-playbook/developer-experience/devcontainers/) extension configured correctly
-- linux-based os (mac/win - possible, needs additional efforts)
+- Linux-based os (mac/win - possible, needs additional efforts)
 
-## Setup
+### Setup
 
 Spin up infra with synthetic demo data
 
@@ -31,49 +33,26 @@ Spin up infra with synthetic demo data
 docker-compose up
 ```
 
+This will take a while. Once setup is complete open [web frontend](http://localhost:3000) in your favourite browser. Default username and password for authentication is `demo`.
+
 Synthetic data used for visualization is sourced from `data` dir.
-It can be imported from [swagger UI](http://localhost:8000/docs) and will be visualized on [webgis](http://localhost:3000).
-Default username and password for authentication is `demo`.
 
-## Database & migrations
+### Quickstart
 
-Detect model changes and allow alembic to generate corresponding migration
+For development quickstart please read [developing.md](docs/developing.md)
 
-```
-docker-compose exec backend bash -c 'alembic revision --autogenerate -m "My auto migration"'
-```
+## Contributing
 
-Upgrade database to latest migration (manually)
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-```
-docker-compose exec backend bash -c 'alembic upgrade head'
-```
+## Versioning
 
-Downgrade to previous db revision
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/gridcapacitymap/gridcapacitymap-web/tags).
 
-```
-docker-compose exec backend bash -c 'alembic downgrade -1'
-```
+## Authors
 
-## Purge development environment
+See the list of [contributors](https://github.com/gridcapacitymap/gridcapacitymap-web/graphs/contributors)
 
-The command will clean all development environment, except downloaded images from docker hub
+## License
 
-```
-docker-compose down --remove-orphans --rmi local -v
-```
-
-Remove only database container and volume
-
-```
-docker-compose rm -s -v postgreshost redis
-```
-
-## Benchmarking
-
-A glimpse on service performance
-
-```
-docker run --network=host --rm skandyla/wrk -t12 -c400 -d30s http://localhost:8000/api/connection-requests/
-```
-
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details
