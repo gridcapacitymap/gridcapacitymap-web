@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { PickedElementTypeEnum } from '../../../helpers/interfaces';
-import { Checkbox, Tooltip } from 'antd';
+import { Checkbox, Space, Tooltip } from 'antd';
 import { useMainContext } from '../../../context/MainContext';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { ConnectionRequestApiSchema } from '../../../client';
@@ -8,10 +8,10 @@ import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { COLOR_RED } from '../../../helpers/dataConverting';
 
 type Props = {
-  warning: string | null;
+  warnings: string[];
 };
 
-export const CardTitle: FC<Props> = ({ warning }) => {
+export const CardTitle: FC<Props> = ({ warnings }) => {
   const mainContext = useMainContext();
 
   const [title, setTitle] = useState<string>();
@@ -62,8 +62,16 @@ export const CardTitle: FC<Props> = ({ warning }) => {
         />
       ) : null}
       {title}
-      {warning ? (
-        <Tooltip title={warning}>
+      {warnings.length ? (
+        <Tooltip
+          title={
+            <Space direction="vertical">
+              {warnings.map((w) => (
+                <span key={w}>{w}</span>
+              ))}
+            </Space>
+          }
+        >
           <ExclamationCircleTwoTone
             style={{ marginLeft: '8px' }}
             twoToneColor={COLOR_RED}

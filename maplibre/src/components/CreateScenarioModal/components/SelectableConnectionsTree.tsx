@@ -2,7 +2,7 @@ import { FC, Key, ReactNode, useEffect, useMemo, useState } from 'react';
 import { useMainContext } from '../../../context/MainContext';
 import { ConnectionRequestApiSchema } from '../../../client';
 import { COLOR_RED } from '../../../helpers/dataConverting';
-import { Col, Row, Tooltip, Tree, Typography } from 'antd';
+import { Col, Row, Space, Tooltip, Tree, Typography } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 
 const { Text } = Typography;
@@ -62,14 +62,28 @@ export const SelectableConnectionsTree: FC<Prop> = ({
             `${BUS_TREE_KEY_PREFIX}${selectedConnection.connectivity_node.id}`
         );
 
+        const caseConnectionHasWarnings =
+          mainContext.connectionRequestWarnings[selectedConnection.id] &&
+          Object.values(
+            mainContext.connectionRequestWarnings[selectedConnection.id]
+          ).some((w) => w !== null);
+
         const itemToPush: SelectableTreeItemChild = {
           key: selectedConnection.id,
-          title: mainContext.conReqEnergyKindsWarnings[
-            selectedConnection.id
-          ] ? (
+          title: caseConnectionHasWarnings ? (
             <Tooltip
               title={
-                mainContext.conReqEnergyKindsWarnings[selectedConnection.id]
+                <Space direction="vertical">
+                  {(
+                    Object.values(
+                      mainContext.connectionRequestWarnings[
+                        selectedConnection.id
+                      ]
+                    ).filter((w) => w !== null) as string[]
+                  ).map((w) => (
+                    <span key={w}>{w}</span>
+                  ))}
+                </Space>
               }
             >
               <span style={{ color: COLOR_RED }}>
@@ -119,20 +133,37 @@ export const SelectableConnectionsTree: FC<Prop> = ({
                 {}
               );
 
+          const caseBusConnectionsHaveWarnings =
+            mainContext.selectedConnectionRequestsUnified
+              .filter(
+                (c) =>
+                  c.connectivity_node.id ===
+                  selectedConnection.connectivity_node.id
+              )
+              .some(
+                (connection) =>
+                  mainContext.connectionRequestWarnings[connection.id] &&
+                  Object.values(
+                    mainContext.connectionRequestWarnings[connection.id]
+                  ).some((w) => w !== null)
+              );
+
           connectionsPerBus.push({
             key: `${BUS_TREE_KEY_PREFIX}${selectedConnection.connectivity_node.id}`,
-            title: mainContext.conReqEnergyKindsWarnings[
-              selectedConnection.id
-            ] ? (
+            title: (
               <Col>
                 <Row>
-                  <Tooltip title="Bus has connection requests with warning">
-                    {`Bus: ${selectedConnection.connectivity_node.id}`}
-                    <ExclamationCircleTwoTone
-                      style={{ marginLeft: '8px' }}
-                      twoToneColor={COLOR_RED}
-                    />
-                  </Tooltip>
+                  {caseBusConnectionsHaveWarnings ? (
+                    <Tooltip title="Bus has connection requests with warning">
+                      {`Bus: ${selectedConnection.connectivity_node.id}`}
+                      <ExclamationCircleTwoTone
+                        style={{ marginLeft: '8px' }}
+                        twoToneColor={COLOR_RED}
+                      />
+                    </Tooltip>
+                  ) : (
+                    `Bus: ${selectedConnection.connectivity_node.id}`
+                  )}
                 </Row>
                 {Object.keys(increasePerEnergyKind).map((energyKind) => (
                   <Row key={energyKind}>
@@ -142,8 +173,6 @@ export const SelectableConnectionsTree: FC<Prop> = ({
                   </Row>
                 ))}
               </Col>
-            ) : (
-              `Bus: ${selectedConnection.connectivity_node.id}`
             ),
             children: [itemToPush],
             checked: true,
@@ -155,7 +184,7 @@ export const SelectableConnectionsTree: FC<Prop> = ({
       [] as SelectableTreeItem[]
     );
   }, [
-    mainContext.conReqEnergyKindsWarnings,
+    mainContext.connectionRequestWarnings,
     mainContext.selectedConnectionRequestsUnified,
     mainContext.currentScenarioConnectionRequestsUnified,
   ]);
@@ -220,17 +249,12 @@ export const SelectableConnectionsTree: FC<Prop> = ({
     onPreSelectedIdsChange(
       checkedIds.filter((id) => !id.startsWith(BUS_TREE_KEY_PREFIX))
     );
-  }, [checkedIds]);
-
-  useEffect(() => {
-    onPreSelectedIdsChange(
-      checkedIds.filter((id) => !id.startsWith(BUS_TREE_KEY_PREFIX))
-    );
-  }, []);
+  }, [checkedIds, onPreSelectedIdsChange]);
 
   return (
     <Tree
       treeData={ConnectionsPerBusTreeData}
+      defaultExpandAll
       checkable
       checkStrictly
       selectable={false}

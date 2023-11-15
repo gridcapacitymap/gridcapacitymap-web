@@ -17,7 +17,7 @@ import { CardTitle } from './components/CardTitle';
 import { TreeTab } from './components/TreeTab';
 import { JsonTab } from './components/JsonTab';
 import { BusPowerTab } from './components/BusPowerTab';
-import { checkBusTypeSupportsConReqEnergyKind } from '../../helpers/checkups';
+import { checkConnectionRequestForWarnings } from '../../helpers/checkups';
 import { ConnectionPowerTab } from './components/ConnectionPowerTab';
 
 const defaultTabs: CardTabListType[] = [
@@ -44,7 +44,7 @@ export const PickedElementCard: FC = () => {
   const [tabs, setTabs] = useState<CardTabListType[]>([]);
   const [pickedElementHeadroom, setPickedElementHeadroom] =
     useState<BusHeadroomSchema_Output | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
+  const [warnings, setWarnings] = useState<string[]>([]);
 
   useEffect(() => {
     if (mainContext.pickedElement?.type === PickedElementTypeEnum.bus) {
@@ -76,37 +76,43 @@ export const PickedElementCard: FC = () => {
       pickedElementHeadroom
     ) {
       if (pickedElementHeadroom.gen_lf?.v) {
-        setWarning(
-          `Generation limitation factor error: ${pickedElementHeadroom.gen_lf?.v}`
-        );
+        setWarnings([
+          `Generation limitation factor error: ${pickedElementHeadroom.gen_lf?.v}`,
+        ]);
       } else if (pickedElementHeadroom.load_lf?.v) {
-        setWarning(
-          `Load limitation factor error: ${pickedElementHeadroom.load_lf?.v}`
-        );
+        setWarnings([
+          `Load limitation factor error: ${pickedElementHeadroom.load_lf?.v}`,
+        ]);
       } else {
-        setWarning(null);
+        setWarnings([]);
       }
     } else if (
       mainContext.pickedElement?.type === PickedElementTypeEnum.connection
     ) {
-      const connectivityBus = mainContext.busesGeoSource.data.features.find(
-        (b) =>
-          b.properties.number ==
-          (mainContext.pickedElement?.properties as ConnectionRequestApiSchema)
-            .connectivity_node.id
+      const connectionRequest = mainContext.pickedElement
+        .properties as ConnectionRequestApiSchema;
+
+      const connectivityBusHeadroom = mainContext.headroom.find(
+        (h) => h.bus.number == connectionRequest.connectivity_node.id
       );
-      if (connectivityBus) {
-        checkBusTypeSupportsConReqEnergyKind(
-          connectivityBus.properties,
-          mainContext.pickedElement.properties as ConnectionRequestApiSchema
-        )
-          ? setWarning(null)
-          : setWarning(
-              `Connection request has energy kind that not supported by connectivity bus`
-            );
-      }
+      const connectivityBusProperties =
+        mainContext.busesGeoSource.data.features.find(
+          (b) => b.properties.number == connectionRequest.connectivity_node.id
+        )?.properties;
+
+      const connectionWarnings = checkConnectionRequestForWarnings(
+        connectionRequest,
+        connectivityBusHeadroom,
+        connectivityBusProperties,
+        {},
+        false
+      );
+
+      setWarnings(
+        Object.values(connectionWarnings).filter((w) => w !== null) as string[]
+      );
     } else {
-      setWarning(null);
+      setWarnings([]);
     }
   }, [mainContext.pickedElement, pickedElementHeadroom]);
 
@@ -138,7 +144,7 @@ export const PickedElementCard: FC = () => {
             maxHeight: 'calc(40vh - 80px)', // ant-design has no options to to set card's content scrolling only
             overflow: 'auto',
           }}
-          title={<CardTitle warning={warning} />}
+          title={<CardTitle warnings={warnings} />}
           extra={
             <Button type="text" onClick={onClose} icon={<CloseOutlined />} />
           }
@@ -170,14 +176,14 @@ export const PickedElementCard: FC = () => {
                 <BusPowerTab
                   pickedElement={mainContext.pickedElement}
                   pickedElementHeadroom={pickedElementHeadroom}
-                  warning={warning}
+                  warnings={warnings}
                 />
               )}
               {mainContext.pickedElement.type ===
                 PickedElementTypeEnum.connection && (
                 <ConnectionPowerTab
                   pickedElement={mainContext.pickedElement}
-                  warning={warning}
+                  warnings={warnings}
                 />
               )}
             </>

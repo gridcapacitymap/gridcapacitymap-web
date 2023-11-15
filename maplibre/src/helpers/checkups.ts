@@ -1,7 +1,9 @@
 import {
+  BusHeadroomSchema_Output,
   ConnectionEnergyKindEnum,
   ConnectionRequestApiSchema,
 } from '../client';
+import { ConnectionWarnings } from './interfaces';
 import { showMessage } from './message';
 
 enum BusTypeEnum {
@@ -50,28 +52,74 @@ const supportedEnergyKindsByBysTypes: Record<
 
 export const checkBusTypeSupportsConReqEnergyKind = (
   busProperties: Record<string, any>,
-  connectionRequest: ConnectionRequestApiSchema
+  connectionRequest: ConnectionRequestApiSchema,
+  throwConsoleWarnings = true
 ): boolean => {
   if (
-    typeof busProperties.bus_type === 'number' &&
-    Object.prototype.hasOwnProperty.call(
-      BusTypeByBusTypeCodes,
-      busProperties.bus_type
+    !Object.values(ConnectionEnergyKindEnum).includes(
+      connectionRequest.connection_energy_kind
     )
   ) {
-    if (
-      supportedEnergyKindsByBysTypes[
-        BusTypeByBusTypeCodes[busProperties.bus_type]
-      ].includes(connectionRequest.connection_energy_kind)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    showMessage('error', `Bus ${busProperties.number} has unknown bus type`);
+    throwConsoleWarnings &&
+      console.warn(
+        `Connection '${connectionRequest.id}' has unknown connection_energy_kind`
+      );
     return false;
   }
+
+  if (
+    !busProperties.bus_type ||
+    !BusTypeByBusTypeCodes[busProperties.bus_type]
+  ) {
+    throwConsoleWarnings &&
+      console.warn(`Bus ${busProperties.id} has unknown bus_type`);
+    return false;
+  }
+
+  return supportedEnergyKindsByBysTypes[
+    BusTypeByBusTypeCodes[busProperties.bus_type]
+  ].includes(connectionRequest.connection_energy_kind);
+};
+
+export const checkConnectionRequestForWarnings = (
+  connectionRequest: ConnectionRequestApiSchema,
+  connectivityBusHeadroom: BusHeadroomSchema_Output | undefined,
+  connectivityBusProperties: Record<string, any> | undefined,
+  knownWarnings: Record<string, ConnectionWarnings>,
+  throwConsoleWarnings = true
+): ConnectionWarnings => {
+  const connectionWarnings: ConnectionWarnings = {
+    busAvailableLoad: null,
+    busAvailableGen: null,
+  };
+
+  if (connectivityBusHeadroom) {
+    if (connectivityBusHeadroom.gen_avail_mva[0] <= 0) {
+      connectionWarnings.busAvailableGen = `'${connectionRequest.project_id}' connectivity bus '${connectivityBusProperties?.number}' doesn't support generation connection`;
+      !knownWarnings[connectionRequest.id]?.busAvailableGen &&
+        showMessage('error', connectionWarnings.busAvailableGen);
+    }
+    if (connectivityBusHeadroom.load_avail_mva[0] <= 0) {
+      connectionWarnings.busAvailableLoad = `'${connectionRequest.project_id}' connectivity bus '${connectivityBusProperties?.number}' doesn't support load connection`;
+      !knownWarnings[connectionRequest.id]?.busAvailableLoad &&
+        showMessage('error', connectionWarnings.busAvailableLoad);
+    }
+  }
+
+  if (connectivityBusProperties) {
+    checkBusTypeSupportsConReqEnergyKind(
+      connectivityBusProperties,
+      connectionRequest,
+      throwConsoleWarnings
+    );
+  } else {
+    throwConsoleWarnings &&
+      console.warn(
+        `Connection '${connectionRequest.id}' connectivity bus with number '${connectionRequest.connectivity_node.id} was not found`
+      );
+  }
+
+  return connectionWarnings;
 };
 
 export const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
