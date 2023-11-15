@@ -1,16 +1,12 @@
 import { FC, Key, useEffect, useMemo, useState } from 'react';
-import {
-  Table,
-  Col,
-  Row,
-  TableColumnsType,
-  Space,
-  TablePaginationConfig,
-} from 'antd';
+import { Table, Col, Row, Space, TablePaginationConfig } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 import { useMainContext } from '../../context/MainContext';
-import { IConnectionRequestStatus } from '../../helpers/interfaces';
+import {
+  ColumnWithKeyType,
+  IConnectionRequestStatus,
+} from '../../helpers/interfaces';
 import { Footer } from './components/Footer';
 import { ColumnsSettingModal } from '../ColumnsSettingModal';
 import { ExpandedRow } from './components/ExpandedRow';
@@ -27,6 +23,7 @@ import { showMessage } from '../../helpers/message';
 import { ProjectIdColumn } from './components/ProjectIdColumn';
 import { BusNumberColumn } from './components/BusNumberColumn';
 import SkeletonTable from '../SkeletonTable';
+import { FilterValue } from 'antd/es/table/interface';
 
 enum columnKeysEnum {
   projectId = 'projectId',
@@ -76,7 +73,7 @@ export const ConnectionsTable: FC = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
   const allColumns = useMemo(
-    (): TableColumnsType<ConnectionRequestApiSchema> => [
+    (): ColumnWithKeyType<ConnectionRequestApiSchema>[] => [
       {
         key: columnKeysEnum.projectId,
         title: 'Project',
@@ -162,6 +159,32 @@ export const ConnectionsTable: FC = () => {
   const [showedColumnKeys, setShowedColumnKeys] =
     useState<columnKeysEnum[]>(defaultColumns);
 
+  const fetchConnectionRequests = () => {
+    if (!mainContext.currentNetworkId) return;
+    setLoading(true);
+
+    const offset =
+      pagination.pageSize && pagination.current
+        ? pagination.pageSize * (pagination.current - 1)
+        : 0;
+
+    ConnectionsService.getConnectionRequests({
+      netId: mainContext.currentNetworkId,
+      limit: pagination.pageSize,
+      offset,
+      busId: filters[columnKeysEnum.busNumber],
+      status: filters[columnKeysEnum.status],
+      connectionKind: filters[columnKeysEnum.connectionKind],
+      connectionEnergyKind: filters[columnKeysEnum.connectionType],
+    })
+      .then((res) => {
+        setConnectionRequests(res.items);
+        setPagination((prev) => ({ ...prev, total: res.count }));
+      })
+      .catch((e) => showMessage('error', e))
+      .finally(() => setLoading(false));
+  };
+
   useEffect(
     () => fetchConnectionRequests(),
     [
@@ -178,44 +201,34 @@ export const ConnectionsTable: FC = () => {
     );
   }, [mainContext.selectedConnectionRequestsUnified]);
 
-  function fetchConnectionRequests() {
-    if (!mainContext.currentNetworkId) return;
-    setLoading(true);
-
-    ConnectionsService.getConnectionRequests({
-      netId: mainContext.currentNetworkId,
-      limit: pagination.pageSize,
-      offset: pagination.pageSize! * (pagination.current! - 1),
-      busId: filters[columnKeysEnum.busNumber],
-      status: filters[columnKeysEnum.status],
-      connectionKind: filters[columnKeysEnum.connectionKind],
-      connectionEnergyKind: filters[columnKeysEnum.connectionType],
-    })
-      .then((res) => {
-        setConnectionRequests(res.items);
-        setPagination((prev) => ({ ...prev, total: res.count }));
-      })
-      .catch((e) => showMessage('error', e))
-      .finally(() => setLoading(false));
-  }
-
-  function handleTableChange(pagination: TablePaginationConfig, filters: any) {
+  const handleTableChange = (
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>
+  ) => {
     setFilters((prev) => ({ ...prev, ...filters }));
     setPagination((prev) => ({ ...prev, ...pagination }));
-  }
+  };
 
-  function handleSelectionChange(keys: Key[]) {
+  const handleSelectionChange = (keys: Key[]) => {
     mainContext.setSelectedConnectionRequestsUnified([
       ...mainContext.selectedConnectionRequestsUnified.filter(
         (sc) => !connectionRequests.some((c) => c.id === sc.id)
       ),
       ...connectionRequests.filter(({ id }) => keys.includes(id)),
     ]);
-  }
+  };
 
   const visibleColumns = allColumns.filter(
     ({ key }) => key && (showedColumnKeys as Key[]).includes(key)
   );
+
+  const onShowedColumnKeysChange = (keys: Key[]) => {
+    setShowedColumnKeys(
+      keys.filter((k) =>
+        (Object.values(columnKeysEnum) as Key[]).includes(k)
+      ) as columnKeysEnum[]
+    );
+  };
 
   return (
     <Col>
@@ -225,7 +238,7 @@ export const ConnectionsTable: FC = () => {
         </Space>
         <ColumnsSettingModal
           allColumns={allColumns}
-          setShowedColumnKeys={setShowedColumnKeys}
+          setShowedColumnKeys={onShowedColumnKeysChange}
           showedColumnKeys={showedColumnKeys}
         />
       </Row>

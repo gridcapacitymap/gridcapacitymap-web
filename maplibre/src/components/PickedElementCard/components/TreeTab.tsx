@@ -15,6 +15,7 @@ export const TreeTab: FC<Props> = ({
 }) => {
   return (
     <Tree
+      defaultExpandAll
       treeData={propertiesToTreeData(
         pickedElementHeadroom
           ? {

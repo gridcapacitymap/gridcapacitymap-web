@@ -17,7 +17,7 @@ type IBusPowerData = {
 };
 
 type Props = {
-  warning: string | null;
+  warnings: string[];
   pickedElement: IPickedElement;
   pickedElementHeadroom: BusHeadroomSchema_Output | null;
 };
@@ -25,7 +25,7 @@ type Props = {
 export const BusPowerTab: FC<Props> = ({
   pickedElement,
   pickedElementHeadroom,
-  warning,
+  warnings,
 }) => {
   const mainContext = useMainContext();
   const [busPowerData, setBusPowerData] = useState<IBusPowerData>({});
@@ -98,15 +98,17 @@ export const BusPowerTab: FC<Props> = ({
   return (
     <Row>
       <Col span={14}>
-        {warning ? (
-          <Tag
-            style={{ width: '100%', marginBottom: '8px' }}
-            icon={<ExclamationCircleOutlined />}
-            color="error"
-          >
-            {warning}
-          </Tag>
-        ) : null}
+        {warnings.map((w) => (
+          <Row key={w}>
+            <Tag
+              style={{ width: '100%', marginBottom: '8px' }}
+              icon={<ExclamationCircleOutlined />}
+              color="error"
+            >
+              {w}
+            </Tag>
+          </Row>
+        ))}
         {Object.keys(busPowerData).length ? (
           <Row gutter={16}>
             {Object.keys(IConnectionEnergyKind).map((key) => {

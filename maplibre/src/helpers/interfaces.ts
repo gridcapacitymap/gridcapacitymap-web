@@ -1,8 +1,18 @@
+import { ColumnType } from 'antd/es/table';
 import { LinesGeoJson, PointsGeoJson, PolygonsGeoJson } from '../client';
+import { Key } from 'react';
 
 export interface ISomeObject {
   [key: string]: any;
 }
+
+// eslint-disable-next-line
+export type ColumnWithKeyType<T = any> = ColumnType<T> & { key: Key };
+
+export type ConnectionWarnings = {
+  busAvailableLoad: string | null;
+  busAvailableGen: string | null;
+};
 
 export interface IAnyGeojsonSource {
   type: 'geojson';

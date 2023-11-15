@@ -18,9 +18,15 @@ export const CreateScenarioModal: FC = () => {
   const [createScenarioTooltip, setCreateScenarioTooltip] = useState<string>();
   const warnings = useMemo<string[]>(() => {
     return mainContext.selectedConnectionRequestsUnified
-      .filter((sc) => mainContext.conReqEnergyKindsWarnings[sc.id])
-      .map((sc) => mainContext.conReqEnergyKindsWarnings[sc.id]);
-  }, [mainContext.conReqEnergyKindsWarnings]);
+      .filter((sc) => mainContext.connectionRequestWarnings[sc.id])
+      .map(
+        (sc) =>
+          Object.values(mainContext.connectionRequestWarnings[sc.id]).filter(
+            (w) => w !== null
+          ) as string[]
+      )
+      .flat();
+  }, [mainContext.connectionRequestWarnings]);
 
   useEffect(() => {
     if (warnings.length) {
@@ -95,11 +101,7 @@ export const CreateScenarioModal: FC = () => {
       </Button>
       <Modal
         open={open}
-        title={
-          <Row justify="center">
-            <h2>Create scenario</h2>
-          </Row>
-        }
+        title={<Row justify="center">Create scenario</Row>}
         onCancel={onCancel}
         onOk={onAccept}
         okText="Create scenario"

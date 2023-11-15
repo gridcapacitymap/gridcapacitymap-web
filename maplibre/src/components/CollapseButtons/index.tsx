@@ -41,9 +41,7 @@ export const CollapseButtons: FC<IProps> = ({
         onLayoutChange([12, 12]);
         break;
     }
-    // disable warning about missing dependency onLayoutChange
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [layoutSizeState]);
+  }, [layoutSizeState, onLayoutChange]);
 
   return (
     <Radio.Group

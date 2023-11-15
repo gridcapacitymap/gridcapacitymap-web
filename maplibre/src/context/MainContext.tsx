@@ -12,6 +12,7 @@ import {
 import { useSearchParams } from 'react-router-dom';
 
 import {
+  ConnectionWarnings,
   IAnyGeojsonSource,
   IPickedElement,
   ISourcesIdsEnum,
@@ -34,7 +35,7 @@ import {
 import { showMessage } from '../helpers/message';
 import { emptySource } from '../helpers/baseData';
 import { FitBoundsOptions, LngLatLike, Map } from 'maplibre-gl';
-import { useConReqEnergyKindWarnings } from '../hooks/useConReqEnergyKindWarnings';
+import { useConnectionWarnings } from '../hooks/useConnectionWarnings';
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -54,7 +55,7 @@ export interface IMainContext {
   trafoBranchesGeoSource: IAnyGeojsonSource;
   busesGeoSource: IAnyGeojsonSource;
   pickedElement: IPickedElement | null;
-  conReqEnergyKindsWarnings: Record<string, string>;
+  connectionRequestWarnings: Record<string, ConnectionWarnings>;
   pickedHexagonCoordinates: [number, number][];
   setMap: SetState<Map | null>;
   setCurrentNetworkId: (netId: string) => void;
@@ -135,10 +136,11 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     Record<string, ConnectionRequestApiSchema[]>
   >({});
 
-  const conReqEnergyKindsWarnings = useConReqEnergyKindWarnings(
+  const connectionRequestWarnings = useConnectionWarnings(
     selectedConnectionRequestsUnified,
-    busesGeoSource,
-    currentNetworkId
+    headroom,
+    currentScenarioConnectionRequestsUnified,
+    busesGeoSource
   );
 
   const zoomToCoordinates = useMemo(() => {
@@ -381,6 +383,10 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   }, [map, hexagonsConnectionRequests, selectedConnectionRequestsUnified]);
 
+  useEffect(() => {
+    console.log(connectionRequestWarnings);
+  }, [connectionRequestWarnings]);
+
   const value: IMainContext = {
     map,
     currentNetworkId,
@@ -397,7 +403,7 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     trafoBranchesGeoSource,
     busesGeoSource,
     pickedElement,
-    conReqEnergyKindsWarnings,
+    connectionRequestWarnings,
     pickedHexagonCoordinates,
     setMap,
     setCurrentNetworkId,

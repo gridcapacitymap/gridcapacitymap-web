@@ -10,7 +10,6 @@ import {
   TableColumnsType,
   TablePaginationConfig,
   Col,
-  Row,
 } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ScenarioBaseApiSchema, ScenariosService } from '../../client';
@@ -256,16 +255,6 @@ export const ScenariosTab: FC = () => {
 
   return (
     <Col>
-      <Row justify="end">
-        <Col>
-          {/* <ColumnsSettingModal
-            allColumns={allColumns}
-            setShowedColumnKeys={setShowedColumnKeys}
-            showedColumnKeys={showedColumnKeys}
-          /> */}
-        </Col>
-      </Row>
-
       <SkeletonTable
         rowCount={8}
         active={true}

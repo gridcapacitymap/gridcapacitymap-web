@@ -1,10 +1,11 @@
 import { FC, Key, useState } from 'react';
-import { Button, Col, Modal, Row, Switch, TableColumnsType } from 'antd';
+import { Button, Col, Modal, Row, Switch } from 'antd';
 import { TableOutlined } from '@ant-design/icons';
+import { ColumnWithKeyType } from '../../helpers/interfaces';
 
 interface IProps {
-  allColumns: TableColumnsType<any>;
-  setShowedColumnKeys: (p: any[]) => void;
+  allColumns: ColumnWithKeyType[];
+  setShowedColumnKeys: (p: Key[]) => void;
   showedColumnKeys: Key[];
 }
 
@@ -58,8 +59,8 @@ export const ColumnsSettingModal: FC<IProps> = ({
             <Row key={column.key} className="ma-4">
               <Switch
                 className="mr-2"
-                onChange={(checked) => onChange(column.key!, checked)}
-                checked={tempColumnKeysState.includes(column.key!)}
+                onChange={(checked) => onChange(column.key, checked)}
+                checked={tempColumnKeysState.includes(column.key)}
               />
               <b>{`${column.title}`}</b>
             </Row>
