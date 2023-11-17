@@ -1,0 +1,46 @@
+name: Frontent Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: maplibre
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+          cache-dependency-path: maplibre/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --non-interactive
+
+      - name: Check formatting
+        run: yarn formatcheck
+
+      - name: Check linting
+        run: yarn lint
+
+      - name: Test build
+        run: yarn build
+
+      - name: Run test suite
+        run: yarn test
