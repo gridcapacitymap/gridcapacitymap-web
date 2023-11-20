@@ -1,6 +1,6 @@
 # Gridcapacity Map
 
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/8073/badge)](https://bestpractices.coreinfrastructure.org/projects/8073)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8073/badge)](https://www.bestpractices.dev/projects/8073)
 
 Ecosystem of tools for power grid visualization, modelling and analysis
 
