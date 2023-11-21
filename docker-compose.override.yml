@@ -13,8 +13,7 @@ services:
       - BACKEND_API_URL=http://backend:8000
       - VITE_DEFAULT_NETWORK_ID=5b3ed0c7-20d3-45fe-8c3b-84acb64750d3
       - VITE_OIDC_AUTHORITY=http://localhost:8180/realms/aad
-      - VITE_OIDC_CLIENT_ID=spa
-      - VITE_OIDC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
+      - VITE_OIDC_CLIENT_ID=api-frontend # public client
     ports:
       - "3000:3000"
 
@@ -33,13 +32,12 @@ services:
       - DATABASE_URL=postgresql+asyncpg://postgres_user:password@postgreshost:5432/gridmapdb
       - PIP_ROOT_USER_ACTION=ignore
 
-      - KC_DOCS_CLIENT_ID=spa
       - KC_SCOPES=openid profile
       - KC_AUTHORIZATION_URL=http://localhost:8180/realms/aad/protocol/openid-connect/auth
       - KC_TOKEN_URL=http://localhost:8180/realms/aad/protocol/openid-connect/token
       - KC_SERVER_URL=http://keycloak:8080
-      - KC_CLIENT_ID=spa
-      - KC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
+      - KC_CLIENT_ID=api-backend # confidential client
+      - KC_DOCS_CLIENT_ID=api-frontend # public client
       - KC_REALM=aad
     ports:
       - "8000:8000"
