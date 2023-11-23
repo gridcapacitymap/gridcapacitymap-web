@@ -4,7 +4,7 @@ Suggested solution to fulfill these common tasks is [Keycloak](https://www.keycl
 
 ## Demo setup
 
-The project has initial dump containing all data structures to accommodate demo dataset.
+The project has initial dump containing all data structures to accomodate demo dataset.
 This fits well for development purposes and saved onboarding time.
 
 ## Manual configuration guide
@@ -44,5 +44,6 @@ Here are basic steps to get up and running from scratch.
     For this example, let's use (or create) group `grid-administrators`. Save the policy.
 25. Finally, navigate to "Permissions" tab and create resource-based permission.
 26. Fill in name (e.g. `Networks administration`), select `networks` resource, assign `net:*` scope and `Administrators group policy` for this permission.
+Press save 
 
 Now, we can add users via keycloak admin or allow self-service (registration, account edit) in realm settings. This is the bare minimum setup.
