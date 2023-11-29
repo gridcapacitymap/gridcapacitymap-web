@@ -1,20 +1,18 @@
+import { FC, useEffect, useState } from 'react';
 import { Select } from 'antd';
-import { FC, useContext, useEffect, useState } from 'react';
-import { MainContext } from '../../context/MainContext';
+import { useMainContext } from '../../context/MainContext';
 import { DefaultOptionType } from 'antd/es/select';
 
 export const NetworkSelect: FC = () => {
-  const dataContext = useContext(MainContext);
+  const mainContext = useMainContext();
 
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
 
   useEffect(() => {
-    if (dataContext?.networks) {
-      setOptions(
-        dataContext.networks.map((net) => ({ label: net.title, value: net.id }))
-      );
-    }
-  }, [dataContext?.networks]);
+    setOptions(
+      mainContext.networks.map((net) => ({ label: net.title, value: net.id }))
+    );
+  }, [mainContext.networks]);
 
   return (
     <Select
@@ -22,9 +20,9 @@ export const NetworkSelect: FC = () => {
       size="small"
       style={{ minWidth: 150 }}
       disabled={!options.length}
-      value={dataContext?.currentNetworkId}
+      value={mainContext.currentNetworkId}
       options={options}
-      onChange={dataContext?.setCurrentNetworkId}
+      onChange={mainContext.setCurrentNetworkId}
     />
   );
 };

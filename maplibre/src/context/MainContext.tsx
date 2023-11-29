@@ -3,8 +3,6 @@ import {
   createContext,
   useState,
   PropsWithChildren,
-  SetStateAction,
-  Dispatch,
   useEffect,
   useContext,
   useMemo,
@@ -16,6 +14,7 @@ import {
   IAnyGeojsonSource,
   IPickedElement,
   ISourcesIdsEnum,
+  SetState,
 } from '../helpers/interfaces';
 import {
   addColorToBranchesFeaturesProperties,
@@ -37,12 +36,10 @@ import { emptySource } from '../helpers/baseData';
 import { FitBoundsOptions, LngLatLike, Map } from 'maplibre-gl';
 import { useConnectionWarnings } from '../hooks/useConnectionWarnings';
 
-type SetState<T> = Dispatch<SetStateAction<T>>;
-
 export interface IMainContext {
   map: Map | null;
   currentNetworkId: string | null;
-  networks: SerializedNetwork[] | null;
+  networks: SerializedNetwork[];
   currentScenarioId: string | null;
   currentScenarioDetails: ScenarioDetailsApiSchema | null;
   createdScenariosIds: string[];
@@ -382,10 +379,6 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
       ).data
     );
   }, [map, hexagonsConnectionRequests, selectedConnectionRequestsUnified]);
-
-  useEffect(() => {
-    console.log(connectionRequestWarnings);
-  }, [connectionRequestWarnings]);
 
   const value: IMainContext = {
     map,

@@ -1,6 +1,9 @@
 import { ColumnType } from 'antd/es/table';
+import { Dispatch, SetStateAction } from 'react';
 import { LinesGeoJson, PointsGeoJson, PolygonsGeoJson } from '../client';
 import { Key } from 'react';
+
+export type SetState<T> = Dispatch<SetStateAction<T>>;
 
 export interface ISomeObject {
   [key: string]: any;

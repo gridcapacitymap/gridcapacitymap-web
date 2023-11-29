@@ -16,6 +16,7 @@ import { AuthModal } from './auth/AuthModal';
 
 import './App.css';
 import { isMobile } from './helpers/checkups';
+import { NetworkSettingModal } from './components/NetworkSettingModal';
 
 const { Content, Header } = Layout;
 
@@ -100,6 +101,7 @@ export const App: FC = () => {
               />
               <Divider type="vertical" />
               <NetworkSelect />
+              <NetworkSettingModal />
             </Space>
             <Menu
               style={{ backgroundColor: 'transparent' }}
