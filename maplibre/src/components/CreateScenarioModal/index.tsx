@@ -147,7 +147,7 @@ export const CreateScenarioModal: FC = () => {
             <Col span={14}>Network:</Col>
             <Col span={10}>
               <b>
-                {mainContext.networks?.find(
+                {mainContext.networks.find(
                   (n) => n.id === mainContext.currentNetworkId
                 )?.title || 'Not found'}
               </b>
