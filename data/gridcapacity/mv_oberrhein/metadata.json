@@ -1,0 +1,15 @@
+{
+  "dump": {
+    "subsystems": "mv_oberrhein_exported_data.json",
+    "geodata": "mv_oberrhein_geodata.json"
+  },
+  "gridcapacity": {
+    "backend": "PANDAPOWER",
+    "config": "mv_oberrhein_config.json"
+  },
+  "connectionRequests": {
+    "xlsx": "910_connection_requests_syntetic_frozen.xlsx",
+    "fake_coords_distance": 250
+  },
+  "overwrite_if_modified": false
+}

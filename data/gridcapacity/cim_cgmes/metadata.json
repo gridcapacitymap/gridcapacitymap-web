@@ -1,0 +1,15 @@
+{
+  "dump": {
+    "subsystems": "example_cim_exported_data.json",
+    "geodata": "example_cim_geodata.json"
+  },
+  "gridcapacity": {
+    "backend": "PANDAPOWER",
+    "config": "cim_cgmes_config.json"
+  },
+  "connectionRequests": {
+    "xlsx": "2k_connection_requests_frozen.xlsx",
+    "fake_coords_distance": 12000
+  },
+  "overwrite_if_modified": false
+}

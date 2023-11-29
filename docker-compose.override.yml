@@ -26,6 +26,7 @@ services:
       - python_site_packages:/usr/local/lib/python3.10/site-packages
       - python_local_bin:/usr/local/bin
       - ./backend:/app:Z
+      - ./data/gridcapacity:/data:Z
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
@@ -37,8 +38,10 @@ services:
       - KC_TOKEN_URL=http://localhost:8180/realms/aad/protocol/openid-connect/token
       - KC_SERVER_URL=http://keycloak:8080
       - KC_CLIENT_ID=api-backend # confidential client
+      - KC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
       - KC_DOCS_CLIENT_ID=api-frontend # public client
       - KC_REALM=aad
+      - NET_DATA_ROOT=/data
     ports:
       - "8000:8000"
 
@@ -57,6 +60,7 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - DATABASE_URL=postgresql+asyncpg://postgres_user:password@postgreshost:5432/gridmapdb
       - PIP_ROOT_USER_ACTION=ignore
+      - NET_DATA_ROOT=/app/data
 
   adminer:
     image: michalhosna/adminer:4.8.1-en_v1

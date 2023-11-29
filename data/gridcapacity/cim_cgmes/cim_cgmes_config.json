@@ -1,9 +1,11 @@
 {
-    "case_name": "cim_cgmes.json",
-    "upper_load_limit_p_mw": 200.0,
-    "upper_gen_limit_p_mw": 100.0,
-    "contingency_scenario": {
-        "branches": [],
-        "trafos": []
-    }
+  "case_name": "cim_cgmes.json",
+  "upper_load_limit_p_mw": 750.0,
+  "upper_gen_limit_p_mw": 750.0,
+  "load_power_factor": 0.9,
+  "gen_power_factor": 0.9,
+  "headroom_tolerance_p_mw": 10,
+  "max_iterations": 10,
+  "contingency_scenario": { "branches": [], "trafos": [] },
+  "use_full_newton_raphson": false
 }

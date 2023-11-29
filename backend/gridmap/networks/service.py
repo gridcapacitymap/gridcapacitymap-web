@@ -7,6 +7,7 @@ from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import joinedload
 
 from ..database.dependencies import DatabaseSession
+from ..headroom.models import BusHeadroom
 from ..schemas.geo import (
     LinesGeoJson,
     LineStringGeometry,
@@ -27,9 +28,20 @@ class NetworkSubsystemsService:
     def __init__(self, session: DatabaseSession):
         self.session = session
 
-    async def find_buses_geojson(self, net_id: uuid.UUID):
-        buses = await self.session.scalars(select(Bus).filter(Bus.net_id == net_id))
-        return PointsGeoJson(features=[x.to_feature() for x in buses if x.geom])
+    async def find_buses_geojson(
+        self, net_id: uuid.UUID, scenario_id: Optional[uuid.UUID] = None
+    ):
+        stmt = select(Bus).filter(Bus.net_id == net_id)
+
+        if scenario_id:
+            stmt = (
+                select(Bus)
+                .options(joinedload(Bus.headrooms))
+                .filter(Bus.net_id == net_id, BusHeadroom.scenario_id == scenario_id)
+            )
+
+        items = (await self.session.scalars(stmt)).unique()
+        return PointsGeoJson(features=[x.to_feature() for x in items if x.geom])
 
     async def find_branches_geojson(self, net_id: uuid.UUID):
         branches = await self.session.scalars(
@@ -71,7 +83,7 @@ class NetworkSubsystemsService:
         )
         bounds = (await self.session.execute(bounds_stmt)).all()
 
-        items = []
+        items: List[SerializedNetwork] = []
         for x in nets.all():
             m = SerializedNetwork.model_validate(x.to_dict())
             m.geom = next(
