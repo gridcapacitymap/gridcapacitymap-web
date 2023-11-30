@@ -1,0 +1,15 @@
+{
+  "dump": {
+    "subsystems": "savnw_exported_data.json",
+    "geodata": "sawnv_geodata.json"
+  },
+  "gridcapacity": {
+    "backend": "PANDAPOWER",
+    "config": "sample_config.json"
+  },
+  "connectionRequests": {
+    "xlsx": "connection_requests_syntetic_frozen_rev7.xlsx",
+    "fake_coords_distance": 250
+  },
+  "overwrite_if_modified": false
+}

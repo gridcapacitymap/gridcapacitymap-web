@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 from uuid import UUID
 
 from pydantic import BaseModel, validator
@@ -17,6 +17,28 @@ class SolverBackend(str, Enum):
 
 
 UNATTENDED_SOLVER_BACKENDS = [SolverBackend.PANDAPOWER]
+
+
+class NetworkMetadataDump(BaseModel):
+    subsystems: str
+    geodata: str
+
+
+class NetworkMetadataGridcapacity(BaseModel):
+    backend: SolverBackend
+    config: str
+
+
+class NetworkMetadataConnections(BaseModel):
+    xlsx: str
+    fake_coords_distance: Optional[int] = None
+
+
+class NetworkMetadataImport(BaseModel):
+    dump: NetworkMetadataDump
+    gridcapacity: NetworkMetadataGridcapacity
+    connectionRequests: NetworkMetadataConnections
+    overwrite_if_modified: bool = True
 
 
 class SerializedNetwork(BaseModel):

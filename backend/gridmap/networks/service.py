@@ -1,4 +1,5 @@
 import datetime
+import logging
 import uuid
 from typing import List, Optional
 
@@ -7,6 +8,7 @@ from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import joinedload
 
 from ..database.dependencies import DatabaseSession
+from ..headroom.models import BusHeadroom
 from ..schemas.geo import (
     LinesGeoJson,
     LineStringGeometry,
@@ -27,9 +29,20 @@ class NetworkSubsystemsService:
     def __init__(self, session: DatabaseSession):
         self.session = session
 
-    async def find_buses_geojson(self, net_id: uuid.UUID):
-        buses = await self.session.scalars(select(Bus).filter(Bus.net_id == net_id))
-        return PointsGeoJson(features=[x.to_feature() for x in buses if x.geom])
+    async def find_buses_geojson(
+        self, net_id: uuid.UUID, scenario_id: Optional[uuid.UUID] = None
+    ):
+        stmt = select(Bus).filter(Bus.net_id == net_id)
+
+        if scenario_id:
+            stmt = (
+                select(Bus)
+                .options(joinedload(Bus.headrooms))
+                .filter(Bus.net_id == net_id, BusHeadroom.scenario_id == scenario_id)
+            )
+
+        items = (await self.session.scalars(stmt)).unique()
+        return PointsGeoJson(features=[x.to_feature() for x in items if x.geom])
 
     async def find_branches_geojson(self, net_id: uuid.UUID):
         branches = await self.session.scalars(
@@ -71,7 +84,7 @@ class NetworkSubsystemsService:
         )
         bounds = (await self.session.execute(bounds_stmt)).all()
 
-        items = []
+        items: List[SerializedNetwork] = []
         for x in nets.all():
             m = SerializedNetwork.model_validate(x.to_dict())
             m.geom = next(
@@ -223,7 +236,7 @@ class NetworkSubsystemsService:
 
             if bus_f:
                 bus.geom = bus_f.geometry.model_dump()  # type: ignore
-                print(f"-> update bus {bus.id} geom to {bus.geom}")
+                logging.debug(f"-> update bus {bus.id} geom to {bus.geom}")
 
         await self.session.flush()
 
@@ -251,14 +264,16 @@ class NetworkSubsystemsService:
 
             if br_f:
                 br.geom = br_f.geometry.model_dump()  # type: ignore
-                print(f"-> update branch {br.id} geom to {br.geom}")
+                logging.debug(f"-> update branch {br.id} geom to {br.geom}")
 
             elif not br_f and br.from_bus.geom and br.to_bus.geom:
                 start = PointGeometry.model_validate(br.from_bus.geom).coordinates  # type: ignore
                 end = PointGeometry.model_validate(br.to_bus.geom).coordinates  # type: ignore
 
                 br.geom = LineStringGeometry(coordinates=[start, end]).model_dump()  # type: ignore
-                print(f"-> update branch {br.id} geom to {br.geom} [auto-trace]")
+                logging.debug(
+                    f"-> update branch {br.id} geom to {br.geom} [auto-trace]"
+                )
 
         # Update trafos geometry
         trafos = await self.session.scalars(
@@ -283,14 +298,14 @@ class NetworkSubsystemsService:
             )
             if t_f:
                 t.geom = br_f.geometry.model_dump()  # type: ignore
-                print(f"-> update trafo {t.id} geom to {t.geom}")
+                logging.debug(f"-> update trafo {t.id} geom to {t.geom}")
 
             elif not t_f and t.from_bus.geom and t.to_bus.geom:
                 start = PointGeometry.model_validate(t.from_bus.geom).coordinates  # type: ignore
                 end = PointGeometry.model_validate(t.to_bus.geom).coordinates  # type: ignore
 
                 t.geom = LineStringGeometry(coordinates=[start, end]).model_dump()  # type: ignore
-                print(f"-> update trafo {t.id} geom to {t.geom} [auto-trace]")
+                logging.debug(f"-> update trafo {t.id} geom to {t.geom} [auto-trace]")
 
         # commit changes across models within session
         await self.session.commit()

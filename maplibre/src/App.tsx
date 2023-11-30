@@ -11,12 +11,12 @@ import { NetworkSelect } from './components/NetworkSelect';
 
 import { MainContextProvider } from './context/MainContext';
 import { useAuth } from 'react-oidc-context';
-import { PoweroffOutlined } from '@ant-design/icons';
 import { AuthModal } from './auth/AuthModal';
 
 import './App.css';
 import { isMobile } from './helpers/checkups';
 import { NetworkSettingModal } from './components/NetworkSettingModal';
+import { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
 
 const { Content, Header } = Layout;
 
@@ -49,7 +49,7 @@ export const App: FC = () => {
 
   const auth = useAuth();
 
-  const menuItems = [
+  const menuItems: ItemType<MenuItemType>[] = [
     {
       key: 'docs',
       label: (
@@ -69,13 +69,20 @@ export const App: FC = () => {
     };
 
     menuItems.push({
-      key: 'logout',
-      label: (
-        <a href="#" onClick={logout}>
-          {auth?.user?.profile?.name || auth?.user?.profile?.preferred_username}
-          &nbsp; <PoweroffOutlined />
-        </a>
-      ),
+      key: 'currentUser',
+      label: `${
+        auth?.user?.profile?.name || auth?.user?.profile?.preferred_username
+      }`,
+      children: [
+        {
+          label: (
+            <a href="#" onClick={logout}>
+              Logout
+            </a>
+          ),
+          key: 'logout',
+        },
+      ],
     });
   }
 

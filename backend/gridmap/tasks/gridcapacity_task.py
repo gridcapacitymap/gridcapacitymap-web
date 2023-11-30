@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import time
 import uuid
 import warnings
@@ -86,8 +87,9 @@ def run_solver(self, data: str, only_affected_buses: bool = False):
     cfg = params.gridcapacityConfig
     scenario_id = str(params.id)
 
-    case_prefix = cfg.case_name.split(".")[0]
-    cfg.case_name = f"/app/data/{case_prefix}/{cfg.case_name}"
+    cfg.case_name = os.path.join(os.environ["NET_DATA_ROOT"], cfg.case_name)
+    if not os.path.exists(cfg.case_name):
+        raise RuntimeError("Network case file cannot be found")
 
     if only_affected_buses and cfg.connection_scenario:
         cfg.selected_buses_ids = [str(x) for x in cfg.connection_scenario.keys()]

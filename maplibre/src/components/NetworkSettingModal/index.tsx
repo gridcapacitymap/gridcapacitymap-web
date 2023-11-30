@@ -83,7 +83,7 @@ export const NetworkSettingModal: FC = () => {
   return (
     <>
       <Button size="small" disabled={disabled} onClick={() => setOpen(true)}>
-        Network setting
+        Settings
       </Button>
       <Modal
         title="Current network setting"

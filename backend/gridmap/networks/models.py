@@ -1,9 +1,9 @@
 import datetime
 import uuid
 from enum import Enum
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any, List, Optional
 
-from sqlalchemy import UUID, Float, ForeignKey, String, UniqueConstraint
+from sqlalchemy import UUID, Float, ForeignKey, UniqueConstraint
 from sqlalchemy.dialects.postgresql import ARRAY, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
@@ -82,11 +82,34 @@ class Bus(Base):
         Network, foreign_keys=[net_id], lazy="joined", cascade="all"
     )
 
+    headrooms: Mapped[List["BusHeadroom"]] = relationship(lazy="noload")
+
     def to_feature(self):
         props = self.to_dict()
         geometry = props.pop("geom")
+
+        del props["actual_load_mva"]
+        del props["actual_gen_mva"]
+
         if not geometry:
             raise ValueError(f"Bus {self.id} has no geodata")
+
+        if len(self.headrooms) == 1:
+            hr = self.headrooms[0].to_dict()
+
+            for k in [
+                "id",
+                "created_at",
+                "updated_at",
+                "scenario_id",
+                "scenario",
+                "bus_id",
+                "bus",
+            ]:
+                if k in hr:
+                    hr.pop(k)
+
+            props["headroom"] = hr
 
         return GeoFeature[PointGeometry](
             geometry=PointGeometry.parse_raw(geometry),

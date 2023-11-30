@@ -12,6 +12,9 @@ python -m gridmap.database.manage
 # Run migrations
 alembic upgrade head
 
+# Import network cases if any
+python -m gridmap.datadump.cli
+
 # Start application in debug mode
 pip3 install -q debugpy==1.8.0
 python -m debugpy --listen 0.0.0.0:5678 -m uvicorn gridmap.main:app --reload --host 0.0.0.0 --log-level=info
