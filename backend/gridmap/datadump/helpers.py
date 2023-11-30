@@ -5,8 +5,8 @@ from typing import Dict, List, Tuple, Union
 
 from sweref99 import projections
 
-from backend.gridmap.networks.models import Bus
-from backend.gridmap.schemas.geo import PointGeometry
+from ..networks.models import Bus
+from ..schemas.geo import PointGeometry
 
 tm = projections.make_transverse_mercator("SWEREF_99_TM")
 

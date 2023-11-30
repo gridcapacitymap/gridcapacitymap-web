@@ -4,4 +4,4 @@
 pip3 install -q -r ./gridcapacity_worker/requirements.txt
 
 # Start celery worker
-celery -A gridmap.tasks.gridcapacity_task.celery worker --loglevel=info
+celery -A gridmap.tasks.gridcapacity_task.celery worker --concurrency=4 --loglevel=info
