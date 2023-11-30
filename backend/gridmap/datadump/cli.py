@@ -126,14 +126,12 @@ async def import_connection_requests(
 
 
 async def process(data_path: str, sess: AsyncSession):
-    directories = [entry.name for entry in Path(data_path).iterdir() if entry.is_dir()]
+    directories = [str(entry) for entry in Path(data_path).iterdir() if entry.is_dir()]
 
     net_service = NetworkSubsystemsService(sess)
     datadump_service = DataDumpService(sess)
 
-    for dir_ in directories:
-        p = os.path.join(data_path, dir_)
-
+    for p in directories:
         try:
             net_id, metadata = await import_network_data(p, net_service)
             await import_connection_requests(p, net_id, metadata, datadump_service)
