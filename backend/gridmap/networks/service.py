@@ -1,4 +1,5 @@
 import datetime
+import logging
 import uuid
 from typing import List, Optional
 
@@ -235,7 +236,7 @@ class NetworkSubsystemsService:
 
             if bus_f:
                 bus.geom = bus_f.geometry.model_dump()  # type: ignore
-                print(f"-> update bus {bus.id} geom to {bus.geom}")
+                logging.debug(f"-> update bus {bus.id} geom to {bus.geom}")
 
         await self.session.flush()
 
@@ -263,14 +264,16 @@ class NetworkSubsystemsService:
 
             if br_f:
                 br.geom = br_f.geometry.model_dump()  # type: ignore
-                print(f"-> update branch {br.id} geom to {br.geom}")
+                logging.debug(f"-> update branch {br.id} geom to {br.geom}")
 
             elif not br_f and br.from_bus.geom and br.to_bus.geom:
                 start = PointGeometry.model_validate(br.from_bus.geom).coordinates  # type: ignore
                 end = PointGeometry.model_validate(br.to_bus.geom).coordinates  # type: ignore
 
                 br.geom = LineStringGeometry(coordinates=[start, end]).model_dump()  # type: ignore
-                print(f"-> update branch {br.id} geom to {br.geom} [auto-trace]")
+                logging.debug(
+                    f"-> update branch {br.id} geom to {br.geom} [auto-trace]"
+                )
 
         # Update trafos geometry
         trafos = await self.session.scalars(
@@ -295,14 +298,14 @@ class NetworkSubsystemsService:
             )
             if t_f:
                 t.geom = br_f.geometry.model_dump()  # type: ignore
-                print(f"-> update trafo {t.id} geom to {t.geom}")
+                logging.debug(f"-> update trafo {t.id} geom to {t.geom}")
 
             elif not t_f and t.from_bus.geom and t.to_bus.geom:
                 start = PointGeometry.model_validate(t.from_bus.geom).coordinates  # type: ignore
                 end = PointGeometry.model_validate(t.to_bus.geom).coordinates  # type: ignore
 
                 t.geom = LineStringGeometry(coordinates=[start, end]).model_dump()  # type: ignore
-                print(f"-> update trafo {t.id} geom to {t.geom} [auto-trace]")
+                logging.debug(f"-> update trafo {t.id} geom to {t.geom} [auto-trace]")
 
         # commit changes across models within session
         await self.session.commit()

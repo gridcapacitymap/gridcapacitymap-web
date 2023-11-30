@@ -18,10 +18,10 @@ from ..networks.schemas import (
     SubsystemGeoJson,
 )
 from ..networks.service import NetworkSubsystemsService
-from ..wait_for_db import wait_db_ready
+from .helpers import mock_connection_coords
 from .schemas import ConnectionsUnifiedSchema
 from .service import DataDumpService
-from .xlsx_importer import ConnectionRequestsImporter, mock_connection_coords
+from .xlsx_importer import ConnectionRequestsImporter
 
 
 def load_metadata(dirpath: str):
@@ -147,8 +147,6 @@ async def main():
     location = os.environ["NET_DATA_ROOT"]
 
     try:
-        await wait_db_ready()
-
         engine = create_async_engine(
             settings.DATABASE_URL, pool_size=2, max_overflow=10
         )
