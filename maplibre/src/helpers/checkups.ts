@@ -4,7 +4,6 @@ import {
   ConnectionRequestApiSchema,
 } from '../client';
 import { ConnectionWarnings } from './interfaces';
-import { showMessage } from './message';
 
 enum BusTypeEnum {
   'UNKNOWN' = 'UNKNOWN',
