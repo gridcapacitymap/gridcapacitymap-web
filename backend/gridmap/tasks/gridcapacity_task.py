@@ -35,9 +35,17 @@ def calc_headroom(cfg: GridCapacityConfig, on_progress: Callable) -> str:
     # silence excessive logging slowing down progress
     logging.getLogger(gridcapacity.__name__).setLevel(logging.WARNING)
 
+    from gridcapacity.backends.subsystems import (
+        Branches,
+        Buses,
+        SwingBuses,
+        Trafos,
+        Trafos3w,
+    )
     from gridcapacity.capacity_analysis import CapacityAnalyser
     from gridcapacity.config import ConfigModel
     from gridcapacity.output import json_dump_kwargs
+    from gridcapacity.violations_analysis import ViolationsStats
 
     # convert and validate pydantic models GridCapacityConfig -> ConfigModel
     kw = ConfigModel.parse_obj(cfg.dict(exclude_unset=True)).dict(exclude_unset=True)
@@ -45,7 +53,7 @@ def calc_headroom(cfg: GridCapacityConfig, on_progress: Callable) -> str:
     kw.setdefault("load_power_factor", 0.9)
     kw.setdefault("gen_power_factor", 0.9)
     kw.setdefault("headroom_tolerance_p_mw", 5.0)
-    kw.setdefault("max_iterations", 10)
+    kw.setdefault("max_iterations", 100)
     kw.setdefault("selected_buses_ids", None)
     kw.setdefault("selected_buses_ids", None)
     kw.setdefault("solver_opts", None)
@@ -68,7 +76,70 @@ def calc_headroom(cfg: GridCapacityConfig, on_progress: Callable) -> str:
         headroom.append(bus_headroom)
         on_progress(stats)
 
-    return json.dumps({"headroom": headroom}, **json_dump_kwargs)
+    # consider violations mapping moved into gridcapacity project
+    violations = []
+    bus_by_index = lambda idx: next(
+        (b.number for b in Buses() if getattr(b, "pp_idx", b.number) == idx), None
+    )
+
+    for violation, limit_value_to_ss_violations in ViolationsStats.asdict().items():
+        subsystems = ViolationsStats._get_subsystems_for_violation(violation)
+
+        for limit, ss_violations in limit_value_to_ss_violations.items():
+            for ss_idx, violated_values in ss_violations.items():
+                ss = subsystems[ss_idx]
+                v = {
+                    "violation": violation,
+                    "violated_values": violated_values,
+                    "limit": limit,
+                }
+
+                if isinstance(subsystems, (Buses, SwingBuses)):
+                    v["bus"] = {"number": bus_by_index(ss.number)}
+                    if not v["bus"]["number"]:
+                        logging.error(f"failed to map bus violation {v}")
+                        continue
+
+                elif isinstance(subsystems, Branches):
+                    v["branch"] = {
+                        "from_number": bus_by_index(ss.from_number),
+                        "to_number": bus_by_index(ss.to_number),
+                        "branch_id": ss.branch_id,
+                    }
+                    if not v["branch"]["from_number"] or not v["branch"]["to_number"]:
+                        logging.error(f"failed to map branch violation {v}")
+                        continue
+
+                elif isinstance(subsystems, Trafos):
+                    v["trafo"] = {
+                        "from_number": bus_by_index(ss.from_number),
+                        "to_number": bus_by_index(ss.to_number),
+                        "trafo_id": ss.trafo_id,
+                    }
+                    if not v["trafo"]["from_number"] or not v["trafo"]["to_number"]:
+                        logging.error(f"failed to map trafo violation {v}")
+                        continue
+
+                elif isinstance(subsystems, Trafos3w):
+                    v["trafo3w"] = {
+                        "wind1_number": bus_by_index(ss.wind1_number),
+                        "wind2_number": bus_by_index(ss.wind2_number),
+                        "wind3_number": bus_by_index(ss.wind3_number),
+                        "trafo_id": ss.trafo_id,
+                    }
+                    if (
+                        not v["trafo3w"]["wind1_number"]
+                        or not v["trafo3w"]["wind2_number"]
+                        or not v["trafo3w"]["wind3_number"]
+                    ):
+                        logging.error(f"failed to map trafo3w violation {v}")
+                        continue
+
+                violations.append(v)
+
+    return json.dumps(
+        {"headroom": headroom, "violations": violations}, **json_dump_kwargs
+    )
 
 
 @celery.task(

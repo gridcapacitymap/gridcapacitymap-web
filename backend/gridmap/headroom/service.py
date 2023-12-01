@@ -8,7 +8,7 @@ from sqlalchemy.orm import aliased, joinedload, load_only
 
 from ..networks.models import Branch, Bus, Trafo
 from ..scenarios.models import ConnectionScenario
-from .models import BusHeadroom
+from .models import BusHeadroom, ScenarioViolation
 from .schemas import BranchLF, ScenarioHeadroomSchema, TrafoLF
 
 
@@ -118,6 +118,63 @@ class ScenarioHeadroomService:
             .where(ConnectionScenario.id == scenario_id)
             .values(solver_task_status=states.SUCCESS)
         )
+
+        await self.session.commit()
+
+        # Violation stats
+        await self.session.execute(
+            delete(ScenarioViolation).where(
+                ScenarioViolation.scenario_id == scenario.id
+            )
+        )
+        await self.session.flush()
+
+        for item in data.violations:
+            model = ScenarioViolation()
+            model.scenario_id = scenario.id
+            model.violation = item.violation
+            model.limit = item.limit
+            model.violated_values = item.violated_values  # type: ignore
+
+            if item.bus:
+                model.bus_id = next(
+                    (b.id for b in buses if item.bus.number in [b.number, b.name]), None
+                )
+
+            elif item.branch:
+                model.branch_id = next(
+                    (
+                        b.id
+                        for b in branches
+                        if item.branch.from_number
+                        in [b.from_bus.number, b.from_bus.name]
+                        and item.branch.to_number in [b.to_bus.number, b.to_bus.name]
+                        and item.branch.branch_id == b.branch_id
+                    ),
+                    None,
+                )
+
+            elif item.trafo:
+                model.trafo_id = next(
+                    (
+                        b.id
+                        for b in trafos
+                        if item.trafo.from_number
+                        in [b.from_bus.number, b.from_bus.name]
+                        and item.trafo.to_number in [b.to_bus.number, b.to_bus.name]
+                        and item.trafo.trafo_id == b.trafo_id
+                    ),
+                    None,
+                )
+
+            elif item.trafo3w:
+                # TODO
+                continue
+
+            else:
+                continue
+
+            self.session.add(model)
 
         await self.session.commit()
 

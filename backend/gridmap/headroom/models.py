@@ -9,8 +9,48 @@ from sqlalchemy.sql import func
 
 from ..database.columns import timestamp
 from ..database.core import Base
-from ..networks.models import Branch, Bus, Trafo
+from ..networks.models import Branch, Bus, Trafo, Trafo3w
 from ..scenarios.models import ConnectionScenario
+
+
+class ScenarioViolation(Base):
+    __tablename__ = "scenario_violations"
+
+    id: Mapped[UUID] = mapped_column(UUID, default=uuid.uuid4, primary_key=True)
+
+    created_at: Mapped[timestamp]
+    updated_at: Mapped[datetime.datetime] = mapped_column(
+        server_default=func.CURRENT_TIMESTAMP(),
+        default=datetime.datetime.utcnow,
+        onupdate=datetime.datetime.utcnow,
+    )
+
+    scenario_id: Mapped[UUID] = mapped_column(
+        ForeignKey(ConnectionScenario.id, ondelete="CASCADE")
+    )
+    scenario: Mapped[ConnectionScenario] = relationship(
+        ConnectionScenario, back_populates="violations", lazy="raise", cascade="all"
+    )
+
+    branch_id: Mapped[Optional[UUID]] = mapped_column(
+        ForeignKey(Branch.id, ondelete="SET NULL"), nullable=True
+    )
+
+    trafo_id: Mapped[Optional[UUID]] = mapped_column(
+        ForeignKey(Trafo.id, ondelete="SET NULL"), nullable=True
+    )
+    trafo3w_id: Mapped[Optional[UUID]] = mapped_column(
+        ForeignKey(Trafo3w.id, ondelete="SET NULL"), nullable=True
+    )
+    bus_id: Mapped[Optional[UUID]] = mapped_column(
+        ForeignKey(Bus.id, ondelete="SET NULL"), nullable=True
+    )
+
+    violation: Mapped[str]
+    violated_values: Mapped[ARRAY] = mapped_column(
+        ARRAY(Float, as_tuple=True, dimensions=None)
+    )
+    limit: Mapped[float]
 
 
 class BusHeadroom(Base):

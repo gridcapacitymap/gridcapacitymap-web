@@ -1,4 +1,3 @@
-import logging
 import math
 import random
 from typing import Dict, List, Tuple, Union
@@ -9,8 +8,6 @@ from ..networks.models import Bus
 from ..schemas.geo import PointGeometry
 
 tm = projections.make_transverse_mercator("SWEREF_99_TM")
-
-logger = logging.getLogger(__name__)
 
 
 EARTH_RADIUS = 6371000  # meters

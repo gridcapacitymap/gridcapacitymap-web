@@ -76,8 +76,42 @@ class GridCapacityConfig(BaseModel):
         return [int(x) if x.isnumeric() else x for x in v]
 
 
+class ViolationBus(BaseModel):
+    number: Union[str, int]
+
+
+class ViolationBranch(BaseModel):
+    from_number: Union[str, int]
+    to_number: Union[str, int]
+    branch_id: Union[str, int]
+
+
+class ViolationTrafo(BaseModel):
+    from_number: Union[str, int]
+    to_number: Union[str, int]
+    trafo_id: Union[str, int]
+
+
+class ViolationTrafo3w(BaseModel):
+    wind1_number: Union[str, int]
+    wind2_number: Union[str, int]
+    wind3_number: Union[str, int]
+    trafo_id: Union[str, int]
+
+
+class PowerflowViolationSchema(BaseModel):
+    violation: str
+    violated_values: List[float]
+    limit: float
+    bus: Optional[ViolationBus] = None
+    branch: Optional[ViolationBranch] = None
+    trafo: Optional[ViolationTrafo] = None
+    trafo3w: Optional[ViolationTrafo3w] = None
+
+
 class ScenarioHeadroomSchema(BaseModel):
     headroom: List[BusHeadroomSchema]
+    violations: List[PowerflowViolationSchema] = []
 
     @classmethod
     def from_sa(cls, headrooms: List[BusHeadroom]):

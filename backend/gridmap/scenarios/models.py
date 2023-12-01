@@ -14,7 +14,7 @@ from ..networks.models import Network
 
 if TYPE_CHECKING:
     from ..connections.models import ConnectionRequest
-    from ..headroom.models import BusHeadroom
+    from ..headroom.models import BusHeadroom, ScenarioViolation
 
 
 # note for a Core table, we use the sqlalchemy.Column construct,
@@ -61,6 +61,9 @@ class ConnectionScenario(Base):
 
     headroom: Mapped[List["BusHeadroom"]] = relationship(
         "BusHeadroom", passive_deletes=True, lazy="raise", cascade="all"
+    )
+    violations: Mapped[List["ScenarioViolation"]] = relationship(
+        "ScenarioViolation", passive_deletes=True, lazy="raise", cascade="all"
     )
 
     solver_task_id: Mapped[Optional[str]]
