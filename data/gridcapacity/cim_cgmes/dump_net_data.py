@@ -126,8 +126,7 @@ for index, bus in buses.items():
         {
             "number": bus["name"],
             "name": bus["name"],
-            # TODO ensure correct mapping
-            "bus_type": ["b", "n", "m"].index(bus["type"]) + 1,
+            "bus_type": 6,
             "zone_name": bus["zone"],
             "base_kv": bus["vn_kv"],
             "voltage_pu": 1,

@@ -16,7 +16,7 @@ from ..schemas.geo import (
     PointsGeoJson,
     PolygonGeometry,
 )
-from .models import Branch, Bus, Generator, Load, Network, Trafo, Trafo3w
+from .models import Branch, Bus, Network, Trafo, Trafo3w
 from .schemas import (
     SerializedNetwork,
     SerializedSubsystems,
@@ -122,6 +122,9 @@ class NetworkSubsystemsService:
         if payload.title:
             model.title = payload.title
         if payload.gridcapacity_cfg:
+            if model.gridcapacity_cfg and "case_name" in model.gridcapacity_cfg:
+                payload.gridcapacity_cfg.case_name = model.gridcapacity_cfg["case_name"]
+
             model.gridcapacity_cfg = payload.gridcapacity_cfg.model_dump(
                 exclude_none=True
             )
@@ -187,26 +190,6 @@ class NetworkSubsystemsService:
 
         await self.session.commit()
 
-        # Add loads
-        for pl in payload.loads:
-            d = pl.model_dump()
-            bus_id = d.pop("number")
-            l = Load(**d)
-            l.bus = await find_bus(Bus.number == bus_id)
-            self.session.add(l)
-
-        await self.session.commit()
-
-        # Add generators
-        for pg in payload.gens:
-            d = pg.model_dump()
-            bus_id = d.pop("number")
-            g = Generator(**d)
-            g.bus = await find_bus(Bus.number == bus_id)
-            self.session.add(g)
-
-        await self.session.commit()
-
     async def import_subsystem_geodata(
         self, net_id: uuid.UUID, payload: SubsystemGeoJson
     ):
@@ -237,6 +220,21 @@ class NetworkSubsystemsService:
             if bus_f:
                 bus.geom = bus_f.geometry.model_dump()  # type: ignore
                 logging.debug(f"-> update bus {bus.id} geom to {bus.geom}")
+            else:
+                br = next(
+                    (
+                        x
+                        for x in branch_features
+                        if x.properties.from_number == bus.number
+                        or x.properties.to_number == bus.number
+                    ),
+                    None,
+                )
+                if br:
+                    c = br.geometry.coordinates[
+                        0 if bus.number == br.properties.from_number else -1
+                    ]
+                    bus.geom = PointGeometry(coordinates=c).model_dump()  # type: ignore
 
         await self.session.flush()
 
@@ -252,6 +250,8 @@ class NetworkSubsystemsService:
             )
         )
         for br in network_branches.unique():
+            assert br  # instruct mypy that br is not None
+
             br_f = next(
                 (
                     x
