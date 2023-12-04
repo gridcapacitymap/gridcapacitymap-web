@@ -4,7 +4,6 @@ import {
   ConnectionRequestApiSchema,
 } from '../client';
 import { ConnectionWarnings } from './interfaces';
-import { showMessage } from './message';
 
 enum BusTypeEnum {
   'UNKNOWN' = 'UNKNOWN',
@@ -101,13 +100,9 @@ export const checkConnectionRequestForWarnings = (
   if (connectivityBusHeadroom) {
     if (connectivityBusHeadroom.gen_avail_mva[0] <= 0) {
       connectionWarnings.busAvailableGen = `'${connectionRequest.project_id}' connectivity bus '${connectivityBusProperties?.number}' doesn't support generation connection`;
-      !knownWarnings[connectionRequest.id]?.busAvailableGen &&
-        showMessage('error', connectionWarnings.busAvailableGen);
     }
     if (connectivityBusHeadroom.load_avail_mva[0] <= 0) {
       connectionWarnings.busAvailableLoad = `'${connectionRequest.project_id}' connectivity bus '${connectivityBusProperties?.number}' doesn't support load connection`;
-      !knownWarnings[connectionRequest.id]?.busAvailableLoad &&
-        showMessage('error', connectionWarnings.busAvailableLoad);
     }
   }
 

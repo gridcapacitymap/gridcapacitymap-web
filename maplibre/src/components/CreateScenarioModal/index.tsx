@@ -106,9 +106,6 @@ export const CreateScenarioModal: FC = () => {
         onOk={onAccept}
         okText="Create scenario"
         centered={true}
-        okButtonProps={{
-          disabled: name.length < 3 || warnings.length > 0,
-        }}
         width={500}
         footer={[
           <Button
@@ -126,7 +123,7 @@ export const CreateScenarioModal: FC = () => {
             <Button
               onClick={onAccept}
               type="primary"
-              disabled={name.length < 3 || warnings.length > 0}
+              disabled={name.length < 3}
             >
               Create scenario
             </Button>
