@@ -10,16 +10,17 @@ enum BusTypeEnum {
   'UNKNOWN' = 'UNKNOWN',
   'LOADING' = 'LOADING',
   'GENERATOR' = 'GENERATOR',
-  'SWINGBUG' = 'SWINGBUG',
+  'SWINGBUS' = 'SWINGBUS',
   'DISCONNECTED' = 'DISCONNECTED',
   'LOADING_AREA' = 'LOADING_AREA',
+  'NODE' = 'NODE',
 }
 
 const BusTypeByBusTypeCodes: Record<number, BusTypeEnum> = {
   0: BusTypeEnum.UNKNOWN,
   1: BusTypeEnum.LOADING,
   2: BusTypeEnum.GENERATOR,
-  3: BusTypeEnum.SWINGBUG,
+  3: BusTypeEnum.SWINGBUS,
   4: BusTypeEnum.DISCONNECTED,
   5: BusTypeEnum.LOADING_AREA,
 };
@@ -37,7 +38,7 @@ const supportedEnergyKindsByBysTypes: Record<
     ConnectionEnergyKindEnum.CONSUMPTION,
     ConnectionEnergyKindEnum.OTHER,
   ],
-  [BusTypeEnum.SWINGBUG]: [
+  [BusTypeEnum.SWINGBUS]: [
     ConnectionEnergyKindEnum.PRODUCTION,
     ConnectionEnergyKindEnum.CONSUMPTION,
     ConnectionEnergyKindEnum.OTHER,
@@ -47,6 +48,10 @@ const supportedEnergyKindsByBysTypes: Record<
   [BusTypeEnum.LOADING_AREA]: [
     ConnectionEnergyKindEnum.PRODUCTION,
     ConnectionEnergyKindEnum.OTHER,
+  ],
+  [BusTypeEnum.NODE]: [
+    ConnectionEnergyKindEnum.PRODUCTION,
+    ConnectionEnergyKindEnum.CONSUMPTION,
   ],
 };
 

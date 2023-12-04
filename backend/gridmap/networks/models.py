@@ -17,12 +17,12 @@ if TYPE_CHECKING:
 
 
 class BusType(Enum):
-    UNKNOWN = 0
-    LOADING = 1
-    GENERATOR = 2
-    SWINGBUG = 3  # used to connect to external grids
-    DISCONNECTED = 4
-    LOADING_AREA = 5  # Load Bus (at boundary of an area)
+    LOADING = 1  # PSSE
+    GENERATOR = 2  # PSSE
+    SWINGBUS = 3  # PSSE, used to balance active/reactive power
+    DISCONNECTED = 4  # PSSE
+    LOADING_AREA = 5  # PSSE, Load Bus (at boundary of an area)
+    NODE = 6  # supports connecting both load and gen (pandapower)
 
 
 class Network(Base):
@@ -276,61 +276,3 @@ class Trafo3w(Base):
             geometry=LineStringGeometry.parse_raw(geometry),
             properties=props,
         )
-
-
-class Load(Base):
-    __tablename__ = "network_loads"
-
-    id: Mapped[UUID] = mapped_column(UUID, default=uuid.uuid4, primary_key=True)
-
-    bus_id: Mapped[UUID] = mapped_column(ForeignKey(Bus.id, ondelete="CASCADE"))
-    bus: Mapped[Bus] = relationship(Bus, lazy="joined", cascade="all")
-
-    name: Mapped[str]
-    load_id: Mapped[str]
-    area_name: Mapped[Optional[str]]
-    area_number: Mapped[Optional[int]]
-    zone_name: Mapped[Optional[str]]
-    zone_number: Mapped[Optional[int]]
-    in_service: Mapped[bool]
-    mva_act: Mapped[ARRAY] = mapped_column(ARRAY(Float, as_tuple=True, dimensions=None))
-
-    def to_dict(self):
-        d = super().to_dict()
-        bus_keys = ["id", "number", "name"]
-
-        if self.bus:
-            d["from_bus"] = {
-                k: v for k, v in self.bus.to_dict().items() if k in bus_keys
-            }
-
-        return d
-
-
-class Generator(Base):
-    __tablename__ = "network_generators"
-
-    id: Mapped[UUID] = mapped_column(UUID, default=uuid.uuid4, primary_key=True)
-
-    bus_id: Mapped[UUID] = mapped_column(ForeignKey(Bus.id, ondelete="CASCADE"))
-    bus: Mapped[Bus] = relationship(Bus, lazy="joined", cascade="all")
-
-    name: Mapped[str]
-    machine_id: Mapped[str]
-    area_name: Mapped[Optional[str]]
-    area_number: Mapped[Optional[int]]
-    zone_name: Mapped[Optional[str]]
-    zone_number: Mapped[Optional[int]]
-    in_service: Mapped[bool]
-    pq_gen: Mapped[ARRAY] = mapped_column(ARRAY(Float, as_tuple=True, dimensions=None))
-
-    def to_dict(self):
-        d = super().to_dict()
-        bus_keys = ["id", "number", "name"]
-
-        if self.bus:
-            d["from_bus"] = {
-                k: v for k, v in self.bus.to_dict().items() if k in bus_keys
-            }
-
-        return d
