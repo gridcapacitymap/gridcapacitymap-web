@@ -131,42 +131,42 @@ export const NetworkSettingModal: FC = () => {
             <Form.Item<SerializedNetwork>
               label="Upper load limit:"
               name={['gridcapacity_cfg', 'upper_load_limit_p_mw']}
-              tooltip="Increases load headroom capacity"
+              tooltip="Maximum temporary load power in MW used for capacity analysis"
             >
               <Input addonAfter="MW" type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Upper generation limit:"
               name={['gridcapacity_cfg', 'upper_gen_limit_p_mw']}
-              tooltip="Increases generation headroom capacity"
+              tooltip="Maximum temporary generated power in MW used for capacity analysis"
             >
               <Input addonAfter="MW" type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Load power factor:"
               name={['gridcapacity_cfg', 'load_power_factor']}
-              tooltip="Ratio of active load power to total power flowing in the network"
+              tooltip="Temporary load power factor in range [0..1] used for capacity analysis"
             >
               <Input type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Generation power factor:"
               name={['gridcapacity_cfg', 'gen_power_factor']}
-              tooltip="Ratio of active generation power to total power flowing in the network"
+              tooltip="Temporary generator power factor in range [0..1] used for capacity analysis"
             >
               <Input type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Headroom tolerance:"
               name={['gridcapacity_cfg', 'headroom_tolerance_p_mw']}
-              tooltip="hint"
+              tooltip="Temporary load/generator tolerance in MW used to terminate further capacity analysis"
             >
               <Input addonAfter="MW" type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Maximum iterations:"
               name={['gridcapacity_cfg', 'max_iterations']}
-              tooltip="hint"
+              tooltip="Number of capacity analysis linear search iterations"
             >
               <Input type="number" />
             </Form.Item>
