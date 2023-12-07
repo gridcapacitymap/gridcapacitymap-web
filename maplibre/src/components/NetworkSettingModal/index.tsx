@@ -116,6 +116,7 @@ export const NetworkSettingModal: FC = () => {
             <Form.Item<SerializedNetwork>
               label="Default scenario:"
               name="default_scenario_id"
+              tooltip="This scenario's data will be loaded when this network is selected"
             >
               <Select
                 options={networkScenarios.map((s) => ({
@@ -130,36 +131,42 @@ export const NetworkSettingModal: FC = () => {
             <Form.Item<SerializedNetwork>
               label="Upper load limit:"
               name={['gridcapacity_cfg', 'upper_load_limit_p_mw']}
+              tooltip="Increases load headroom capacity"
             >
               <Input addonAfter="MW" type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Upper generation limit:"
               name={['gridcapacity_cfg', 'upper_gen_limit_p_mw']}
+              tooltip="Increases generation headroom capacity"
             >
               <Input addonAfter="MW" type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Load power factor:"
               name={['gridcapacity_cfg', 'load_power_factor']}
+              tooltip="Ratio of active load power to total power flowing in the network"
             >
               <Input type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Generation power factor:"
               name={['gridcapacity_cfg', 'gen_power_factor']}
+              tooltip="Ratio of active generation power to total power flowing in the network"
             >
               <Input type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Headroom tolerance:"
               name={['gridcapacity_cfg', 'headroom_tolerance_p_mw']}
+              tooltip="hint"
             >
               <Input addonAfter="MW" type="number" />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Maximum iterations:"
               name={['gridcapacity_cfg', 'max_iterations']}
+              tooltip="hint"
             >
               <Input type="number" />
             </Form.Item>
