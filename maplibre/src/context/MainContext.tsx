@@ -81,7 +81,7 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [map, setMap] = useState<Map | null>(null);
   const [currentNetworkId, setStateCurrentNetworkId] = useState<string | null>(
-    searchParams.get('netId') || import.meta.env.VITE_DEFAULT_NETWORK_ID || null
+    searchParams.get('netId') || process.env.VITE_DEFAULT_NETWORK_ID || null
   );
   const setCurrentNetworkId = (netId: string | null): void => {
     currentNetworkId !== netId && setStateCurrentNetworkId(netId);

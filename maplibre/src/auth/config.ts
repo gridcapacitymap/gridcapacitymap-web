@@ -6,8 +6,9 @@ Oidc.Log.setLogger(console);
 Oidc.Log.setLevel(Oidc.Log.DEBUG);
 
 export const oidcConfig: AuthProviderProps = {
-  authority: import.meta.env.VITE_OIDC_AUTHORITY,
-  client_id: import.meta.env.VITE_OIDC_CLIENT_ID,
+  authority:
+    process.env.VITE_OIDC_AUTHORITY || 'http://localhost:8180/realms/aad',
+  client_id: process.env.VITE_OIDC_CLIENT_ID || 'api-frontend',
   redirect_uri: window.location.href,
   post_logout_redirect_uri: window.location.origin,
   automaticSilentRenew: true,

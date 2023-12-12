@@ -34,6 +34,7 @@
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
     "@types/jest": "^29.5.8",
+    "@types/node": "^20.9.4",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/react-test-renderer": "^18.0.6",
