@@ -3,7 +3,7 @@ import {
   ConnectionEnergyKindEnum,
   ConnectionRequestApiSchema,
 } from '../client';
-import { ConnectionWarnings } from './interfaces';
+import { AnyObject, ConnectionWarnings } from './interfaces';
 
 enum BusTypeEnum {
   'UNKNOWN' = 'UNKNOWN',
@@ -55,7 +55,7 @@ const supportedEnergyKindsByBysTypes: Record<
 };
 
 export const checkBusTypeSupportsConReqEnergyKind = (
-  busProperties: Record<string, any>,
+  busProperties: AnyObject,
   connectionRequest: ConnectionRequestApiSchema,
   throwConsoleWarnings = true
 ): boolean => {
@@ -88,7 +88,7 @@ export const checkBusTypeSupportsConReqEnergyKind = (
 export const checkConnectionRequestForWarnings = (
   connectionRequest: ConnectionRequestApiSchema,
   connectivityBusHeadroom: BusHeadroomSchema_Output | undefined,
-  connectivityBusProperties: Record<string, any> | undefined,
+  connectivityBusProperties: AnyObject | undefined,
   knownWarnings: Record<string, ConnectionWarnings>,
   throwConsoleWarnings = true
 ): ConnectionWarnings => {

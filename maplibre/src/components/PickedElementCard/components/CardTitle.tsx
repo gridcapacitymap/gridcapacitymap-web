@@ -35,10 +35,11 @@ export const CardTitle: FC<Props> = ({ warnings }) => {
   }, [mainContext.pickedElement]);
 
   const onCheckboxChange = (e: CheckboxChangeEvent) => {
-    if (e.target.checked && mainContext.pickedElement?.properties) {
+    const selectedProperties = mainContext.pickedElement?.properties;
+    if (e.target.checked && selectedProperties) {
       mainContext.setSelectedConnectionRequestsUnified((prev) => [
         ...prev,
-        mainContext.pickedElement!.properties as ConnectionRequestApiSchema,
+        selectedProperties as ConnectionRequestApiSchema,
       ]);
     } else if (!e.target.checked && mainContext.pickedElement?.properties) {
       mainContext.setSelectedConnectionRequestsUnified((prev) =>

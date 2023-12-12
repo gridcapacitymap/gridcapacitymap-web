@@ -186,11 +186,17 @@ export const ConnectionsTable: FC = () => {
   };
 
   useEffect(
-    () => fetchConnectionRequests(),
+    () => {
+      fetchConnectionRequests();
+    },
+    // TODO: change refetching data logic
+    // now pagination resets in "fetchConnectionRequests"
+    // below commented deps don't call rerender
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       mainContext.currentNetworkId,
-      pagination.current,
-      pagination.pageSize,
+      // pagination.current,
+      // pagination.pageSize,
       filters,
     ]
   );

@@ -259,8 +259,12 @@ export const SelectableConnectionsTree: FC<Prop> = ({
       checkStrictly
       selectable={false}
       checkedKeys={{ checked: checkedIds, halfChecked: halfCheckedIds }}
-      onCheck={(checkedKeys: any) => {
-        checkedKeys?.checked && onCheck(checkedKeys.checked);
+      onCheck={(checkedKeys) => {
+        if (Array.isArray(checkedKeys)) {
+          onCheck(checkedKeys as string[]);
+        } else {
+          checkedKeys.checked && onCheck(checkedKeys.checked as string[]);
+        }
       }}
     />
   );

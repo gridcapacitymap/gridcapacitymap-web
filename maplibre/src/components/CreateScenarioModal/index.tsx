@@ -26,6 +26,10 @@ export const CreateScenarioModal: FC = () => {
           ) as string[]
       )
       .flat();
+    // "mainContext.selectedConnectionRequestsUnified" it is not necessary dependency
+    // because effect need to wait new "mainContext.connectionRequestWarnings"
+    // that changes later than selection
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContext.connectionRequestWarnings]);
 
   useEffect(() => {
@@ -92,6 +96,9 @@ export const CreateScenarioModal: FC = () => {
     } else {
       setDisabled(false);
     }
+
+    // "mainContext.currentScenarioConnectionRequestsUnified.length" useless as deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContext.selectedConnectionRequestsUnified]);
 
   return (

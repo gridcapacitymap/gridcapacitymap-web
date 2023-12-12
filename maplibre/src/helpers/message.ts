@@ -1,13 +1,10 @@
 import { message } from 'antd';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getErrorMessageFromError = (e: any): string => {
   if (typeof e === 'string') {
     return e;
   }
-
-  // e.details
-  // status 0 - no network
-  // id json in res -
 
   let message =
     e?.response?.data?.message ||
@@ -30,7 +27,8 @@ export enum EnumMessageType {
   loading = 'loading',
 }
 
-type IShowMessage = (type: keyof typeof EnumMessageType, text: any) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type IShowMessage = (type: keyof typeof EnumMessageType, content: any) => void;
 
 export const showMessage: IShowMessage = (type, content) => {
   if (type === EnumMessageType.error) {

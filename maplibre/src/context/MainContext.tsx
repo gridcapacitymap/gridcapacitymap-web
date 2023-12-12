@@ -305,26 +305,38 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   // map.getSource() returns type without .setData() property but it used in documentation
   // https://maplibre.org/maplibre-gl-js-docs/api/sources/#geojsonsource#setdata
+  const setDataToMapSource = (
+    sourceId: ISourcesIdsEnum,
+    data: IAnyGeojsonSource['data']
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (map?.getSource(sourceId) as any)?.setData(data);
+  };
+
   useEffect(() => {
-    (
-      map?.getSource(ISourcesIdsEnum.connectionRequestsSourceId) as any
-    )?.setData(connectionRequestGeoSource.data);
+    setDataToMapSource(
+      ISourcesIdsEnum.connectionRequestsSourceId,
+      connectionRequestGeoSource.data
+    );
   }, [map, connectionRequestGeoSource]);
 
   useEffect(() => {
-    (
-      map?.getSource(ISourcesIdsEnum.scenarioConnectionsLinesSourceId) as any
-    )?.setData(scenarioConnectionsLinesGeoSource.data);
+    setDataToMapSource(
+      ISourcesIdsEnum.scenarioConnectionsLinesSourceId,
+      scenarioConnectionsLinesGeoSource.data
+    );
   }, [map, scenarioConnectionsLinesGeoSource]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.branchesSourceId) as any)?.setData(
+    setDataToMapSource(
+      ISourcesIdsEnum.branchesSourceId,
       addColorToBranchesFeaturesProperties(branchesGeoSource.data, headroom)
     );
   }, [map, branchesGeoSource, headroom]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.trafosSourceId) as any)?.setData(
+    setDataToMapSource(
+      ISourcesIdsEnum.trafosSourceId,
       addColorToBranchesFeaturesProperties(
         trafoBranchesGeoSource.data,
         headroom
@@ -333,7 +345,8 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [map, trafoBranchesGeoSource, headroom]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.busesSourceId) as any)?.setData(
+    setDataToMapSource(
+      ISourcesIdsEnum.busesSourceId,
       addColorToBusesFeaturesProperties(busesGeoSource.data, headroom)
     );
   }, [map, busesGeoSource, headroom]);
@@ -345,7 +358,8 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [selectedConnectionRequestsUnified]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.connectionRequestsDensity) as any)?.setData(
+    setDataToMapSource(
+      ISourcesIdsEnum.connectionRequestsDensity,
       connectionsDensitySource.data
     );
   }, [map, connectionsDensitySource]);
@@ -368,7 +382,8 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [pickedHexagonCoordinates]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.hexagonsConnectionRequest) as any)?.setData(
+    setDataToMapSource(
+      ISourcesIdsEnum.hexagonsConnectionRequest,
       convertSelectedConnectionsToGeoSource(
         Object.values(hexagonsConnectionRequests)
           .flat()

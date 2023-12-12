@@ -144,8 +144,9 @@ export const ScenariosTab: FC = () => {
         onlyAffectedBuses,
       });
       showMessage('loading', `Scenario "${scenario.name}" is calculating...`);
+      // eslint-disable-next-line
     } catch (e: any) {
-      if ((e as any).status === 409) {
+      if (e.status === 409) {
         showMessage('error', e.body.detail);
       } else {
         showMessage('error', e);
@@ -236,10 +237,15 @@ export const ScenariosTab: FC = () => {
     if (!mainContext.currentNetworkId) return;
     setLoading(true);
 
+    const offset =
+      pagination.pageSize && pagination.current
+        ? pagination.pageSize * (pagination.current - 1)
+        : 0;
+
     ScenariosService.listConnectionScenarios({
       netId: mainContext.currentNetworkId,
       limit: pagination.pageSize,
-      offset: pagination.pageSize! * (pagination.current! - 1),
+      offset,
     })
       .then((res) => {
         setConnectionScenariosList(res.items);
@@ -249,7 +255,7 @@ export const ScenariosTab: FC = () => {
       .finally(() => setLoading(false));
   }
 
-  function handleTableChange(pagination: TablePaginationConfig, filters: any) {
+  function handleTableChange(pagination: TablePaginationConfig) {
     setPagination((prev) => ({ ...prev, ...pagination }));
   }
 

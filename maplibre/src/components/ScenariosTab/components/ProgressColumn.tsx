@@ -15,12 +15,17 @@ export const ProgressColumn: FC<Props> = ({ record, progressData = null }) => {
   const percent: number = Number.isFinite(progressData?.progress)
     ? progressData?.progress || 0
     : 0;
-  const status: any = progressData?.state || record.solver_status;
+  const status: string | null | undefined =
+    progressData?.state || record.solver_status;
 
-  const isReady = [
-    ScenarioCalculationStatusEnum.SUCCESS,
-    ScenarioCalculationStatusEnum.FAILURE,
-  ].includes(status);
+  const isReady =
+    status &&
+    (
+      [
+        ScenarioCalculationStatusEnum.SUCCESS,
+        ScenarioCalculationStatusEnum.FAILURE,
+      ] as string[]
+    ).includes(status);
 
   if (status && !isReady && percent < 100) {
     return <Progress percent={percent} />;

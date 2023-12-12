@@ -44,7 +44,7 @@ export const NetworkSettingModal: FC = () => {
         .then(() => {
           NetworksService.listNetworks()
             .then(mainContext.setNetworks)
-            .catch((e) => showMessage('error', 'e'));
+            .catch((e) => showMessage('error', e));
         })
         .catch((e) => showMessage('error', e));
     } else {
@@ -78,6 +78,9 @@ export const NetworkSettingModal: FC = () => {
       onCancel();
       setDisabled(true);
     }
+
+    // "resetFields" and "onCancel" are useless as deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContext.networks, mainContext.currentNetworkId]);
 
   return (

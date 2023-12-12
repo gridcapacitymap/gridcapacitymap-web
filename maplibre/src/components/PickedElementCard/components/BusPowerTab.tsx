@@ -72,6 +72,10 @@ export const BusPowerTab: FC<Props> = ({
           )
       );
     }
+
+    // "mainContext.currentScenarioConnectionRequestsUnified" is useless deps
+    // it changes on selectedConnectionRequestsUnified changing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pickedElement, mainContext.selectedConnectionRequestsUnified]);
 
   useEffect(() => {

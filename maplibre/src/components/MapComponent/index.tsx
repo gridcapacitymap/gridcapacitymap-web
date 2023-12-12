@@ -129,13 +129,9 @@ export const MapComponent: FC = () => {
             }
           });
 
-          map.on(
-            'mouseenter',
-            layer.id,
-            (event: maplibregl.MapLayerMouseEvent) => {
-              map.getCanvas().style.cursor = 'pointer';
-            }
-          );
+          map.on('mouseenter', layer.id, () => {
+            map.getCanvas().style.cursor = 'pointer';
+          });
 
           map.on('mouseleave', layer.id, () => {
             map.getCanvas().style.cursor = '';
@@ -143,12 +139,18 @@ export const MapComponent: FC = () => {
         });
 
       map.on('click', 'connection_requests_hexagonal_heatmap', (e) => {
-        const hexagonCoordinates = (e.features?.[0].geometry as any)
-          .coordinates[0] as [number, number][];
-        hexagonCoordinates &&
-          mainContext.setPickedHexagonCoordinates(hexagonCoordinates);
+        const geom = e.features?.[0].geometry;
+        if (geom && 'coordinates' in geom && geom.coordinates) {
+          const hexagonCoordinates = geom.coordinates[0];
+          mainContext.setPickedHexagonCoordinates(
+            hexagonCoordinates as [number, number][]
+          );
+        }
       });
     }
+
+    // "layersSpecificationList" is data from json so useless as deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContext.map]);
 
   return (

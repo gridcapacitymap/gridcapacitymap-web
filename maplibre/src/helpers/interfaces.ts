@@ -5,11 +5,10 @@ import { Key } from 'react';
 
 export type SetState<T> = Dispatch<SetStateAction<T>>;
 
-export interface ISomeObject {
-  [key: string]: any;
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AnyObject = Record<string, any>;
 
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ColumnWithKeyType<T = any> = ColumnType<T> & { key: Key };
 
 export type ConnectionWarnings = {
@@ -87,7 +86,7 @@ export enum PickedElementTypeEnum {
 
 export interface IPickedElement {
   type: keyof typeof PickedElementTypeEnum;
-  properties: Record<string, any>;
+  properties: AnyObject;
 }
 
 export enum ScenarioCalculationStatusEnum {

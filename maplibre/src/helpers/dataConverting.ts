@@ -1,4 +1,4 @@
-import { IAnyGeojsonSource, ISomeObject } from './interfaces';
+import { AnyObject, IAnyGeojsonSource } from './interfaces';
 import { DataNode } from 'antd/es/tree';
 import {
   BusHeadroomSchema_Output,
@@ -37,7 +37,7 @@ export const convertSelectedConnectionsToGeoSource = (
 });
 
 export const propertiesToTreeData = (
-  properties: ISomeObject,
+  properties: AnyObject,
   fullKey?: string
 ): DataNode[] => {
   return Object.keys(properties).map((key) => {
@@ -108,15 +108,14 @@ export const addColorToBranchesFeaturesProperties = (
       const branchHasLimitingFactor = headrooms.filter(
         (headroom) =>
           (headroom.load_lf &&
-            (headroom.load_lf.ss as unknown as Record<string, any>)
-              ?.from_number == feature.properties.from_bus.number &&
-            (headroom.load_lf.ss as unknown as Record<string, any>)
-              ?.to_number == feature.properties.to_bus.number) ||
+            headroom.load_lf.ss?.from_number ==
+              feature.properties.from_bus?.number &&
+            headroom.load_lf.ss?.to_number ==
+              feature.properties.to_bus?.number) ||
           (headroom.gen_lf &&
-            (headroom.gen_lf.ss as unknown as Record<string, any>)
-              ?.from_number == feature.properties.from_bus.number &&
-            (headroom.gen_lf.ss as unknown as Record<string, any>)?.to_number ==
-              feature.properties.to_bus.number)
+            headroom.gen_lf.ss?.from_number ==
+              feature.properties.from_bus?.number &&
+            headroom.gen_lf.ss?.to_number == feature.properties.to_bus?.number)
       );
       const color =
         (headrooms.length &&
@@ -143,9 +142,7 @@ export const addColorToBranchesFeaturesProperties = (
   };
 };
 
-export const parseFeaturesProperties = (
-  properties: Partial<Record<string, any>>
-): Partial<Record<string, any>> => {
+export const parseFeaturesProperties = (properties: AnyObject): AnyObject => {
   return Object.keys(properties).reduce((parsedProperties, key) => {
     try {
       JSON.parse(properties[key]);
