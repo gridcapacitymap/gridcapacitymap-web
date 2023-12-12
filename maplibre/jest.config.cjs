@@ -3,12 +3,6 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   transform: {
-    '\\.[jt]sx?$': [
-      'ts-jest',
-      {
-        tsconfig: './src/tests/tsconfig.json',
-      },
-    ],
+    '^.+\\.test.ts$': 'ts-jest',
   },
-  modulePaths: ['./src'],
 };
