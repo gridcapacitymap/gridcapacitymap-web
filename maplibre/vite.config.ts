@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+const baseURL = process.env.BACKEND_API_URL || 'http://gridmap_backend:8000';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -9,19 +11,19 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api/ws': {
-        target: 'ws://backend:8000',
+        target: baseURL.replace('http://', 'ws://'),
         ws: true,
       },
       '/api': {
-        target: 'http://backend:8000',
+        target: baseURL,
         changeOrigin: true,
       },
       '/docs': {
-        target: 'http://backend:8000',
+        target: baseURL,
         changeOrigin: true,
       },
       '/openapi.json': {
-        target: 'http://backend:8000',
+        target: baseURL,
         changeOrigin: true,
       },
     },

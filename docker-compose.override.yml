@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  maplibre:
+  gridmap_maplibre:
     image: node:18
     restart: on-failure
     working_dir: /app
@@ -10,14 +10,14 @@ services:
     volumes:
       - ./maplibre:/app:z
     environment:
-      - BACKEND_API_URL=http://backend:8000
+      - BACKEND_API_URL=http://gridmap_backend:8000
       - VITE_DEFAULT_NETWORK_ID=5b3ed0c7-20d3-45fe-8c3b-84acb64750d3
       - VITE_OIDC_AUTHORITY=http://localhost:8180/realms/aad
       - VITE_OIDC_CLIENT_ID=api-frontend # public client
     ports:
       - "3000:3000"
 
-  backend:
+  gridmap_backend:
     image: python:3.10-slim
     working_dir: /app
     command: bash -c '/app/bin/startdebug'
