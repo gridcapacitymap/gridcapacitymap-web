@@ -27,7 +27,7 @@ class AdminGeo(CamelModel):
 
 
 class ConnectivityNode(CamelModel):
-    id: Union[str, int]
+    id: Union[str, int, None]
 
 
 class Employee(CamelModel):

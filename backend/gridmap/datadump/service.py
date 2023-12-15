@@ -2,7 +2,9 @@ import logging
 import uuid
 from typing import List, Optional, Union
 
-from sqlalchemy import delete, select
+from geoalchemy2 import functions as func
+from geoalchemy2.types import Geography, Geometry
+from sqlalchemy import Float, asc, cast, delete, desc, select
 from sqlalchemy.orm import joinedload
 
 from ..connections.models import (
@@ -94,12 +96,23 @@ class DataDumpService:
             ),
         )
 
-    async def import_unified(self, net_id: uuid.UUID, model: ConnectionsUnifiedSchema):
+    async def import_unified(
+        self,
+        net_id: uuid.UUID,
+        model: ConnectionsUnifiedSchema,
+        max_bus_distance: Optional[int] = None,
+    ):
+        net = (
+            await self.session.execute(
+                select(Network).where(
+                    Network.id == net_id,
+                )
+            )
+        ).scalar_one()
+
         # remove network scenarios except default ones
         stmt = delete(ConnectionScenario).where(
-            ConnectionScenario.id.not_in(
-                select(Network.default_scenario_id).scalar_subquery()
-            ),
+            ConnectionScenario.id != net.default_scenario_id,
             ConnectionScenario.net_id == net_id,
         )
         r = await self.session.execute(stmt)
@@ -112,6 +125,7 @@ class DataDumpService:
             delete(ConnectionRequest).where(ConnectionRequest.bus_id.in_(net_buses_sq))
         )
         logging.info(f"deleting {r.rowcount} connection requests in network {net_id}")
+
         await self.session.flush()
 
         for i, x in enumerate(model.gridConnectionRequestList.gridConnectionRequest):
@@ -133,13 +147,52 @@ class DataDumpService:
                 self.session, User, full_name=x.gridAnalyst.fullName
             )
 
-            c.bus = (
-                await self.session.execute(
-                    select(Bus).where(
-                        Bus.number == x.connectivityNode.id, Bus.net_id == net_id
+            if x.connectivityNode.id:
+                c.bus = (
+                    await self.session.execute(
+                        select(Bus).where(
+                            Bus.number == x.connectivityNode.id, Bus.net_id == net_id
+                        )
                     )
+                ).scalar_one()
+            elif max_bus_distance and x.extra and x.extra.wsg84lon and x.extra.wsg84lat:
+                distance = (
+                    func.ST_GeogFromWKB(Bus.geom)
+                    .distance_centroid(
+                        func.ST_GeogFromWKB(
+                            func.ST_MakePoint(x.extra.wsg84lon, x.extra.wsg84lat)
+                        )
+                    )
+                    .cast(Float)
+                    .label("distance")
                 )
-            ).scalar_one()
+                stmt = (
+                    select(
+                        Bus,
+                        distance,
+                    )
+                    .where(Bus.net_id == net_id)
+                    .order_by(distance)
+                )
+                row = (await self.session.execute(stmt)).first()
+
+                if row:
+                    (bus, distance) = row
+                    if distance and distance <= max_bus_distance:
+                        c.bus = bus
+                        logging.info(
+                            f"Connection {x.id} is auto-traced to closest bus {c.bus} at distance {distance}m"
+                        )
+                    elif distance:
+                        logging.error(
+                            f"Closest bus {c.bus} is beyond threshold distance of {max_bus_distance}m"
+                        )
+
+            if not c.bus:
+                logging.error(
+                    f"Failed to find connectivityNode for connection {x.id}. Droppping connection request"
+                )
+                continue
 
             c.org = await get_or_create(
                 self.session, Organization, **x.organization.model_dump()

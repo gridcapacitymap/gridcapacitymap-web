@@ -5,7 +5,7 @@ from sqlalchemy import func, select
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import joinedload
 
-from ..connections.models import ConnectionEnergyKindEnum
+from ..connections.models import ConnectionEnergyKindEnum, User
 from ..database.dependencies import DatabaseSession
 from ..headroom.schemas import GridCapacityConfig
 from ..schemas.paginated import PaginatedResponse
@@ -17,11 +17,12 @@ class ConnectionScenarioService:
     def __init__(self, session: DatabaseSession):
         self.session = session
 
-    async def paginate(
+    async def filter(
         self,
         limit: int,
         offset: int,
         net_id: Union[uuid.UUID, None],
+        author: Union[str, None],
     ):
         connections_count_sq = (
             select(
@@ -47,8 +48,12 @@ class ConnectionScenarioService:
             .options(joinedload(ConnectionScenario.author))
             .options(joinedload(ConnectionScenario.net))
         )
+
         if net_id:
             q = q.filter(ConnectionScenario.net_id == net_id)
+
+        if author:
+            q = q.join(ConnectionScenario.author).filter(User.full_name == author)
 
         result = await self.session.execute(
             q.order_by(ConnectionScenario.created_at).limit(limit).offset(offset)

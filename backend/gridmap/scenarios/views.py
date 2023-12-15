@@ -44,9 +44,11 @@ async def list_connection_scenarios(
     net_id: uuid.UUID,
     service: ConnectionScenarioServiceAnnotated,
     q: PaginationQueryParams = Depends(),
+    author_full_name: str = Query(default=""),
 ):
-    return await service.paginate(
+    return await service.filter(
         net_id=net_id,
+        author=author_full_name,
         limit=q.limit,
         offset=q.offset,
     )
