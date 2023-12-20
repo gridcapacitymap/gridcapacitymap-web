@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from sqlalchemy import and_, delete, or_, select, text
 from sqlalchemy.exc import NoResultFound
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import contains_eager, joinedload
 
 from ..database.dependencies import DatabaseSession
 from ..headroom.models import BusHeadroom
@@ -37,8 +37,15 @@ class NetworkSubsystemsService:
         if scenario_id:
             stmt = (
                 select(Bus)
-                .options(joinedload(Bus.headrooms))
-                .filter(Bus.net_id == net_id, BusHeadroom.scenario_id == scenario_id)
+                .join(
+                    BusHeadroom,
+                    and_(
+                        BusHeadroom.bus_id == Bus.id,
+                        BusHeadroom.scenario_id == scenario_id,
+                    ),
+                )
+                .options(contains_eager(Bus.headrooms))
+                .filter(Bus.net_id == net_id)
             )
 
         items = (await self.session.scalars(stmt)).unique()
