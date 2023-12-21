@@ -32,6 +32,8 @@ class GeometryJSON(Geometry):
     as_binary = "ST_AsGeoJSON"
     ElementType = dict
 
+    cache_ok = False
+
     def result_processor(self, dialect, coltype):
         # Postgres will give us JSON, thanks to `ST_AsGeoJSON()`. We just return it.
         def process(value):

@@ -1,6 +1,8 @@
 import logging
 import math
 import random
+import sys
+from math import atan2, cos, radians, sin, sqrt
 from typing import Dict, List, Tuple, Union
 
 from sweref99 import projections
@@ -60,6 +62,30 @@ def point_in_circle(coord: Tuple[float, float], distance: int):
     rnd = random.random()
     random_dist = round(math.pow(rnd, 0.5) * distance)
     return point_at_distance(coord, random_dist)
+
+
+# measure distance between two points in meters
+# https://stackoverflow.com/a/19412565
+def get_distance(latlon1: Tuple[float, float], latlon2: Tuple[float, float]):
+    if not latlon1 or not latlon2:
+        return sys.maxsize
+
+    lat1, lon1 = radians(latlon1[0]), radians(latlon1[1])
+    lat2, lon2 = radians(latlon2[0]), radians(latlon2[1])
+    # lat1 = radians(59.305826)
+    # lon1 = radians(18.027708)
+
+    # lat2 = radians(64.1339512)
+    # lon2 = radians(-21.913768)
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    distance = EARTH_RADIUS * c
+    return distance
 
 
 def mock_connection_coords(

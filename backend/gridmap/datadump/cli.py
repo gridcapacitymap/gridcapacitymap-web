@@ -20,7 +20,7 @@ from ..networks.schemas import (
 from ..networks.service import NetworkSubsystemsService
 from .helpers import mock_connection_coords
 from .schemas import ConnectionsUnifiedSchema
-from .service import DataDumpService
+from .service_imports import DataImportService
 from .xlsx_importer import ConnectionRequestsImporter
 
 
@@ -90,7 +90,7 @@ async def import_connection_requests(
     basedir: str,
     net_id: str,
     metadata: NetworkMetadataImport,
-    datadump_service: DataDumpService,
+    datadump_service: DataImportService,
 ):
     distance = metadata.connectionRequests.fake_coords_distance
     xlsx_path = os.path.join(basedir, metadata.connectionRequests.xlsx)
@@ -129,7 +129,7 @@ async def process(data_path: str, sess: AsyncSession):
     directories = [str(entry) for entry in Path(data_path).iterdir() if entry.is_dir()]
 
     net_service = NetworkSubsystemsService(sess)
-    datadump_service = DataDumpService(sess)
+    datadump_service = DataImportService(sess)
 
     for p in directories:
         try:

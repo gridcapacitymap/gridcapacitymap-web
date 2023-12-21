@@ -1,7 +1,7 @@
 import datetime
 import logging
 import uuid
-from typing import Annotated, Union
+from typing import Annotated, List, Union
 
 from celery import states
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
@@ -45,10 +45,14 @@ async def list_connection_scenarios(
     service: ConnectionScenarioServiceAnnotated,
     q: PaginationQueryParams = Depends(),
     author_full_name: str = Query(default=""),
+    solver_status: List[str] = Query(
+        default=[], example=["PENDING", "STARTED", "PROGRESS", "SUCCESS", "FAILURE"]
+    ),
 ):
     return await service.filter(
         net_id=net_id,
         author=author_full_name,
+        solver_status=solver_status,
         limit=q.limit,
         offset=q.offset,
     )

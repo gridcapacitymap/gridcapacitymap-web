@@ -1,9 +1,9 @@
 import uuid
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Tuple, Union
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import NoResultFound
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import contains_eager, joinedload
 
 from ..connections.models import ConnectionEnergyKindEnum, User
 from ..database.dependencies import DatabaseSession
@@ -22,7 +22,8 @@ class ConnectionScenarioService:
         limit: int,
         offset: int,
         net_id: Union[uuid.UUID, None],
-        author: Union[str, None],
+        author: Union[str, None] = None,
+        solver_status: Union[List[str], None] = None,
     ):
         connections_count_sq = (
             select(
@@ -45,15 +46,20 @@ class ConnectionScenarioService:
                 connections_count_sq.c.scenario_id == ConnectionScenario.id,
                 isouter=True,
             )
-            .options(joinedload(ConnectionScenario.author))
-            .options(joinedload(ConnectionScenario.net))
+            .join(ConnectionScenario.author)
+            .options(contains_eager(ConnectionScenario.author))
+            .join(ConnectionScenario.net)
+            .options(contains_eager(ConnectionScenario.net))
         )
 
         if net_id:
             q = q.filter(ConnectionScenario.net_id == net_id)
 
         if author:
-            q = q.join(ConnectionScenario.author).filter(User.full_name == author)
+            q = q.filter(User.full_name == author)
+
+        if solver_status:
+            q = q.filter(ConnectionScenario.solver_task_status.in_(solver_status))
 
         result = await self.session.execute(
             q.order_by(ConnectionScenario.created_at).limit(limit).offset(offset)

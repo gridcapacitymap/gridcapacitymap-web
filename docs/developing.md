@@ -13,19 +13,19 @@ Vscode is recommended as IDE. It's config files are located in `.vscode` dir and
 Detect model changes and allow alembic to generate corresponding migration
 
 ```
-docker-compose exec backend bash -c 'alembic revision --autogenerate -m "My auto migration"'
+docker-compose exec gridmap_backend bash -c 'alembic revision --autogenerate -m "My auto migration"'
 ```
 
 Upgrade database to latest migration (manually)
 
 ```
-docker-compose exec backend bash -c 'alembic upgrade head'
+docker-compose exec gridmap_backend bash -c 'alembic upgrade head'
 ```
 
 Downgrade to previous db revision
 
 ```
-docker-compose exec backend bash -c 'alembic downgrade -1'
+docker-compose exec gridmap_backend bash -c 'alembic downgrade -1'
 ```
 
 ## Purge development environment

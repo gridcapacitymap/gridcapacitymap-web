@@ -88,7 +88,7 @@ class Milestone(Base):
     datetime: Mapped[timestamp]
 
     connection_request_id: Mapped[UUID] = mapped_column(
-        ForeignKey("connection_requests.id", ondelete="CASCADE")
+        ForeignKey("connection_requests.id", ondelete="CASCADE"), index=True
     )
     connection_request: Mapped["ConnectionRequest"] = relationship(
         "ConnectionRequest", lazy="raise", cascade="all", back_populates="milestone"
