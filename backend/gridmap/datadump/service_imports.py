@@ -7,6 +7,7 @@ import uuid
 from functools import cache
 from typing import Optional
 
+from celery import states
 from sqlalchemy import delete, select
 from sqlalchemy.orm import load_only, raiseload
 
@@ -22,6 +23,7 @@ from ..database.dependencies import DatabaseSession
 from ..database.helpers import get_or_create
 from ..networks.models import Bus, Network
 from ..scenarios.models import ConnectionScenario
+from ..tasks.celeryapp import celery
 from .helpers import get_distance
 from .schemas import ConnectionsUnifiedSchema
 
@@ -61,24 +63,42 @@ class DataImportService:
         self.logger = logging.getLogger(self.__class__.__qualname__)
 
     async def _purge_connections(self, net: Network):
-        # remove network scenarios except default ones
-        stmt = delete(ConnectionScenario).where(
-            ConnectionScenario.id != net.default_scenario_id,
-            ConnectionScenario.net_id == net.id,
+        # purge pending celery tasks before replacing network scenarios
+        pending_scenarios = await self.session.scalars(
+            select(ConnectionScenario)
+            .where(
+                # ConnectionScenario.net_id == net.id,
+                ConnectionScenario.solver_task_id != None,
+                ConnectionScenario.solver_task_status.not_in(states.READY_STATES),
+            )
+            .options(
+                load_only(ConnectionScenario.id, ConnectionScenario.solver_task_id)
+            )
         )
-        r = await self.session.execute(stmt)
-        self.logger.info(f"deleting {r.rowcount} scenarios in network {net.id}")
+        for s in pending_scenarios:
+            self.logger.info(
+                f"Revoking solver_task_id={s.solver_task_id} for scenario_id={s.id}"
+            )
+            celery.control.revoke(s.solver_task_id, terminate=True)
 
-        buses_subquery = select(Bus.id).where(Bus.net_id == net.id)
+        # remove scenarios except default one
+        r = await self.session.execute(
+            delete(ConnectionScenario).where(
+                ConnectionScenario.id != net.default_scenario_id,
+                ConnectionScenario.net_id == net.id,
+            )
+        )
+        self.logger.info(f"deleting {r.rowcount} scenarios in network {net.id}")
 
         r = await self.session.execute(
             delete(ConnectionRequest).where(
-                ConnectionRequest.bus_id.in_(buses_subquery)
+                ConnectionRequest.bus_id.in_(select(Bus.id).where(Bus.net_id == net.id))
             )
         )
         self.logger.info(
             f"deleting {r.rowcount} connection requests in network {net.id}"
         )
+
         await self.session.flush()
 
     async def import_unified(
@@ -130,7 +150,6 @@ class DataImportService:
                 distances = [
                     (b, get_distance(latlon, (x.extra.wsg84lat, x.extra.wsg84lon)))
                     for (b, latlon) in buses_coords
-                    if b.geom
                 ]
                 if distances:
                     (bus, distance) = min(distances, key=lambda x: x[1])

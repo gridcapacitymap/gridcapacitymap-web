@@ -20,6 +20,7 @@ export const ProgressColumn: FC<Props> = ({ record, progressData = null }) => {
   const isReady = [
     ScenarioCalculationStatusEnum.SUCCESS,
     ScenarioCalculationStatusEnum.FAILURE,
+    ScenarioCalculationStatusEnum.REVOKED,
   ].includes(status);
 
   if (status && !isReady && percent < 100) {

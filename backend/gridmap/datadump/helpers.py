@@ -72,11 +72,6 @@ def get_distance(latlon1: Tuple[float, float], latlon2: Tuple[float, float]):
 
     lat1, lon1 = radians(latlon1[0]), radians(latlon1[1])
     lat2, lon2 = radians(latlon2[0]), radians(latlon2[1])
-    # lat1 = radians(59.305826)
-    # lon1 = radians(18.027708)
-
-    # lat2 = radians(64.1339512)
-    # lon2 = radians(-21.913768)
 
     dlon = lon2 - lon1
     dlat = lat2 - lat1

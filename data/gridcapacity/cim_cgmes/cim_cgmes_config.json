@@ -1,9 +1,9 @@
 {
   "case_name": "cim_cgmes.json",
-  "upper_load_limit_p_mw": 750.0,
-  "upper_gen_limit_p_mw": 750.0,
-  "load_power_factor": 0.9,
-  "gen_power_factor": 0.9,
+  "upper_load_limit_p_mw": 500.0,
+  "upper_gen_limit_p_mw": 500.0,
+  "load_power_factor": 0.2,
+  "gen_power_factor": 0.2,
   "headroom_tolerance_p_mw": 10,
   "max_iterations": 10,
   "contingency_scenario": { "branches": [], "trafos": [] },

@@ -98,7 +98,9 @@ def run_solver(self, data: str, only_affected_buses: bool = False):
         x.scenario_id = scenario_id
         self.update_state(state=PROGRESS, meta=x.dict(exclude_none=True))
         logging.info(
-            "progress={progress}%, powerflow_count={powerflows}".format(**x.dict())
+            "scenario_id={scenario_id} progress={progress}%, powerflow_count={powerflows}".format(
+                **x.dict()
+            )
         )
 
     logging.info(

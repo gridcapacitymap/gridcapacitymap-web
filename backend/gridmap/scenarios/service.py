@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Tuple, Union
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import NoResultFound
-from sqlalchemy.orm import contains_eager, joinedload
+from sqlalchemy.orm import contains_eager, joinedload, raiseload
 
 from ..connections.models import ConnectionEnergyKindEnum, User
 from ..database.dependencies import DatabaseSession
@@ -76,6 +76,18 @@ class ConnectionScenarioService:
             items.append(x)
 
         return PaginatedResponse[ScenarioBaseApiSchema](count=count or 0, items=items)
+
+    async def find_scenario_by_id(self, scenario_id: uuid.UUID):
+        scenario = await self.session.scalar(
+            select(ConnectionScenario)
+            .filter(ConnectionScenario.id == scenario_id)
+            .options(raiseload("*"))
+        )
+
+        if not scenario:
+            raise NoResultFound
+
+        return scenario
 
     async def find_scenario_details(
         self, scenario_id: uuid.UUID, net_id: uuid.UUID
