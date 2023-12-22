@@ -2,6 +2,7 @@ import uuid
 from dataclasses import dataclass
 from typing import Annotated, List, Optional
 
+import h3
 from fastapi import APIRouter, Depends, Query, status
 from fastapi.exceptions import HTTPException
 from pydantic import constr
@@ -41,15 +42,11 @@ class ConnectionListQuery(ConnectionFilterParams):
     power_increase_gt: Optional[int] = Query(0, gte=0)
     power_increase_lt: Optional[int] = Query(1000, gt=0)
 
-    area: List[LatLon] = Query(  # type: ignore
-        [],
-        max_length=20,
-        example=[
-            "-1.159660806906362,51.42506179933491",
-            "0.21760569231242177,52.16253094685542",
-            "0.6566671601841811,51.04017293392164",
-        ],
-        description="Coordinates (longitude, latitude) marking a polygon",
+    h3id: str = Query(  # type: ignore
+        "",
+        max_length=15,
+        example="81197ffffffffff",
+        description="H3 index",
     )
 
 
@@ -72,10 +69,10 @@ async def get_connection_requests(
     filters: ConnectionListQuery = Depends(),
     cached=Depends(cached_json_response),
 ):
-    if filters.area and len(filters.area) < 3:
+    if filters.h3id and not h3.h3_is_valid(filters.h3id):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Minimum 3 points are required to describe area",
+            detail="Invalid H3 index in 'h3id' param",
         )
 
     (updated_at,) = (

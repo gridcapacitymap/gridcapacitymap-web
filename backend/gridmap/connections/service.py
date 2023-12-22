@@ -1,10 +1,9 @@
 import json
-import re
 import uuid
 from typing import List
 
 import h3
-from sqlalchemy import func, select, text
+from sqlalchemy import func, select
 
 from ..database.dependencies import DatabaseSession
 from ..networks.models import Bus
@@ -128,12 +127,9 @@ class ConnectionRequestService:
         if f.bus_id:
             stmt = stmt.filter(models.ConnectionRequest.bus_id.in_(f.bus_id))
 
-        if f.area:
-            wkt_points = [re.sub(r",\s*", " ", x) for x in f.area]
-            if wkt_points[-1] != wkt_points[0]:
-                wkt_points = wkt_points + wkt_points[0:1]
-            points = ", ".join(wkt_points)
-
+        if f.h3id:
+            bounds = h3.h3_to_geo_boundary(f.h3id, geo_json=True)
+            points = ", ".join(["{0} {1}".format(*latlon) for latlon in bounds])
             polygon = func.ST_GEOMFROMTEXT(f"SRID=4326;POLYGON(({points}))")
             stmt = stmt.filter(func.ST_Contains(polygon, models.ConnectionRequest.geom))
 

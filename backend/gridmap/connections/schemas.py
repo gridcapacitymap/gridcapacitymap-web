@@ -133,4 +133,4 @@ class ConnectionFilterParams:
     power_increase_gt: Optional[int]
     power_increase_lt: Optional[int]
 
-    area: List[str]
+    h3id: Optional[str] = None

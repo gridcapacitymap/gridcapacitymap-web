@@ -25,3 +25,10 @@ result_backend = settings.CELERY_RESULT_BACKEND
 task_track_started = True
 
 broker_connection_retry_on_startup = True
+
+# https://docs.celeryq.dev/en/latest/userguide/configuration.html#task-acks-late
+# https://stackoverflow.com/a/54705644
+# https://docs.celeryq.dev/en/latest/userguide/tasks.html#requests-and-custom-requests
+task_acks_late = True
+
+task_reject_on_worker_lost = True

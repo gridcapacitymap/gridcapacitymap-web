@@ -19,10 +19,14 @@ export class ScenariosService {
    */
   public static listConnectionScenarios({
     netId,
+    authorFullName = '',
+    solverStatus,
     limit = 100,
     offset,
   }: {
     netId: string;
+    authorFullName?: string;
+    solverStatus?: Array<string>;
     limit?: number;
     offset?: number;
   }): CancelablePromise<PaginatedResponse_ScenarioBaseApiSchema_> {
@@ -33,6 +37,8 @@ export class ScenariosService {
         net_id: netId,
       },
       query: {
+        author_full_name: authorFullName,
+        solver_status: solverStatus,
         limit: limit,
         offset: offset,
       },

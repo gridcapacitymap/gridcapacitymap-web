@@ -4,5 +4,5 @@
 /* eslint-disable */
 
 export type ConnectivityNode = {
-  id: string | number;
+  id: string | number | null;
 };

@@ -143,10 +143,10 @@ export const MapComponent: FC = () => {
         });
 
       map.on('click', 'connection_requests_hexagonal_heatmap', (e) => {
-        const hexagonCoordinates = (e.features?.[0].geometry as any)
-          .coordinates[0] as [number, number][];
-        hexagonCoordinates &&
-          mainContext.setPickedHexagonCoordinates(hexagonCoordinates);
+        const feat = e.features?.[0] as any;
+        if (feat?.properties?.id) {
+          mainContext.setPickedHexagonId(feat?.properties?.id);
+        }
       });
     }
   }, [mainContext.map]);
