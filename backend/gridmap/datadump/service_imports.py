@@ -7,8 +7,10 @@ import uuid
 from functools import cache
 from typing import Optional
 
+import h3
 from celery import states
-from sqlalchemy import delete, select
+from geoalchemy2 import functions as func
+from sqlalchemy import delete, select, text
 from sqlalchemy.orm import load_only, raiseload
 
 from ..connections.models import (
@@ -24,8 +26,10 @@ from ..database.helpers import get_or_create
 from ..networks.models import Bus, Network
 from ..scenarios.models import ConnectionScenario
 from ..tasks.celeryapp import celery
-from .helpers import get_distance
 from .schemas import ConnectionsUnifiedSchema
+
+# Desired number of connection request clusters in a network
+NET_CLUSTERS_NUM = 400
 
 
 class ThreadSafeCacheable:
@@ -67,7 +71,7 @@ class DataImportService:
         pending_scenarios = await self.session.scalars(
             select(ConnectionScenario)
             .where(
-                # ConnectionScenario.net_id == net.id,
+                ConnectionScenario.net_id == net.id,
                 ConnectionScenario.solver_task_id != None,
                 ConnectionScenario.solver_task_status.not_in(states.READY_STATES),
             )
@@ -101,6 +105,20 @@ class DataImportService:
 
         await self.session.flush()
 
+    async def _get_h3_resolution(self, net: Network):
+        stmt = select(
+            func.ST_Area(func.ST_GeogFromWKB(func.ST_Envelope(func.ST_Union(Bus.geom))))
+        ).where(Bus.net_id == net.id)
+
+        # calculate network area (in sq meters)
+        (area,) = (await self.session.execute(stmt)).one()
+
+        h3areas = ((res, h3.hex_area(res, unit="m^2")) for res in range(0, 15))
+        cluster_area = area / NET_CLUSTERS_NUM
+
+        res = next((res for (res, h_area) in h3areas if h_area <= cluster_area))
+        return res
+
     async def import_unified(
         self,
         net_id: uuid.UUID,
@@ -117,6 +135,12 @@ class DataImportService:
         net = (
             await self.session.execute(select(Network).where(Network.id == net_id))
         ).scalar_one()
+
+        # Split grid area into clusters (based on H3)
+        h3_res = await self._get_h3_resolution(net)
+        self.logger.info(
+            f"Clustering connection requests in network '{net.id}' at H3 resolution '{h3_res}'"
+        )
 
         # Step 1. Remove exising connection requests and scenarios
         await self._purge_connections(net)
@@ -148,7 +172,12 @@ class DataImportService:
 
             elif max_bus_distance and x.extra and x.extra.wsg84lon and x.extra.wsg84lat:
                 distances = [
-                    (b, get_distance(latlon, (x.extra.wsg84lat, x.extra.wsg84lon)))
+                    (
+                        b,
+                        h3.point_dist(
+                            latlon, (x.extra.wsg84lat, x.extra.wsg84lon), unit="m"
+                        ),
+                    )
                     for (b, latlon) in buses_coords
                 ]
                 if distances:
@@ -189,6 +218,9 @@ class DataImportService:
                 Milestone(value=x.value, reason=x.reason, datetime=x.dateTime)
                 for x in x.milestone
             ]
+
+            if x.extra:
+                c.h3_ix = h3.geo_to_h3(x.extra.wsg84lat, x.extra.wsg84lon, h3_res)
 
             self.session.add(c)
             conn_count += 1

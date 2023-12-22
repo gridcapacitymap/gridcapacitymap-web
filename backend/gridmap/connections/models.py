@@ -114,6 +114,8 @@ class ConnectionRequest(Base):
         onupdate=datetime.datetime.utcnow,
     )
 
+    h3_ix: Mapped[Optional[str]] = mapped_column(String(20), nullable=True, index=True)
+
     power_total: Mapped[float]
     power_increase: Mapped[float]
 

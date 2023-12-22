@@ -90,7 +90,7 @@ async def get_connection_requests(
         updated_at.timestamp() if updated_at else None,
         service.paginate,
         net_id=net_id,
-        ttl=3600,
+        ttl=900,
         p=pagination,
         f=filters,
     )
@@ -121,7 +121,7 @@ async def get_connection_requests_density_geojson(
     return await cached(
         updated_at.timestamp() if updated_at else None,
         service.build_density_geojson,
-        ttl=30 * 24 * 3600,
+        ttl=900,
         net_id=net_id,
     )
 
@@ -151,6 +151,6 @@ async def get_connection_requests_geojson(
     return await cached(
         updated_at.timestamp() if updated_at else None,
         service.point_geojson,
-        ttl=30 * 24 * 3600,
+        ttl=900,
         net_id=net_id,
     )
