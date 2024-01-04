@@ -25,6 +25,7 @@ scenario_requests_m2m = Table(
     Column(
         "connection_request_id",
         ForeignKey("connection_requests.id", ondelete="CASCADE"),
+        index=True,
     ),
     Column("scenario_id", ForeignKey("scenarios.id", ondelete="CASCADE")),
 )

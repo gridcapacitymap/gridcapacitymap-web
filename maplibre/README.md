@@ -10,5 +10,5 @@ Frontend api client module is auto-generated based on openapi json spec.
 2. Regenerate api client with command
 
 ```
-docker-compose exec maplibre bash -c 'yarn generate-client --useOptions && yarn format'
+docker-compose exec gridmap_maplibre bash -c 'yarn generate-client --useOptions && yarn format'
 ```

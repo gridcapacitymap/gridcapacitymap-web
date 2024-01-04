@@ -96,6 +96,7 @@ export enum ScenarioCalculationStatusEnum {
   PROGRESS = 'PROGRESS',
   SUCCESS = 'SUCCESS',
   FAILURE = 'FAILURE',
+  REVOKED = 'REVOKED',
   NONE = 'NONE',
 }
 

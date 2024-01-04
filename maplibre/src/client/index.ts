@@ -8,7 +8,6 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AdminGeo } from './models/AdminGeo';
-export type { Body_connections_import_connections_xlsx } from './models/Body_connections_import_connections_xlsx';
 export type { BranchLF } from './models/BranchLF';
 export type { BusHeadroomMetadata } from './models/BusHeadroomMetadata';
 export type { BusHeadroomSchema_Input } from './models/BusHeadroomSchema_Input';
@@ -52,19 +51,8 @@ export type { PolygonsGeoJson } from './models/PolygonsGeoJson';
 export type { ScenarioBaseApiSchema } from './models/ScenarioBaseApiSchema';
 export type { ScenarioDetailsApiSchema } from './models/ScenarioDetailsApiSchema';
 export type { ScenarioHeadroomSchema } from './models/ScenarioHeadroomSchema';
-export type { SerializedBranch } from './models/SerializedBranch';
-export type { SerializedBus } from './models/SerializedBus';
-export type { SerializedGenerator } from './models/SerializedGenerator';
-export type { SerializedLoad } from './models/SerializedLoad';
 export type { SerializedNetwork } from './models/SerializedNetwork';
-export type { SerializedSubsystems } from './models/SerializedSubsystems';
-export type { SerializedTrafo } from './models/SerializedTrafo';
-export type { SerializedTrafo3w } from './models/SerializedTrafo3w';
 export { SolverBackend } from './models/SolverBackend';
-export type { SubsystemGeoFeature } from './models/SubsystemGeoFeature';
-export type { SubsystemGeoJson } from './models/SubsystemGeoJson';
-export type { SubsystemGeoProps } from './models/SubsystemGeoProps';
-export { SubsystemTypeEnum } from './models/SubsystemTypeEnum';
 export type { TrafoLF } from './models/TrafoLF';
 export type { ValidationError } from './models/ValidationError';
 

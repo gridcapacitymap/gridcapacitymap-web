@@ -53,7 +53,7 @@ export interface IMainContext {
   busesGeoSource: IAnyGeojsonSource;
   pickedElement: IPickedElement | null;
   connectionRequestWarnings: Record<string, ConnectionWarnings>;
-  pickedHexagonCoordinates: [number, number][];
+  pickedHexagonId: string;
   setMap: SetState<Map | null>;
   setCurrentNetworkId: (netId: string) => void;
   setNetworks: SetState<SerializedNetwork[]>;
@@ -67,7 +67,7 @@ export interface IMainContext {
   setTrafoBranchesGeoSource: SetState<IAnyGeojsonSource>;
   setBusesGeoSource: SetState<IAnyGeojsonSource>;
   setPickedElement: SetState<IPickedElement | null>;
-  setPickedHexagonCoordinates: SetState<[number, number][]>;
+  setPickedHexagonId: SetState<string>;
   zoomToCoordinates: (coordinates: LngLatLike[]) => void;
 
   connectionsDensitySource: IAnyGeojsonSource;
@@ -126,9 +126,8 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     null
   );
 
-  const [pickedHexagonCoordinates, setPickedHexagonCoordinates] = useState<
-    [number, number][]
-  >([]);
+  const [pickedHexagonId, setPickedHexagonId] = useState<string>('');
+
   const [hexagonsConnectionRequests, setHexagonsConnectionRequests] = useState<
     Record<string, ConnectionRequestApiSchema[]>
   >({});
@@ -351,21 +350,21 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [map, connectionsDensitySource]);
 
   useEffect(() => {
-    if (pickedHexagonCoordinates.length && currentNetworkId) {
+    if (pickedHexagonId && currentNetworkId) {
       ConnectionsService.getConnectionRequests({
         netId: currentNetworkId,
         limit: 9999,
-        area: pickedHexagonCoordinates.map((c) => c.join(',')),
+        h3Id: pickedHexagonId,
       })
         .then((res) => {
           setHexagonsConnectionRequests((prev) => ({
             ...prev,
-            [pickedHexagonCoordinates.flat().join(',')]: res.items,
+            [pickedHexagonId]: res.items,
           }));
         })
         .catch((e) => showMessage('error', e));
     }
-  }, [pickedHexagonCoordinates]);
+  }, [pickedHexagonId]);
 
   useEffect(() => {
     (map?.getSource(ISourcesIdsEnum.hexagonsConnectionRequest) as any)?.setData(
@@ -397,7 +396,7 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     busesGeoSource,
     pickedElement,
     connectionRequestWarnings,
-    pickedHexagonCoordinates,
+    pickedHexagonId: pickedHexagonId,
     setMap,
     setCurrentNetworkId,
     setNetworks,
@@ -411,7 +410,7 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setTrafoBranchesGeoSource,
     setBusesGeoSource,
     setPickedElement,
-    setPickedHexagonCoordinates,
+    setPickedHexagonId: setPickedHexagonId,
     zoomToCoordinates,
 
     connectionsDensitySource,

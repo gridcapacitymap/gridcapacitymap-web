@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Body_connections_import_connections_xlsx } from '../models/Body_connections_import_connections_xlsx';
 import type { ConnectionEnergyKindEnum } from '../models/ConnectionEnergyKindEnum';
 import type { ConnectionKindEnum } from '../models/ConnectionKindEnum';
 import type { ConnectionRequestSplunk } from '../models/ConnectionRequestSplunk';
@@ -34,7 +33,7 @@ export class ConnectionsService {
     connectionEnergyKind,
     powerIncreaseGt,
     powerIncreaseLt,
-    area,
+    h3Id = '',
   }: {
     netId: string;
     limit?: number;
@@ -46,9 +45,9 @@ export class ConnectionsService {
     powerIncreaseGt?: number | null;
     powerIncreaseLt?: number | null;
     /**
-     * Coordinates (longitude, latitude) marking a polygon
+     * H3 index
      */
-    area?: Array<string>;
+    h3Id?: string;
   }): CancelablePromise<PaginatedResponse_ConnectionRequestApiSchema_> {
     return __request(OpenAPI, {
       method: 'GET',
@@ -65,7 +64,7 @@ export class ConnectionsService {
         connection_energy_kind: connectionEnergyKind,
         power_increase_gt: powerIncreaseGt,
         power_increase_lt: powerIncreaseLt,
-        area: area,
+        h3id: h3Id,
       },
       errors: {
         422: `Validation Error`,
@@ -172,9 +171,14 @@ export class ConnectionsService {
   public static importConnectionsUnifiedJson({
     netId,
     requestBody,
+    maxBusDistance,
   }: {
     netId: string;
     requestBody: ConnectionsUnifiedSchema_Input;
+    /**
+     * Max distance from bus to connection request
+     */
+    maxBusDistance?: number;
   }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'PUT',
@@ -182,35 +186,11 @@ export class ConnectionsService {
       path: {
         net_id: netId,
       },
+      query: {
+        max_bus_distance: maxBusDistance,
+      },
       body: requestBody,
       mediaType: 'application/json',
-      errors: {
-        422: `Validation Error`,
-      },
-    });
-  }
-
-  /**
-   * Import Connections Xlsx
-   * Import connection requests & scenarios from excel file. Replaces existing entities in database
-   * @returns any Successful Response
-   * @throws ApiError
-   */
-  public static importConnectionsXlsx({
-    netId,
-    formData,
-  }: {
-    netId: string;
-    formData: Body_connections_import_connections_xlsx;
-  }): CancelablePromise<any> {
-    return __request(OpenAPI, {
-      method: 'PUT',
-      url: '/api/nets/{net_id}/connections/import/xlsx',
-      path: {
-        net_id: netId,
-      },
-      formData: formData,
-      mediaType: 'multipart/form-data',
       errors: {
         422: `Validation Error`,
       },

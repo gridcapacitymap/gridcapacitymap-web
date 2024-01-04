@@ -31,7 +31,7 @@ LimitingSubsystem = Union[BranchLF, TrafoLF]
 
 
 class BusHeadroomMetadata(BaseModel):
-    type: BusType
+    type: Union[str, BusType]
     number: str
     ex_name: str
 

@@ -36,7 +36,7 @@ services:
       - KC_SCOPES=openid profile
       - KC_AUTHORIZATION_URL=http://localhost:8180/realms/aad/protocol/openid-connect/auth
       - KC_TOKEN_URL=http://localhost:8180/realms/aad/protocol/openid-connect/token
-      - KC_SERVER_URL=http://keycloak:8080
+      - KC_SERVER_URL=http://gridmap_keycloak:8080
       - KC_CLIENT_ID=api-backend # confidential client
       - KC_CLIENT_SECRET=Ln5052MOe9NY126L3ycTb26fokqAmvXe
       - KC_DOCS_CLIENT_ID=api-frontend # public client
@@ -62,27 +62,7 @@ services:
       - PIP_ROOT_USER_ACTION=ignore
       - NET_DATA_ROOT=/app/data
 
-  adminer:
-    image: michalhosna/adminer:4.8.1-en_v1
-    ports:
-      - "8080:8080"
-    environment:
-      ADMINER_DB: gridmapdb
-      ADMINER_DRIVER: pgsql
-      ADMINER_PASSWORD: password
-      ADMINER_SERVER: postgreshost
-      ADMINER_USERNAME: postgres_user
-      ADMINER_AUTOLOGIN: 0
-
-  redis_ui:
-    image: rediscommander/redis-commander:latest
-    restart: unless-stopped
-    environment:
-      - REDIS_HOSTS=redis
-    ports:
-      - "8083:8081"
-
-  keycloak:
+  gridmap_keycloak:
     build:
       context: ./keycloak
       args:
@@ -116,3 +96,23 @@ services:
       - ./keycloak/certs:/tmp/certs:z
       - ./keycloak/customtheme:/opt/keycloak/themes/customtheme:z
     restart: unless-stopped
+
+  gridmap_adminer:
+    image: michalhosna/adminer:4.8.1-en_v1
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DB: gridmapdb
+      ADMINER_DRIVER: pgsql
+      ADMINER_PASSWORD: password
+      ADMINER_SERVER: postgreshost
+      ADMINER_USERNAME: postgres_user
+      ADMINER_AUTOLOGIN: 0
+
+  gridmap_redis_ui:
+    image: rediscommander/redis-commander:latest
+    restart: unless-stopped
+    environment:
+      - REDIS_HOSTS=redis
+    ports:
+      - "8083:8081"

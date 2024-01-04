@@ -76,7 +76,7 @@ def calc_headroom(cfg: GridCapacityConfig, on_progress: Callable) -> str:
     autoretry_for=(Exception,),
     dont_autoretry_for=(RuntimeError,),
     retry_backoff=2,
-    max_retries=2,
+    max_retries=1,
 )
 def run_solver(self, data: str, only_affected_buses: bool = False):
     params = GridcapacityTaskParams.parse_raw(data)
@@ -98,7 +98,9 @@ def run_solver(self, data: str, only_affected_buses: bool = False):
         x.scenario_id = scenario_id
         self.update_state(state=PROGRESS, meta=x.dict(exclude_none=True))
         logging.info(
-            "progress={progress}%, powerflow_count={powerflows}".format(**x.dict())
+            "scenario_id={scenario_id} progress={progress}%, powerflow_count={powerflows}".format(
+                **x.dict()
+            )
         )
 
     logging.info(

@@ -27,7 +27,7 @@ class AdminGeo(CamelModel):
 
 
 class ConnectivityNode(CamelModel):
-    id: Union[str, int]
+    id: Union[str, int, None]
 
 
 class Employee(CamelModel):
@@ -133,4 +133,4 @@ class ConnectionFilterParams:
     power_increase_gt: Optional[int]
     power_increase_lt: Optional[int]
 
-    area: List[str]
+    h3id: Optional[str] = None

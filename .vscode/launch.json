@@ -9,7 +9,7 @@
       "type": "python",
       "request": "attach",
       "connect": {
-        "host": "backend",
+        "host": "gridmap_backend",
         "port": 5678
       },
       "pathMappings": [

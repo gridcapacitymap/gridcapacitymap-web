@@ -1,7 +1,7 @@
 import datetime
 import logging
 import uuid
-from typing import Annotated, Union
+from typing import Annotated, List
 
 from celery import states
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
@@ -17,6 +17,7 @@ from ..headroom.schemas import ScenarioHeadroomSchema
 from ..headroom.service import ScenarioHeadroomService
 from ..networks.schemas import UNATTENDED_SOLVER_BACKENDS
 from ..schemas.paginated import PaginatedResponse, PaginationQueryParams
+from ..tasks.celeryapp import celery
 from ..tasks.gridcapacity_task import run_solver
 from .models import ConnectionScenario
 from .schemas import (
@@ -44,9 +45,15 @@ async def list_connection_scenarios(
     net_id: uuid.UUID,
     service: ConnectionScenarioServiceAnnotated,
     q: PaginationQueryParams = Depends(),
+    author_full_name: str = Query(default=""),
+    solver_status: List[str] = Query(
+        default=[], example=["PENDING", "STARTED", "PROGRESS", "SUCCESS", "FAILURE"]
+    ),
 ):
-    return await service.paginate(
+    return await service.filter(
         net_id=net_id,
+        author=author_full_name,
+        solver_status=solver_status,
         limit=q.limit,
         offset=q.offset,
     )
@@ -227,8 +234,13 @@ async def remove_scenario(
     ],
     net_id: uuid.UUID,
     scenario_id: uuid.UUID,
+    service: ConnectionScenarioServiceAnnotated,
     session: DatabaseSession,
 ):
+    s = await service.find_scenario_by_id(scenario_id)
+    if s.solver_task_id and s.solver_task_status not in states.READY_STATES:
+        celery.control.revoke(s.solver_task_id, terminate=True)
+
     await session.execute(
         delete(ConnectionScenario).where(
             ConnectionScenario.id == scenario_id, ConnectionScenario.net_id == net_id

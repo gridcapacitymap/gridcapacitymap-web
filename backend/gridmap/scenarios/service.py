@@ -1,11 +1,11 @@
 import uuid
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Tuple, Union
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import NoResultFound
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import contains_eager, joinedload, raiseload
 
-from ..connections.models import ConnectionEnergyKindEnum
+from ..connections.models import ConnectionEnergyKindEnum, User
 from ..database.dependencies import DatabaseSession
 from ..headroom.schemas import GridCapacityConfig
 from ..schemas.paginated import PaginatedResponse
@@ -17,11 +17,13 @@ class ConnectionScenarioService:
     def __init__(self, session: DatabaseSession):
         self.session = session
 
-    async def paginate(
+    async def filter(
         self,
         limit: int,
         offset: int,
         net_id: Union[uuid.UUID, None],
+        author: Union[str, None] = None,
+        solver_status: Union[List[str], None] = None,
     ):
         connections_count_sq = (
             select(
@@ -44,11 +46,20 @@ class ConnectionScenarioService:
                 connections_count_sq.c.scenario_id == ConnectionScenario.id,
                 isouter=True,
             )
-            .options(joinedload(ConnectionScenario.author))
-            .options(joinedload(ConnectionScenario.net))
+            .join(ConnectionScenario.author)
+            .options(contains_eager(ConnectionScenario.author))
+            .join(ConnectionScenario.net)
+            .options(contains_eager(ConnectionScenario.net))
         )
+
         if net_id:
             q = q.filter(ConnectionScenario.net_id == net_id)
+
+        if author:
+            q = q.filter(User.full_name == author)
+
+        if solver_status:
+            q = q.filter(ConnectionScenario.solver_task_status.in_(solver_status))
 
         result = await self.session.execute(
             q.order_by(ConnectionScenario.created_at).limit(limit).offset(offset)
@@ -65,6 +76,18 @@ class ConnectionScenarioService:
             items.append(x)
 
         return PaginatedResponse[ScenarioBaseApiSchema](count=count or 0, items=items)
+
+    async def find_scenario_by_id(self, scenario_id: uuid.UUID):
+        scenario = await self.session.scalar(
+            select(ConnectionScenario)
+            .filter(ConnectionScenario.id == scenario_id)
+            .options(raiseload("*"))
+        )
+
+        if not scenario:
+            raise NoResultFound
+
+        return scenario
 
     async def find_scenario_details(
         self, scenario_id: uuid.UUID, net_id: uuid.UUID
