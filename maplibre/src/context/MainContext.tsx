@@ -208,7 +208,9 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setSelectedConnectionRequests((prevSelectedConnections) => {
       return [
         ...prevSelectedConnections.filter(
-          (c) => !prevScenarioConnectionRequests.some((sc) => sc.id === c.id)
+          (c) =>
+            !prevScenarioConnectionRequests.some((sc) => sc.id === c.id) &&
+            !currentScenarioConnectionRequests.some((sc) => sc.id === c.id)
         ),
         ...currentScenarioConnectionRequests,
       ];
