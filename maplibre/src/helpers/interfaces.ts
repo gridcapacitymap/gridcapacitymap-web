@@ -2,12 +2,12 @@ import { ColumnType } from 'antd/es/table';
 import { Dispatch, SetStateAction } from 'react';
 import { LinesGeoJson, PointsGeoJson, PolygonsGeoJson } from '../client';
 import { Key } from 'react';
+import { MapGeoJSONFeature } from 'maplibre-gl';
 
 export type SetState<T> = Dispatch<SetStateAction<T>>;
 
-export interface ISomeObject {
-  [key: string]: any;
-}
+// eslint-disable-next-line
+export type AnyObject = Record<string, any>;
 
 // eslint-disable-next-line
 export type ColumnWithKeyType<T = any> = ColumnType<T> & { key: Key };
@@ -22,7 +22,7 @@ export interface IAnyGeojsonSource {
   data: PointsGeoJson | LinesGeoJson | PolygonsGeoJson;
 }
 
-export enum ISourcesIdsEnum {
+export enum SourcesIdsEnum {
   branchesSourceId = 'powergrid/geo/branches',
   busesSourceId = 'powergrid/geo/buses',
   trafosSourceId = 'powergrid/geo/trafos2w',
@@ -32,7 +32,7 @@ export enum ISourcesIdsEnum {
   scenarioConnectionsLinesSourceId = 'scenario-connections-lines',
 }
 
-export type ISourcesId = `${ISourcesIdsEnum}`;
+export type ISourcesId = `${SourcesIdsEnum}`;
 
 export enum IViolations {
   'Violations.O_VIOLATIONS',
@@ -109,3 +109,8 @@ export interface ScenarioSubscribingProgressData {
   scenario_id: string;
   task_id: string;
 }
+
+export type HoveredConnection = {
+  connectionRequestFeature: MapGeoJSONFeature | null;
+  hoverPoint: { x: number; y: number };
+};

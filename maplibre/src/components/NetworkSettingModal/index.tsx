@@ -1,25 +1,21 @@
 import { FC, useEffect, useState } from 'react';
-import { Button, Divider, Form, Input, Modal, Row, Select, Space } from 'antd';
-import {
-  NetworksService,
-  ScenarioBaseApiSchema,
-  ScenariosService,
-  SerializedNetwork,
-} from '../../client';
-import { useMainContext } from '../../context/MainContext';
+import { Button, Divider, Form, Input, Modal, Row, Space } from 'antd';
+import { NetworksService, SerializedNetwork } from '../../client';
 import { showMessage } from '../../helpers/message';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMainContext } from '../../hooks/useMainContext';
+import { DefaultNetworkScenarioSelect } from './components/DefaultNetworkScenarioSelect';
 
 const defaultFields: SerializedNetwork = { title: '', gridcapacity_cfg: {} };
 
 export const NetworkSettingModal: FC = () => {
-  const mainContext = useMainContext();
+  const { networks, currentNetworkId } = useMainContext();
   const [form] = Form.useForm();
   const [open, setOpen] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [applyDisabled, setApplyDisabled] = useState<boolean>(true);
-  const [networkScenarios, setNetworkScenarios] = useState<
-    ScenarioBaseApiSchema[]
-  >([]);
+
+  const queryClient = useQueryClient();
 
   const onCancel = () => {
     resetFields();
@@ -29,48 +25,35 @@ export const NetworkSettingModal: FC = () => {
 
   const resetFields = () => {
     form.setFieldsValue(
-      mainContext.networks.find((n) => n.id === mainContext.currentNetworkId) ||
-        defaultFields
+      networks.find((n) => n.id === currentNetworkId) || defaultFields
     );
     setApplyDisabled(true);
   };
 
-  const onApplyChanges = () => {
-    if (mainContext.currentNetworkId) {
-      NetworksService.updateNetworkMetadata({
-        netId: mainContext.currentNetworkId,
+  const updateNetwork = async () => {
+    if (currentNetworkId) {
+      await NetworksService.updateNetworkMetadata({
+        netId: currentNetworkId,
         requestBody: form.getFieldsValue(),
-      })
-        .then(() => {
-          NetworksService.listNetworks()
-            .then(mainContext.setNetworks)
-            .catch((e) => showMessage('error', 'e'));
-        })
-        .catch((e) => showMessage('error', e));
+      });
     } else {
       showMessage(
         'error',
-        `Current network id "${mainContext.currentNetworkId}" was not found`
+        `Current network id "${currentNetworkId}" was not found`
       );
     }
   };
 
-  useEffect(() => {
-    if (mainContext.currentNetworkId) {
-      ScenariosService.listConnectionScenarios({
-        netId: mainContext.currentNetworkId,
-        limit: 999,
-      })
-        .then((res) => setNetworkScenarios(res.items))
-        .catch((e) => showMessage('error', e));
-    }
-    setApplyDisabled(true);
-  }, [mainContext.currentNetworkId]);
+  const mutation = useMutation({
+    mutationFn: updateNetwork,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['networks'] });
+    },
+    onError: (e) => showMessage('error', e),
+  });
 
   useEffect(() => {
-    const currentNetwork = mainContext.networks.find(
-      (n) => n.id === mainContext.currentNetworkId
-    );
+    const currentNetwork = networks.find((n) => n.id === currentNetworkId);
     if (currentNetwork) {
       resetFields();
       setDisabled(false);
@@ -78,7 +61,7 @@ export const NetworkSettingModal: FC = () => {
       onCancel();
       setDisabled(true);
     }
-  }, [mainContext.networks, mainContext.currentNetworkId]);
+  }, [networks, currentNetworkId]);
 
   return (
     <>
@@ -99,9 +82,7 @@ export const NetworkSettingModal: FC = () => {
             layout="vertical"
             form={form}
             initialValues={
-              mainContext.networks.find(
-                (n) => n.id === mainContext.currentNetworkId
-              ) || defaultFields
+              networks.find((n) => n.id === currentNetworkId) || defaultFields
             }
             autoComplete="off"
             onValuesChange={() => setApplyDisabled(false)}
@@ -118,15 +99,7 @@ export const NetworkSettingModal: FC = () => {
               name="default_scenario_id"
               tooltip="This scenario's data will be loaded when this network is selected"
             >
-              <Select
-                options={networkScenarios.map((s) => ({
-                  label: s.name,
-                  value: s.id,
-                }))}
-                allowClear
-                showSearch
-                optionFilterProp="label"
-              />
+              <DefaultNetworkScenarioSelect netId={currentNetworkId} />
             </Form.Item>
             <Form.Item<SerializedNetwork>
               label="Upper load limit:"
@@ -178,7 +151,7 @@ export const NetworkSettingModal: FC = () => {
                   <Button onClick={onCancel}>Cancel</Button>
                   <Button
                     disabled={applyDisabled}
-                    onClick={onApplyChanges}
+                    onClick={() => mutation.mutate()}
                     type="primary"
                   >
                     Apply

@@ -13,6 +13,7 @@ import './auth/axiosInterceptors.ts';
 import { AuthProvider, useAuth } from 'react-oidc-context';
 import { oidcConfig } from './auth/config.ts';
 import { FC } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
   // There is issue with path "/app". Don't use to avoid
@@ -44,8 +45,18 @@ const AppContainer: FC = () => {
   return <RouterProvider router={router} />;
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 reactDom.createRoot(document.getElementById('root') as HTMLElement).render(
   <AuthProvider {...oidcConfig}>
-    <AppContainer />
+    <QueryClientProvider client={queryClient}>
+      <AppContainer />
+    </QueryClientProvider>
   </AuthProvider>
 );

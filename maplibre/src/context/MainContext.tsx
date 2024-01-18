@@ -4,8 +4,6 @@ import {
   useState,
   PropsWithChildren,
   useEffect,
-  useContext,
-  useMemo,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -13,7 +11,7 @@ import {
   ConnectionWarnings,
   IAnyGeojsonSource,
   IPickedElement,
-  ISourcesIdsEnum,
+  SourcesIdsEnum,
   SetState,
 } from '../helpers/interfaces';
 import {
@@ -26,15 +24,24 @@ import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
   ConnectionsService,
+  LinesGeoJson,
   NetworksService,
+  PointsGeoJson,
   ScenarioDetailsApiSchema,
   ScenariosService,
   SerializedNetwork,
 } from '../client';
 import { showMessage } from '../helpers/message';
 import { emptySource } from '../helpers/baseData';
-import { FitBoundsOptions, LngLatLike, Map } from 'maplibre-gl';
+import { Map } from 'maplibre-gl';
 import { useConnectionWarnings } from '../hooks/useConnectionWarnings';
+import { useQuery } from '@tanstack/react-query';
+import {
+  emptyLinesSourceData,
+  emptyPointSourceData,
+  emptyPolygonsSourceData,
+  zoomToCoordinates,
+} from '../utils';
 
 export interface IMainContext {
   map: Map | null;
@@ -44,70 +51,45 @@ export interface IMainContext {
   currentScenarioDetails: ScenarioDetailsApiSchema | null;
   createdScenariosIds: string[];
   headroom: BusHeadroomSchema_Output[];
-  selectedConnectionRequestsUnified: ConnectionRequestApiSchema[];
-  currentScenarioConnectionRequestsUnified: ConnectionRequestApiSchema[];
-  prevScenarioConnectionRequestsUnified: ConnectionRequestApiSchema[];
-  connectionRequestGeoSource: IAnyGeojsonSource;
-  branchesGeoSource: IAnyGeojsonSource;
-  trafoBranchesGeoSource: IAnyGeojsonSource;
-  busesGeoSource: IAnyGeojsonSource;
+  selectedConnectionRequests: ConnectionRequestApiSchema[];
+  currentScenarioConnectionRequests: ConnectionRequestApiSchema[];
+  branchesGeojson: LinesGeoJson;
+  trafoBranchesGeojson: LinesGeoJson;
+  busesGeojson: PointsGeoJson;
   pickedElement: IPickedElement | null;
   connectionRequestWarnings: Record<string, ConnectionWarnings>;
-  pickedHexagonId: string;
   setMap: SetState<Map | null>;
-  setCurrentNetworkId: (netId: string) => void;
-  setNetworks: SetState<SerializedNetwork[]>;
+  setCurrentNetworkId: SetState<string | null>;
   setCurrentScenarioId: SetState<string | null>;
-  setCurrentScenarioDetails: SetState<ScenarioDetailsApiSchema | null>;
   setCreatedScenariosIds: SetState<string[]>;
-  setHeadroom: SetState<BusHeadroomSchema_Output[]>;
-  setSelectedConnectionRequestsUnified: SetState<ConnectionRequestApiSchema[]>;
-  setConnectionRequestGeoSource: SetState<IAnyGeojsonSource>;
-  setBranchesGeoSource: SetState<IAnyGeojsonSource>;
-  setTrafoBranchesGeoSource: SetState<IAnyGeojsonSource>;
-  setBusesGeoSource: SetState<IAnyGeojsonSource>;
+  setSelectedConnectionRequests: SetState<ConnectionRequestApiSchema[]>;
   setPickedElement: SetState<IPickedElement | null>;
   setPickedHexagonId: SetState<string>;
-  zoomToCoordinates: (coordinates: LngLatLike[]) => void;
-
-  connectionsDensitySource: IAnyGeojsonSource;
-  setConnectionsDensitySource: SetState<IAnyGeojsonSource>;
 }
 
-// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
 export const MainContext = createContext<IMainContext | null>(null);
 
 export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [map, setMap] = useState<Map | null>(null);
-  const [currentNetworkId, setStateCurrentNetworkId] = useState<string | null>(
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentNetworkId, setCurrentNetworkId] = useState<string | null>(
     searchParams.get('netId') || import.meta.env.VITE_DEFAULT_NETWORK_ID || null
   );
-  const setCurrentNetworkId = (netId: string | null): void => {
-    currentNetworkId !== netId && setStateCurrentNetworkId(netId);
-  };
-  const [lastNetworkId, setLastNetworkId] = useState<string | null>(null);
-  const [networks, setNetworks] = useState<SerializedNetwork[]>([]);
   const [currentScenarioId, setCurrentScenarioId] = useState<string | null>(
     null
   );
-  const [currentScenarioDetails, setCurrentScenarioDetails] =
-    useState<ScenarioDetailsApiSchema | null>(null);
   const [createdScenariosIds, setCreatedScenariosIds] = useState<string[]>([]);
   const [headroom, setHeadroom] = useState<BusHeadroomSchema_Output[]>([]);
 
+  const [selectedConnectionRequests, setSelectedConnectionRequests] = useState<
+    ConnectionRequestApiSchema[]
+  >([]);
   const [
-    selectedConnectionRequestsUnified,
-    setSelectedConnectionRequestsUnified,
+    currentScenarioConnectionRequests,
+    setCurrentScenarioConnectionRequests,
   ] = useState<ConnectionRequestApiSchema[]>([]);
-  const [
-    currentScenarioConnectionRequestsUnified,
-    setCurrentScenarioConnectionRequestsUnified,
-  ] = useState<ConnectionRequestApiSchema[]>([]);
-  const [
-    prevScenarioConnectionRequestsUnified,
-    setPrevScenarioConnectionRequestsUnified,
-  ] = useState<ConnectionRequestApiSchema[]>([]);
+  const [prevScenarioConnectionRequests, setPrevScenarioConnectionRequests] =
+    useState<ConnectionRequestApiSchema[]>([]);
 
   const [connectionRequestGeoSource, setConnectionRequestGeoSource] =
     useState<IAnyGeojsonSource>(emptySource);
@@ -115,13 +97,6 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     scenarioConnectionsLinesGeoSource,
     setScenarioConnectionsLinesGeoSource,
   ] = useState<IAnyGeojsonSource>(emptySource);
-  const [branchesGeoSource, setBranchesGeoSource] =
-    useState<IAnyGeojsonSource>(emptySource);
-  const [trafoBranchesGeoSource, setTrafoBranchesGeoSource] =
-    useState<IAnyGeojsonSource>(emptySource);
-  const [busesGeoSource, setBusesGeoSource] =
-    useState<IAnyGeojsonSource>(emptySource);
-
   const [pickedElement, setPickedElement] = useState<IPickedElement | null>(
     null
   );
@@ -132,63 +107,14 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     Record<string, ConnectionRequestApiSchema[]>
   >({});
 
-  const connectionRequestWarnings = useConnectionWarnings(
-    selectedConnectionRequestsUnified,
-    headroom,
-    currentScenarioConnectionRequestsUnified,
-    busesGeoSource
-  );
-
-  const zoomToCoordinates = useMemo(() => {
-    return (coordinates: LngLatLike[], options: FitBoundsOptions = {}) => {
-      if (
-        map &&
-        coordinates.length &&
-        !coordinates
-          .map((c) => Object.values(c))
-          .flat()
-          .some((c) => isNaN(parseInt(c)))
-      ) {
-        const startCoordinates: [number, number, number, number] = [
-          Object.values(coordinates[0])[0],
-          Object.values(coordinates[0])[1],
-          Object.values(coordinates[0])[0],
-          Object.values(coordinates[0])[1],
-        ];
-
-        const oppositeCoordinates = coordinates.reduce(
-          (
-            lngLatBounds: [number, number, number, number],
-            lngLat: LngLatLike
-          ) => {
-            return [
-              Math.min(lngLatBounds[0], Object.values(lngLat)[0]),
-              Math.max(lngLatBounds[1], Object.values(lngLat)[1]),
-              Math.max(lngLatBounds[2], Object.values(lngLat)[0]),
-              Math.min(lngLatBounds[3], Object.values(lngLat)[1]),
-            ];
-          },
-          startCoordinates as [number, number, number, number]
-        );
-
-        map?.fitBounds(oppositeCoordinates, {
-          maxZoom: 16,
-          padding: 80,
-          duration: 1000,
-          ...options,
-        });
-      }
-    };
-  }, [map]);
-
-  const [connectionsDensitySource, setConnectionsDensitySource] =
-    useState<IAnyGeojsonSource>(emptySource);
-
-  useEffect(() => {
-    NetworksService.listNetworks()
-      .then((res) => setNetworks(res))
-      .catch((e) => showMessage('error', e));
-  }, []);
+  const { data: networks = [] } = useQuery({
+    queryKey: ['networks'],
+    queryFn: async () => await NetworksService.listNetworks(),
+    throwOnError: (err) => {
+      showMessage('error', err);
+      return false;
+    },
+  });
 
   useEffect(() => {
     if (networks.length && currentNetworkId) {
@@ -199,98 +125,118 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [networks, currentNetworkId]);
 
-  useEffect(() => {
-    if (currentScenarioId) {
-      ScenariosService.getScenarioDetails({
-        netId: currentNetworkId as string,
-        scenarioId: currentScenarioId,
-      })
-        .then((res) => setCurrentScenarioDetails(res))
-        .catch((e) => showMessage('error', e));
-    } else {
-      setCurrentScenarioDetails(null);
-    }
-  }, [currentScenarioId]);
+  const { data: currentScenarioDetails = null } = useQuery({
+    queryKey: ['currentScenarioDetails', currentScenarioId, currentNetworkId],
+    queryFn: async () => {
+      if (currentNetworkId && currentScenarioId) {
+        return await ScenariosService.getScenarioDetails({
+          netId: currentNetworkId as string,
+          scenarioId: currentScenarioId,
+        });
+      }
+      return null;
+    },
+    throwOnError: (err) => {
+      showMessage('error', err);
+      return false;
+    },
+  });
 
   useEffect(() => {
     if (currentScenarioDetails) {
       setHeadroom(currentScenarioDetails.headroom || []);
-      setCurrentScenarioConnectionRequestsUnified((prev) => {
-        setPrevScenarioConnectionRequestsUnified(prev);
+      setCurrentScenarioConnectionRequests((prev) => {
+        setPrevScenarioConnectionRequests(prev);
         return currentScenarioDetails.connection_requests_list || [];
       });
     }
   }, [currentScenarioDetails]);
 
+  const { data: branchesGeojson = emptyLinesSourceData } = useQuery({
+    queryKey: ['branchesGeojson', currentNetworkId],
+    queryFn: async () => {
+      if (currentNetworkId) {
+        return await NetworksService.branchesGeojson({
+          netId: currentNetworkId,
+        });
+      }
+    },
+  });
+
+  const { data: trafoBranchesGeojson = emptyLinesSourceData } = useQuery({
+    queryKey: ['trafoBranchesGeojson', currentNetworkId],
+    queryFn: async () => {
+      if (currentNetworkId) {
+        return await NetworksService.trafosGeojson({
+          netId: currentNetworkId,
+        });
+      }
+    },
+  });
+
+  const { data: busesGeojson = emptyPointSourceData } = useQuery({
+    queryKey: ['busesGeojson', currentNetworkId],
+    queryFn: async () => {
+      if (currentNetworkId) {
+        return await NetworksService.busesGeojson({
+          netId: currentNetworkId,
+        });
+      }
+    },
+  });
+
+  const { data: connectionRequestsDensityGeojson = emptyPolygonsSourceData } =
+    useQuery({
+      queryKey: ['connectionRequestsDensityGeojson', currentNetworkId],
+      queryFn: async () => {
+        if (currentNetworkId) {
+          return await ConnectionsService.getConnectionRequestsDensityGeojson({
+            netId: currentNetworkId,
+          });
+        }
+      },
+    });
+
+  const connectionRequestWarnings = useConnectionWarnings(
+    selectedConnectionRequests,
+    headroom,
+    currentScenarioConnectionRequests,
+    busesGeojson
+  );
+
   useEffect(() => {
-    setSelectedConnectionRequestsUnified((prevSelectedConnections) => {
+    setSelectedConnectionRequests((prevSelectedConnections) => {
       return [
         ...prevSelectedConnections.filter(
-          (c) =>
-            !prevScenarioConnectionRequestsUnified.some((sc) => sc.id === c.id)
+          (c) => !prevScenarioConnectionRequests.some((sc) => sc.id === c.id)
         ),
-        ...currentScenarioConnectionRequestsUnified,
+        ...currentScenarioConnectionRequests,
       ];
     });
 
     setScenarioConnectionsLinesGeoSource(
       convertScenarioConnectionRequestsToGeoSource(
-        currentScenarioConnectionRequestsUnified,
-        busesGeoSource
+        currentScenarioConnectionRequests,
+        busesGeojson
       )
     );
-  }, [currentScenarioConnectionRequestsUnified]);
+  }, [currentScenarioConnectionRequests]);
 
   useEffect(() => {
-    if (currentNetworkId !== searchParams.get('netId')) {
-      setCurrentNetworkId(searchParams.get('netId'));
-    }
+    setCurrentNetworkId(searchParams.get('netId'));
   }, [searchParams]);
 
   useEffect(() => {
-    if (currentNetworkId && currentNetworkId !== lastNetworkId) {
-      setLastNetworkId(currentNetworkId);
+    if (currentNetworkId) {
       if (currentNetworkId !== searchParams.get('netId')) {
         setSearchParams({ netId: currentNetworkId });
       }
 
-      setSelectedConnectionRequestsUnified([]);
-      setCurrentScenarioDetails(null);
+      setSelectedConnectionRequests([]);
+      // TODO: how to set cash in react query?
+      // setCurrentScenarioDetails(null);
       setPickedElement(null);
       setHexagonsConnectionRequests({});
-
-      NetworksService.busesGeojson({ netId: currentNetworkId })
-        .then((res) =>
-          setBusesGeoSource({
-            type: 'geojson',
-            data: res,
-          })
-        )
-        .catch((e) => showMessage('error', e));
-
-      NetworksService.branchesGeojson({ netId: currentNetworkId })
-        .then((res) =>
-          setBranchesGeoSource({
-            type: 'geojson',
-            data: res,
-          })
-        )
-        .catch((e) => showMessage('error', e));
-
-      NetworksService.trafosGeojson({ netId: currentNetworkId })
-        .then((res) =>
-          setTrafoBranchesGeoSource({
-            type: 'geojson',
-            data: res,
-          })
-        )
-        .catch((e) => showMessage('error', e));
-
-      ConnectionsService.getConnectionRequestsDensityGeojson({
-        netId: currentNetworkId,
-      })
-        .then((data) => setConnectionsDensitySource({ type: 'geojson', data }))
-        .catch((e) => showMessage('error', e));
     }
   }, [currentNetworkId]);
 
@@ -298,56 +244,53 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     const coordinates = networks.find((net) => net.id === currentNetworkId)
       ?.geom?.coordinates[0];
     if (currentNetworkId && map && coordinates) {
-      zoomToCoordinates([coordinates[0], coordinates[2]]);
+      zoomToCoordinates(map, [coordinates[0], coordinates[2]]);
     }
-  }, [currentNetworkId, map]);
+  }, [currentNetworkId, networks, map]);
 
   // map.getSource() returns type without .setData() property but it used in documentation
   // https://maplibre.org/maplibre-gl-js-docs/api/sources/#geojsonsource#setdata
   useEffect(() => {
-    (
-      map?.getSource(ISourcesIdsEnum.connectionRequestsSourceId) as any
-    )?.setData(connectionRequestGeoSource.data);
+    (map?.getSource(SourcesIdsEnum.connectionRequestsSourceId) as any)?.setData(
+      connectionRequestGeoSource.data
+    );
   }, [map, connectionRequestGeoSource]);
 
   useEffect(() => {
     (
-      map?.getSource(ISourcesIdsEnum.scenarioConnectionsLinesSourceId) as any
+      map?.getSource(SourcesIdsEnum.scenarioConnectionsLinesSourceId) as any
     )?.setData(scenarioConnectionsLinesGeoSource.data);
   }, [map, scenarioConnectionsLinesGeoSource]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.branchesSourceId) as any)?.setData(
-      addColorToBranchesFeaturesProperties(branchesGeoSource.data, headroom)
+    (map?.getSource(SourcesIdsEnum.branchesSourceId) as any)?.setData(
+      addColorToBranchesFeaturesProperties(branchesGeojson, headroom)
     );
-  }, [map, branchesGeoSource, headroom]);
+  }, [map, branchesGeojson, headroom]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.trafosSourceId) as any)?.setData(
-      addColorToBranchesFeaturesProperties(
-        trafoBranchesGeoSource.data,
-        headroom
-      )
+    (map?.getSource(SourcesIdsEnum.trafosSourceId) as any)?.setData(
+      addColorToBranchesFeaturesProperties(trafoBranchesGeojson, headroom)
     );
-  }, [map, trafoBranchesGeoSource, headroom]);
+  }, [map, trafoBranchesGeojson, headroom]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.busesSourceId) as any)?.setData(
-      addColorToBusesFeaturesProperties(busesGeoSource.data, headroom)
+    (map?.getSource(SourcesIdsEnum.busesSourceId) as any)?.setData(
+      addColorToBusesFeaturesProperties(busesGeojson, headroom)
     );
-  }, [map, busesGeoSource, headroom]);
+  }, [map, busesGeojson, headroom]);
 
   useEffect(() => {
     setConnectionRequestGeoSource(
-      convertSelectedConnectionsToGeoSource(selectedConnectionRequestsUnified)
+      convertSelectedConnectionsToGeoSource(selectedConnectionRequests)
     );
-  }, [selectedConnectionRequestsUnified]);
+  }, [selectedConnectionRequests]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.connectionRequestsDensity) as any)?.setData(
-      connectionsDensitySource.data
+    (map?.getSource(SourcesIdsEnum.connectionRequestsDensity) as any)?.setData(
+      connectionRequestsDensityGeojson
     );
-  }, [map, connectionsDensitySource]);
+  }, [map, connectionRequestsDensityGeojson]);
 
   useEffect(() => {
     if (pickedHexagonId && currentNetworkId) {
@@ -367,17 +310,16 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [pickedHexagonId]);
 
   useEffect(() => {
-    (map?.getSource(ISourcesIdsEnum.hexagonsConnectionRequest) as any)?.setData(
+    (map?.getSource(SourcesIdsEnum.hexagonsConnectionRequest) as any)?.setData(
       convertSelectedConnectionsToGeoSource(
         Object.values(hexagonsConnectionRequests)
           .flat()
           .filter(
-            ({ id }) =>
-              !selectedConnectionRequestsUnified.some((c) => c.id === id)
+            ({ id }) => !selectedConnectionRequests.some((c) => c.id === id)
           )
       ).data
     );
-  }, [map, hexagonsConnectionRequests, selectedConnectionRequestsUnified]);
+  }, [map, hexagonsConnectionRequests, selectedConnectionRequests]);
 
   const value: IMainContext = {
     map,
@@ -387,44 +329,21 @@ export const MainContextProvider: FC<PropsWithChildren> = ({ children }) => {
     currentScenarioDetails,
     createdScenariosIds,
     headroom,
-    selectedConnectionRequestsUnified,
-    currentScenarioConnectionRequestsUnified,
-    prevScenarioConnectionRequestsUnified,
-    connectionRequestGeoSource,
-    branchesGeoSource,
-    trafoBranchesGeoSource,
-    busesGeoSource,
+    selectedConnectionRequests,
+    currentScenarioConnectionRequests,
+    branchesGeojson,
+    trafoBranchesGeojson,
+    busesGeojson,
     pickedElement,
     connectionRequestWarnings,
-    pickedHexagonId: pickedHexagonId,
     setMap,
     setCurrentNetworkId,
-    setNetworks,
     setCurrentScenarioId,
-    setCurrentScenarioDetails,
     setCreatedScenariosIds,
-    setHeadroom,
-    setSelectedConnectionRequestsUnified,
-    setConnectionRequestGeoSource,
-    setBranchesGeoSource,
-    setTrafoBranchesGeoSource,
-    setBusesGeoSource,
+    setSelectedConnectionRequests,
     setPickedElement,
     setPickedHexagonId: setPickedHexagonId,
-    zoomToCoordinates,
-
-    connectionsDensitySource,
-    setConnectionsDensitySource,
   };
 
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
-};
-
-export const useMainContext = () => {
-  const context = useContext(MainContext);
-  if (!context) {
-    throw new Error('useMainContext must be used within a MainContextProvider');
-  }
-
-  return context;
 };

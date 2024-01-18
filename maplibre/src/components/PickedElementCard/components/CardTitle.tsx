@@ -1,62 +1,61 @@
 import { FC, useEffect, useState } from 'react';
 import { PickedElementTypeEnum } from '../../../helpers/interfaces';
 import { Checkbox, Space, Tooltip } from 'antd';
-import { useMainContext } from '../../../context/MainContext';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { ConnectionRequestApiSchema } from '../../../client';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { COLOR_RED } from '../../../helpers/dataConverting';
+import { useMainContext } from '../../../hooks/useMainContext';
 
 type Props = {
   warnings: string[];
 };
 
 export const CardTitle: FC<Props> = ({ warnings }) => {
-  const mainContext = useMainContext();
+  const {
+    pickedElement,
+    setSelectedConnectionRequests,
+    selectedConnectionRequests,
+    currentScenarioConnectionRequests,
+  } = useMainContext();
 
   const [title, setTitle] = useState<string>();
 
   useEffect(() => {
-    if (mainContext.pickedElement?.type === PickedElementTypeEnum.bus) {
-      setTitle(`Bus: ${mainContext.pickedElement.properties.name}`);
-    } else if (
-      mainContext.pickedElement?.type === PickedElementTypeEnum.branch
-    ) {
+    if (pickedElement?.type === PickedElementTypeEnum.bus) {
+      setTitle(`Bus: ${pickedElement.properties.name}`);
+    } else if (pickedElement?.type === PickedElementTypeEnum.branch) {
       setTitle(
-        `Branch: ${mainContext.pickedElement.properties.from_bus.name} - ${mainContext.pickedElement.properties.to_bus.name}`
+        `Branch: ${pickedElement.properties.from_bus.name} - ${pickedElement.properties.to_bus.name}`
       );
-    } else if (
-      mainContext.pickedElement?.type === PickedElementTypeEnum.connection
-    ) {
-      setTitle(
-        `Connection Request: ${mainContext.pickedElement.properties.project_id}`
-      );
+    } else if (pickedElement?.type === PickedElementTypeEnum.connection) {
+      setTitle(`Connection Request: ${pickedElement.properties.project_id}`);
     }
-  }, [mainContext.pickedElement]);
+  }, [pickedElement]);
 
   const onCheckboxChange = (e: CheckboxChangeEvent) => {
-    if (e.target.checked && mainContext.pickedElement?.properties) {
-      mainContext.setSelectedConnectionRequestsUnified((prev) => [
+    if (e.target.checked && pickedElement?.properties) {
+      setSelectedConnectionRequests((prev) => [
         ...prev,
-        mainContext.pickedElement!.properties as ConnectionRequestApiSchema,
+        pickedElement!.properties as ConnectionRequestApiSchema,
       ]);
-    } else if (!e.target.checked && mainContext.pickedElement?.properties) {
-      mainContext.setSelectedConnectionRequestsUnified((prev) =>
-        prev.filter((c) => c.id !== mainContext.pickedElement?.properties.id)
+    } else if (!e.target.checked && pickedElement?.properties) {
+      setSelectedConnectionRequests((prev) =>
+        prev.filter((c) => c.id !== pickedElement?.properties.id)
       );
     }
   };
 
   return (
     <>
-      {mainContext.pickedElement?.type === PickedElementTypeEnum.connection ? (
+      {pickedElement?.type === PickedElementTypeEnum.connection ? (
         <Checkbox
           className="mr-2"
-          checked={mainContext.selectedConnectionRequestsUnified.some(
-            (c) => c.id === mainContext.pickedElement?.properties.id
+          checked={selectedConnectionRequests.some(
+            (c) => c.id === pickedElement?.properties.id
           )}
-          disabled={mainContext.currentScenarioConnectionRequestsUnified.some(
-            (c) => c.id === mainContext.pickedElement?.properties.id
+          disabled={currentScenarioConnectionRequests.some(
+            (c) => c.id === pickedElement?.properties.id
           )}
           onChange={onCheckboxChange}
         />

@@ -3,14 +3,15 @@ import { checkConnectionRequestForWarnings } from '../helpers/checkups';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
+  PointsGeoJson,
 } from '../client';
-import { ConnectionWarnings, IAnyGeojsonSource } from '../helpers/interfaces';
+import { ConnectionWarnings } from '../helpers/interfaces';
 
 export const useConnectionWarnings = (
-  selectedConnectionRequestsUnified: ConnectionRequestApiSchema[],
+  selectedConnectionRequests: ConnectionRequestApiSchema[],
   headrooms: BusHeadroomSchema_Output[],
-  currentScenarioConnectionRequestsUnified: ConnectionRequestApiSchema[],
-  busesGeoSource: IAnyGeojsonSource
+  currentScenarioConnectionRequests: ConnectionRequestApiSchema[],
+  busesGeojson: PointsGeoJson
 ): Record<string, ConnectionWarnings> => {
   const [warnings, setWarnings] = useState<Record<string, ConnectionWarnings>>(
     {}
@@ -18,10 +19,10 @@ export const useConnectionWarnings = (
 
   useEffect(() => {
     const newWarnings: Record<string, ConnectionWarnings> = {};
-    selectedConnectionRequestsUnified
+    selectedConnectionRequests
       .filter(
         (selectedC) =>
-          !currentScenarioConnectionRequestsUnified.some(
+          !currentScenarioConnectionRequests.some(
             (scenarioC) => scenarioC.id === selectedC.id
           )
       )
@@ -29,7 +30,7 @@ export const useConnectionWarnings = (
         const connectivityBusHeadroom = headrooms.find(
           (h) => h.bus.number == c.connectivity_node.id
         );
-        const connectivityBusProperties = busesGeoSource.data.features.find(
+        const connectivityBusProperties = busesGeojson.features.find(
           (b) => b.properties.number === c.connectivity_node.id
         )?.properties;
 
@@ -43,9 +44,9 @@ export const useConnectionWarnings = (
 
     setWarnings(newWarnings);
   }, [
-    selectedConnectionRequestsUnified,
+    selectedConnectionRequests,
     headrooms,
-    currentScenarioConnectionRequestsUnified,
+    currentScenarioConnectionRequests,
   ]);
 
   return warnings;
