@@ -7,19 +7,18 @@ import {
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import {
-  ConnectionWarnings,
-  IAnyGeojsonSource,
-  IPickedElement,
-  SourcesIdsEnum,
-  SetState,
-} from '../helpers/interfaces';
+import { IAnyGeojsonSource, SourcesIdsEnum } from '../types/map';
+
+import { ConnectionWarnings } from '../types';
+
+import { IPickedElement } from '../types/pickedCard';
+import { SetState } from '../types';
 import {
   addColorToBranchesFeaturesProperties,
   addColorToBusesFeaturesProperties,
   convertScenarioConnectionRequestsToGeoSource,
   convertSelectedConnectionsToGeoSource,
-} from '../helpers/dataConverting';
+} from '../utils/dataConverting';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
@@ -31,8 +30,8 @@ import {
   ScenariosService,
   SerializedNetwork,
 } from '../client';
-import { showMessage } from '../helpers/message';
-import { emptySource } from '../helpers/baseData';
+import { showMessage } from '../utils/message';
+import { emptySource } from '../utils/map';
 import { Map } from 'maplibre-gl';
 import { useConnectionWarnings } from '../hooks/useConnectionWarnings';
 import { useQuery } from '@tanstack/react-query';
@@ -41,7 +40,7 @@ import {
   emptyPointSourceData,
   emptyPolygonsSourceData,
   zoomToCoordinates,
-} from '../utils';
+} from '../utils/map';
 
 export interface IMainContext {
   map: Map | null;

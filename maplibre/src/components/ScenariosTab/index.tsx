@@ -13,10 +13,10 @@ import {
 } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ScenarioBaseApiSchema, ScenariosService } from '../../client';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { ProgressColumn } from './components/ProgressColumn';
 import { useScenarioProgress } from '../../hooks/useScenarioProgress';
-import { ScenarioCalculationStatusEnum } from '../../helpers/interfaces';
+import { ScenarioCalculationStatusEnum } from '../../types/scenario';
 import SkeletonTable from '../SkeletonTable';
 import { useMainContext } from '../../hooks/useMainContext';
 

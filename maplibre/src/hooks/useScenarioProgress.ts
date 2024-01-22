@@ -3,8 +3,8 @@ import { ScenarioBaseApiSchema } from '../client';
 import {
   ScenarioCalculationStatusEnum,
   ScenarioSubscribingProgressData,
-} from '../helpers/interfaces';
-import { EnumMessageType, showMessage } from '../helpers/message';
+} from '../types/scenario';
+import { EnumMessageType, showMessage } from '../utils/message';
 
 export const useScenarioProgress = (
   scenariosList: ScenarioBaseApiSchema[]

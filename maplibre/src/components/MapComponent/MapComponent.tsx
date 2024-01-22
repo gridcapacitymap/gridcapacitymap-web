@@ -1,12 +1,11 @@
 import { useRef, useEffect, FC, LegacyRef, useState } from 'react';
 import maplibregl, { LayerSpecification } from 'maplibre-gl';
 
-import {
-  ILayerMetadata,
-  SourcesIdsEnum,
-  PickedElementTypeEnum,
-  AnyObject,
-} from '../../helpers/interfaces';
+import { ILayerMetadata, SourcesIdsEnum } from '../../types/map';
+
+import { AnyObject } from '../../types';
+
+import { PickedElementTypeEnum } from '../../types/pickedCard';
 
 import geoJsonLayersConfig from '../../layerConfig/geojson_config.json';
 
@@ -16,8 +15,8 @@ import geoJsonLayersConfig from '../../layerConfig/geojson_config.json';
 import arrowImage from '../../assets/arrow_sdf.png';
 import transformerImage from '../../assets/transformer_sdf.png';
 
-import { emptySource } from '../../helpers/baseData';
-import { parseFeaturesProperties } from '../../helpers/dataConverting';
+import { emptySource } from '../../utils/map';
+import { parseFeaturesProperties } from '../../utils/dataConverting';
 import { useMainContext } from '../../hooks/useMainContext';
 import { LayersEnum } from '../../types/map';
 import { CustomControls } from '../CustomControls';

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IPickedElement } from '../../../helpers/interfaces';
+import { IPickedElement } from '../../../types/pickedCard';
 import { Card, Col, Row, Statistic, Tag } from 'antd';
 import { ArrowUpOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { ConnectionRequestApiSchema } from '../../../client';

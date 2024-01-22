@@ -13,16 +13,18 @@ import { useAuth } from 'react-oidc-context';
 import { AuthModal } from './auth/AuthModal';
 
 import './App.css';
-import { isMobile } from './helpers/checkups';
+import { isMobile } from './utils/checkups';
 import { NetworkSettingModal } from './components/NetworkSettingModal';
 import { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
 import { MapComponent } from './components/MapComponent';
+import { CurrentScenarioTab } from './components/CurrentScenarioTab';
 
 const { Content, Header } = Layout;
 
 enum GridMapTab {
   connections = 'connections',
   scenarios = 'scenarios',
+  currentScenario = 'current_scenario',
 }
 
 const tabs = [
@@ -35,6 +37,11 @@ const tabs = [
     key: GridMapTab.scenarios,
     label: 'Scenarios',
     children: <ScenariosTab />,
+  },
+  {
+    key: GridMapTab.currentScenario,
+    label: 'Current Scenario',
+    children: <CurrentScenarioTab />,
   },
 ];
 

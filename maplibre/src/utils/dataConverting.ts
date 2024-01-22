@@ -1,4 +1,5 @@
-import { IAnyGeojsonSource, AnyObject } from './interfaces';
+import { IAnyGeojsonSource } from '../types/map';
+import { AnyObject } from '../types';
 import { DataNode } from 'antd/es/tree';
 import {
   BusHeadroomSchema_Output,

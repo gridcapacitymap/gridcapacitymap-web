@@ -1,7 +1,7 @@
 import { Button, Col, Divider, Input, Modal, Row, Tag, Tooltip } from 'antd';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { ConnectionStatusEnum, ScenariosService } from '../../client';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { SelectableConnectionsTree } from './components/SelectableConnectionsTree';
 import { useMainContext } from '../../hooks/useMainContext';
 import { useMutation } from '@tanstack/react-query';

@@ -1,8 +1,8 @@
 import { Tree } from 'antd';
 import { FC } from 'react';
-import { propertiesToTreeData } from '../../../helpers/dataConverting';
+import { propertiesToTreeData } from '../../../utils/dataConverting';
 import { BusHeadroomSchema_Output } from '../../../client';
-import { IPickedElement } from '../../../helpers/interfaces';
+import { IPickedElement } from '../../../types/pickedCard';
 
 type Props = {
   pickedElement: IPickedElement;

@@ -2,10 +2,8 @@ import { FC, Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { Table, Col, Row, Space, TablePaginationConfig } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
-import {
-  ColumnWithKeyType,
-  IConnectionRequestStatus,
-} from '../../helpers/interfaces';
+import { IConnectionRequestStatus } from '../../types/subsystem';
+import { ColumnWithKeyType } from '../../types';
 import { Footer } from './components/Footer';
 import { ColumnsSettingModal } from '../ColumnsSettingModal';
 import { ExpandedRow } from './components/ExpandedRow';
@@ -19,7 +17,7 @@ import {
   PaginatedResponse_ConnectionRequestApiSchema_,
 } from '../../client';
 import { CreateScenarioModal } from '../CreateScenarioModal';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { ProjectIdColumn } from './components/ProjectIdColumn';
 import { BusNumberColumn } from './components/BusNumberColumn';
 import SkeletonTable from '../SkeletonTable';

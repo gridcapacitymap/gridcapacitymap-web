@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Button, Divider, Form, Input, Modal, Row, Space } from 'antd';
 import { NetworksService, SerializedNetwork } from '../../client';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMainContext } from '../../hooks/useMainContext';
 import { DefaultNetworkScenarioSelect } from './components/DefaultNetworkScenarioSelect';

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Button } from 'antd';
 import { ZoomInOutlined } from '@ant-design/icons';
-import { showMessage } from '../../../helpers/message';
+import { showMessage } from '../../../utils/message';
 import { ConnectionRequestApiSchema } from '../../../client';
 import { LngLatLike } from 'maplibre-gl';
 import { useMainContext } from '../../../hooks/useMainContext';
-import { zoomToCoordinates } from '../../../utils';
+import { zoomToCoordinates } from '../../../utils/map';
 
 type Props = {
   projectId?: string;

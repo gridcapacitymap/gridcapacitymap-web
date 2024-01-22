@@ -3,7 +3,7 @@ import {
   ConnectionEnergyKindEnum,
   ConnectionRequestApiSchema,
 } from '../client';
-import { ConnectionWarnings } from './interfaces';
+import { ConnectionWarnings } from '../types';
 
 enum BusTypeEnum {
   'UNKNOWN' = 'UNKNOWN',

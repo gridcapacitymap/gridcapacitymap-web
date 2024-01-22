@@ -5,7 +5,7 @@ import {
   PicLeftOutlined,
   PicCenterOutlined,
 } from '@ant-design/icons';
-import { isMobile } from '../../helpers/checkups';
+import { isMobile } from '../../utils/checkups';
 
 export type LayoutSize = 0 | 12 | 24;
 export type TwoColLayout = [LayoutSize, LayoutSize];

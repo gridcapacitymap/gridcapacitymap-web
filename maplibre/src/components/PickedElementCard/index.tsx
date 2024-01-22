@@ -1,22 +1,19 @@
 import { Button, Card } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { CloseOutlined, CopyOutlined } from '@ant-design/icons';
-import {
-  CardTabEnum,
-  ISetStateOnChange,
-  PickedElementTypeEnum,
-} from '../../helpers/interfaces';
+import { CardTabEnum, PickedElementTypeEnum } from '../../types/pickedCard';
+import { ISetStateOnChange } from '../../types';
 import { CardTabListType } from 'antd/es/card';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
 } from '../../client';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { CardTitle } from './components/CardTitle';
 import { TreeTab } from './components/TreeTab';
 import { JsonTab } from './components/JsonTab';
 import { BusPowerTab } from './components/BusPowerTab';
-import { checkConnectionRequestForWarnings } from '../../helpers/checkups';
+import { checkConnectionRequestForWarnings } from '../../utils/checkups';
 import { ConnectionPowerTab } from './components/ConnectionPowerTab';
 import { useMainContext } from '../../hooks/useMainContext';
 
@@ -36,7 +33,8 @@ const tabsForConnection: CardTabListType[] = [
 ];
 
 export const PickedElementCard: FC = () => {
-  const {pickedElement, headroom, busesGeojson, setPickedElement} = useMainContext();
+  const { pickedElement, headroom, busesGeojson, setPickedElement } =
+    useMainContext();
 
   const [currentTab, setCurrentTab] = useState<keyof typeof CardTabEnum>(
     CardTabEnum.tree
@@ -55,15 +53,11 @@ export const PickedElementCard: FC = () => {
           return h.bus.number == pickedElement?.properties?.number;
         })[0]
       );
-    } else if (
-      pickedElement?.type === PickedElementTypeEnum.branch
-    ) {
+    } else if (pickedElement?.type === PickedElementTypeEnum.branch) {
       setTabs(defaultTabs);
       setCurrentTab(CardTabEnum.tree);
       setPickedElementHeadroom(null);
-    } else if (
-      pickedElement?.type === PickedElementTypeEnum.connection
-    ) {
+    } else if (pickedElement?.type === PickedElementTypeEnum.connection) {
       setTabs(tabsForConnection);
       setCurrentTab(CardTabEnum.power);
       setPickedElementHeadroom(null);
@@ -86,11 +80,9 @@ export const PickedElementCard: FC = () => {
       } else {
         setWarnings([]);
       }
-    } else if (
-      pickedElement?.type === PickedElementTypeEnum.connection
-    ) {
-      const connectionRequest = pickedElement
-        .properties as ConnectionRequestApiSchema;
+    } else if (pickedElement?.type === PickedElementTypeEnum.connection) {
+      const connectionRequest =
+        pickedElement.properties as ConnectionRequestApiSchema;
 
       const connectivityBusHeadroom = headroom.find(
         (h) => h.bus.number == connectionRequest.connectivity_node.id
@@ -178,8 +170,7 @@ export const PickedElementCard: FC = () => {
                   warnings={warnings}
                 />
               )}
-              {pickedElement.type ===
-                PickedElementTypeEnum.connection && (
+              {pickedElement.type === PickedElementTypeEnum.connection && (
                 <ConnectionPowerTab
                   pickedElement={pickedElement}
                   warnings={warnings}

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IPickedElement } from '../../../helpers/interfaces';
+import { IPickedElement } from '../../../types/pickedCard';
 import { BusHeadroomSchema_Output } from '../../../client';
 
 type Props = {

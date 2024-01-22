@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { Card, Col, Divider, Empty, Progress, Row, Statistic, Tag } from 'antd';
 import { ArrowUpOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { IConnectionEnergyKind } from '../../../types/subsystem';
 import {
-  IConnectionEnergyKind,
   IPickedElement,
   PickedElementTypeEnum,
-} from '../../../helpers/interfaces';
+} from '../../../types/pickedCard';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { checkConnectionRequestForWarnings } from '../helpers/checkups';
+import { checkConnectionRequestForWarnings } from '../utils/checkups';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
   PointsGeoJson,
 } from '../client';
-import { ConnectionWarnings } from '../helpers/interfaces';
+import { ConnectionWarnings } from '../types';
 
 export const useConnectionWarnings = (
   selectedConnectionRequests: ConnectionRequestApiSchema[],

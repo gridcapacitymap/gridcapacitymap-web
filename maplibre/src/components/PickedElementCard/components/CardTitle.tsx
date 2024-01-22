@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import { PickedElementTypeEnum } from '../../../helpers/interfaces';
+import { PickedElementTypeEnum } from '../../../types/pickedCard';
 import { Checkbox, Space, Tooltip } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { ConnectionRequestApiSchema } from '../../../client';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import { COLOR_RED } from '../../../helpers/dataConverting';
+import { COLOR_RED } from '../../../utils/dataConverting';
 import { useMainContext } from '../../../hooks/useMainContext';
 
 type Props = {

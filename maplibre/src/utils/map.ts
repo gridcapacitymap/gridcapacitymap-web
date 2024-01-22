@@ -1,5 +1,6 @@
 import { FitBoundsOptions, LngLatLike, Map } from 'maplibre-gl';
 import { LinesGeoJson, PointsGeoJson, PolygonsGeoJson } from '../client';
+import { IAnyGeojsonSource } from '../types/map';
 
 export const zoomToCoordinates = (
   map: Map | null,
@@ -50,3 +51,8 @@ const emptySourceData = {
 export const emptyLinesSourceData: LinesGeoJson = emptySourceData;
 export const emptyPointSourceData: PointsGeoJson = emptySourceData;
 export const emptyPolygonsSourceData: PolygonsGeoJson = emptySourceData;
+
+export const emptySource: IAnyGeojsonSource = {
+  type: 'geojson',
+  data: emptySourceData,
+};

@@ -1,3 +1,6 @@
+import { LinesGeoJson, PointsGeoJson, PolygonsGeoJson } from '../client';
+import { PickedElementTypeEnum } from './pickedCard';
+
 export enum LayersEnum {
   connectionRequestsHexagonalHeatmap = 'connection_requests_hexagonal_heatmap',
 
@@ -21,4 +24,24 @@ export enum LayersEnum {
   branchesDirectionIcons = 'branches_directions_icon',
   branchesWithTransformerIcons = 'branches_with_transformer_directions_icon',
   transformerIcons = 'transformer_icon',
+}
+
+export enum SourcesIdsEnum {
+  branchesSourceId = 'powergrid/geo/branches',
+  busesSourceId = 'powergrid/geo/buses',
+  trafosSourceId = 'powergrid/geo/trafos2w',
+  connectionRequestsSourceId = 'connections/geo/connection_requests',
+  hexagonsConnectionRequest = 'hexagons_connection_requests',
+  connectionRequestsDensity = 'connection_requests_density',
+  scenarioConnectionsLinesSourceId = 'scenario-connections-lines',
+}
+
+export interface ILayerMetadata {
+  showPopup: boolean;
+  type: keyof typeof PickedElementTypeEnum;
+}
+
+export interface IAnyGeojsonSource {
+  type: 'geojson';
+  data: PointsGeoJson | LinesGeoJson | PolygonsGeoJson;
 }
