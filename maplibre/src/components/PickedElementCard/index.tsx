@@ -1,24 +1,21 @@
 import { Button, Card } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import { useMainContext } from '../../context/MainContext';
 import { CloseOutlined, CopyOutlined } from '@ant-design/icons';
-import {
-  CardTabEnum,
-  ISetStateOnChange,
-  PickedElementTypeEnum,
-} from '../../helpers/interfaces';
+import { CardTabEnum, PickedElementTypeEnum } from '../../types/pickedCard';
+import { ISetStateOnChange } from '../../types';
 import { CardTabListType } from 'antd/es/card';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
 } from '../../client';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { CardTitle } from './components/CardTitle';
 import { TreeTab } from './components/TreeTab';
 import { JsonTab } from './components/JsonTab';
 import { BusPowerTab } from './components/BusPowerTab';
-import { checkConnectionRequestForWarnings } from '../../helpers/checkups';
+import { checkConnectionRequestForWarnings } from '../../utils/checkups';
 import { ConnectionPowerTab } from './components/ConnectionPowerTab';
+import { useMainContext } from '../../hooks/useMainContext';
 
 const defaultTabs: CardTabListType[] = [
   { key: CardTabEnum.tree, tab: CardTabEnum.tree },
@@ -36,7 +33,8 @@ const tabsForConnection: CardTabListType[] = [
 ];
 
 export const PickedElementCard: FC = () => {
-  const mainContext = useMainContext();
+  const { pickedElement, headroom, busesGeojson, setPickedElement } =
+    useMainContext();
 
   const [currentTab, setCurrentTab] = useState<keyof typeof CardTabEnum>(
     CardTabEnum.tree
@@ -47,32 +45,28 @@ export const PickedElementCard: FC = () => {
   const [warnings, setWarnings] = useState<string[]>([]);
 
   useEffect(() => {
-    if (mainContext.pickedElement?.type === PickedElementTypeEnum.bus) {
+    if (pickedElement?.type === PickedElementTypeEnum.bus) {
       setTabs(tabsForBus);
       setCurrentTab(CardTabEnum.power);
       setPickedElementHeadroom(
-        mainContext.headroom.filter((h) => {
-          return h.bus.number == mainContext.pickedElement?.properties?.number;
+        headroom.filter((h) => {
+          return h.bus.number == pickedElement?.properties?.number;
         })[0]
       );
-    } else if (
-      mainContext.pickedElement?.type === PickedElementTypeEnum.branch
-    ) {
+    } else if (pickedElement?.type === PickedElementTypeEnum.branch) {
       setTabs(defaultTabs);
       setCurrentTab(CardTabEnum.tree);
       setPickedElementHeadroom(null);
-    } else if (
-      mainContext.pickedElement?.type === PickedElementTypeEnum.connection
-    ) {
+    } else if (pickedElement?.type === PickedElementTypeEnum.connection) {
       setTabs(tabsForConnection);
       setCurrentTab(CardTabEnum.power);
       setPickedElementHeadroom(null);
     }
-  }, [mainContext.pickedElement, mainContext.headroom]);
+  }, [pickedElement, headroom]);
 
   useEffect(() => {
     if (
-      mainContext.pickedElement?.type === PickedElementTypeEnum.bus &&
+      pickedElement?.type === PickedElementTypeEnum.bus &&
       pickedElementHeadroom
     ) {
       if (pickedElementHeadroom.gen_lf?.v) {
@@ -86,19 +80,16 @@ export const PickedElementCard: FC = () => {
       } else {
         setWarnings([]);
       }
-    } else if (
-      mainContext.pickedElement?.type === PickedElementTypeEnum.connection
-    ) {
-      const connectionRequest = mainContext.pickedElement
-        .properties as ConnectionRequestApiSchema;
+    } else if (pickedElement?.type === PickedElementTypeEnum.connection) {
+      const connectionRequest =
+        pickedElement.properties as ConnectionRequestApiSchema;
 
-      const connectivityBusHeadroom = mainContext.headroom.find(
+      const connectivityBusHeadroom = headroom.find(
         (h) => h.bus.number == connectionRequest.connectivity_node.id
       );
-      const connectivityBusProperties =
-        mainContext.busesGeoSource.data.features.find(
-          (b) => b.properties.number == connectionRequest.connectivity_node.id
-        )?.properties;
+      const connectivityBusProperties = busesGeojson.features.find(
+        (b) => b.properties.number == connectionRequest.connectivity_node.id
+      )?.properties;
 
       const connectionWarnings = checkConnectionRequestForWarnings(
         connectionRequest,
@@ -114,16 +105,16 @@ export const PickedElementCard: FC = () => {
     } else {
       setWarnings([]);
     }
-  }, [mainContext.pickedElement, pickedElementHeadroom]);
+  }, [pickedElement, pickedElementHeadroom]);
 
   const onClose = () => {
-    mainContext.setPickedElement(null);
+    setPickedElement(null);
   };
 
   const onCopy = () => {
-    if (mainContext.pickedElement) {
+    if (pickedElement) {
       navigator.clipboard.writeText(
-        JSON.stringify(mainContext.pickedElement.properties, null, 2)
+        JSON.stringify(pickedElement.properties, null, 2)
       );
       showMessage('info', 'Json copied to clipboard');
     }
@@ -131,7 +122,7 @@ export const PickedElementCard: FC = () => {
 
   return (
     <>
-      {mainContext.pickedElement ? (
+      {pickedElement ? (
         <Card
           style={{
             position: 'absolute',
@@ -160,29 +151,28 @@ export const PickedElementCard: FC = () => {
         >
           {currentTab === CardTabEnum.tree ? (
             <TreeTab
-              pickedElement={mainContext.pickedElement}
+              pickedElement={pickedElement}
               pickedElementHeadroom={pickedElementHeadroom}
             />
           ) : null}
           {currentTab === CardTabEnum.json ? (
             <JsonTab
-              pickedElement={mainContext.pickedElement}
+              pickedElement={pickedElement}
               pickedElementHeadroom={pickedElementHeadroom}
             />
           ) : null}
           {currentTab === CardTabEnum.power ? (
             <>
-              {mainContext.pickedElement.type === PickedElementTypeEnum.bus && (
+              {pickedElement.type === PickedElementTypeEnum.bus && (
                 <BusPowerTab
-                  pickedElement={mainContext.pickedElement}
+                  pickedElement={pickedElement}
                   pickedElementHeadroom={pickedElementHeadroom}
                   warnings={warnings}
                 />
               )}
-              {mainContext.pickedElement.type ===
-                PickedElementTypeEnum.connection && (
+              {pickedElement.type === PickedElementTypeEnum.connection && (
                 <ConnectionPowerTab
-                  pickedElement={mainContext.pickedElement}
+                  pickedElement={pickedElement}
                   warnings={warnings}
                 />
               )}

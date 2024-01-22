@@ -1,7 +1,7 @@
 import { FC, Key, useState } from 'react';
 import { Button, Col, Modal, Row, Switch } from 'antd';
 import { TableOutlined } from '@ant-design/icons';
-import { ColumnWithKeyType } from '../../helpers/interfaces';
+import { ColumnWithKeyType } from '../../types';
 
 interface IProps {
   allColumns: ColumnWithKeyType[];

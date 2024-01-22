@@ -1,4 +1,5 @@
-import { IAnyGeojsonSource, ISomeObject } from './interfaces';
+import { IAnyGeojsonSource } from '../types/map';
+import { AnyObject } from '../types';
 import { DataNode } from 'antd/es/tree';
 import {
   BusHeadroomSchema_Output,
@@ -9,12 +10,12 @@ import {
 import { showMessage } from './message';
 
 export const convertSelectedConnectionsToGeoSource = (
-  selectedConnectionRequestsUnified: ConnectionRequestApiSchema[]
+  selectedConnectionRequests: ConnectionRequestApiSchema[]
 ): IAnyGeojsonSource => ({
   type: 'geojson',
   data: {
     type: 'FeatureCollection',
-    features: selectedConnectionRequestsUnified.map((connection) => {
+    features: selectedConnectionRequests.map((connection) => {
       if (!connection.extra) {
         showMessage(
           'warning',
@@ -37,7 +38,7 @@ export const convertSelectedConnectionsToGeoSource = (
 });
 
 export const propertiesToTreeData = (
-  properties: ISomeObject,
+  properties: AnyObject,
   fullKey?: string
 ): DataNode[] => {
   return Object.keys(properties).map((key) => {
@@ -158,14 +159,14 @@ export const parseFeaturesProperties = (
 
 export const convertScenarioConnectionRequestsToGeoSource = (
   connectionRequests: ConnectionRequestApiSchema[],
-  busesGeoSource: IAnyGeojsonSource
+  busesGeojson: PointsGeoJson
 ): IAnyGeojsonSource => ({
   type: 'geojson',
   data: {
     type: 'FeatureCollection',
     features: connectionRequests.reduce(
       (features, sc) => {
-        const connectivityNodeCoordinates = busesGeoSource.data.features.find(
+        const connectivityNodeCoordinates = busesGeojson.features.find(
           (b) => b.properties.number === sc.connectivity_node.id
         )?.geometry.coordinates;
 

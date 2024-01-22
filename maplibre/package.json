@@ -14,12 +14,13 @@
     "generate-client": "wget -O /tmp/openapi.json http://gridmap_backend:8000/openapi.json && node ./openapi/rewritetags.js /tmp && openapi --input /tmp/openapi.json --output ./src/client --client axios"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.13.4",
     "@types/luxon": "^3.3.2",
     "antd": "^5.10.2",
     "axios": "^1.5.0",
     "keycloak-js": "^22.0.4",
     "luxon": "^3.4.1",
-    "maplibre-gl": "^3.1.0",
+    "maplibre-gl": "^3.6.2",
     "oidc-client-ts": "^2.3.0",
     "openapi-typescript-codegen": "^0.25.0",
     "react": "^18.2.0",

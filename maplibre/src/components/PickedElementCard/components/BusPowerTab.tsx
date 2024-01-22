@@ -1,16 +1,16 @@
 import { FC, useEffect, useState } from 'react';
 import { Card, Col, Divider, Empty, Progress, Row, Statistic, Tag } from 'antd';
 import { ArrowUpOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { IConnectionEnergyKind } from '../../../types/subsystem';
 import {
-  IConnectionEnergyKind,
   IPickedElement,
   PickedElementTypeEnum,
-} from '../../../helpers/interfaces';
+} from '../../../types/pickedCard';
 import {
   BusHeadroomSchema_Output,
   ConnectionRequestApiSchema,
 } from '../../../client';
-import { useMainContext } from '../../../context/MainContext';
+import { useMainContext } from '../../../hooks/useMainContext';
 
 type IBusPowerData = {
   [key in IConnectionEnergyKind]?: number;
@@ -27,7 +27,8 @@ export const BusPowerTab: FC<Props> = ({
   pickedElementHeadroom,
   warnings,
 }) => {
-  const mainContext = useMainContext();
+  const { selectedConnectionRequests, currentScenarioConnectionRequests } =
+    useMainContext();
   const [busPowerData, setBusPowerData] = useState<IBusPowerData>({});
   const [consumptionPercent, setConsumptionPercent] = useState<number>(0);
   const [productionPercent, setProductionPercent] = useState<number>(0);
@@ -35,13 +36,11 @@ export const BusPowerTab: FC<Props> = ({
   useEffect(() => {
     if (pickedElement.type === PickedElementTypeEnum.bus) {
       setBusPowerData(
-        mainContext.selectedConnectionRequestsUnified
+        selectedConnectionRequests
           .filter(
             (c) =>
               c.connectivity_node.id == pickedElement.properties.number &&
-              !mainContext.currentScenarioConnectionRequestsUnified.some(
-                (sc) => sc.id === c.id
-              )
+              !currentScenarioConnectionRequests.some((sc) => sc.id === c.id)
           )
           .reduce(
             (
@@ -72,7 +71,7 @@ export const BusPowerTab: FC<Props> = ({
           )
       );
     }
-  }, [pickedElement, mainContext.selectedConnectionRequestsUnified]);
+  }, [pickedElement, selectedConnectionRequests]);
 
   useEffect(() => {
     setConsumptionPercent(

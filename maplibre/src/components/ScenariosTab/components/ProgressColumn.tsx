@@ -4,7 +4,7 @@ import { Progress } from 'antd';
 import {
   ScenarioCalculationStatusEnum,
   ScenarioSubscribingProgressData,
-} from '../../../helpers/interfaces';
+} from '../../../types/scenario';
 
 interface Props {
   record: ScenarioBaseApiSchema;

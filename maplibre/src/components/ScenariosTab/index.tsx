@@ -13,12 +13,12 @@ import {
 } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ScenarioBaseApiSchema, ScenariosService } from '../../client';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { ProgressColumn } from './components/ProgressColumn';
-import { useMainContext } from '../../context/MainContext';
 import { useScenarioProgress } from '../../hooks/useScenarioProgress';
-import { ScenarioCalculationStatusEnum } from '../../helpers/interfaces';
+import { ScenarioCalculationStatusEnum } from '../../types/scenario';
 import SkeletonTable from '../SkeletonTable';
+import { useMainContext } from '../../hooks/useMainContext';
 
 enum columnKeysEnum {
   name = 'name',
@@ -40,7 +40,12 @@ const defaultPagination: TablePaginationConfig = {
 };
 
 export const ScenariosTab: FC = () => {
-  const mainContext = useMainContext();
+  const {
+    currentScenarioId,
+    currentNetworkId,
+    setCurrentScenarioId,
+    createdScenariosIds,
+  } = useMainContext();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [connectionScenariosList, setConnectionScenariosList] = useState<
@@ -122,12 +127,10 @@ export const ScenariosTab: FC = () => {
   ];
 
   useEffect(() => {
-    if (selectedRowKeys[0] !== mainContext.currentScenarioId) {
-      setSelectedRowKeys(
-        mainContext.currentScenarioId ? [mainContext.currentScenarioId] : []
-      );
+    if (selectedRowKeys[0] !== currentScenarioId) {
+      setSelectedRowKeys(currentScenarioId ? [currentScenarioId] : []);
     }
-  }, [mainContext.currentScenarioId]);
+  }, [currentScenarioId]);
 
   const onCalcClick = async (
     scenario: ScenarioBaseApiSchema,
@@ -139,7 +142,7 @@ export const ScenariosTab: FC = () => {
         return;
       }
       await ScenariosService.calculateScenario({
-        netId: mainContext.currentNetworkId as string,
+        netId: currentNetworkId as string,
         scenarioId: scenario.id,
         onlyAffectedBuses,
       });
@@ -156,7 +159,7 @@ export const ScenariosTab: FC = () => {
   const onScenarioDelete = async (scenario: ScenarioBaseApiSchema) => {
     try {
       await ScenariosService.removeScenario({
-        netId: mainContext.currentNetworkId as string,
+        netId: currentNetworkId as string,
         scenarioId: scenario.id as string,
       });
       showMessage(
@@ -170,7 +173,7 @@ export const ScenariosTab: FC = () => {
   };
 
   const onRowSelectionChange = (scenarioIds: Key[]) => {
-    mainContext.setCurrentScenarioId(scenarioIds[0].toString());
+    setCurrentScenarioId(scenarioIds[0].toString());
   };
 
   const calcMenuItems = (record: ScenarioBaseApiSchema): MenuProps['items'] => [
@@ -225,19 +228,19 @@ export const ScenariosTab: FC = () => {
   useEffect(
     () => fetchConnectionScenariosList(),
     [
-      mainContext.currentNetworkId,
+      currentNetworkId,
       pagination.current,
       pagination.pageSize,
-      mainContext.createdScenariosIds,
+      createdScenariosIds,
     ]
   );
 
   function fetchConnectionScenariosList() {
-    if (!mainContext.currentNetworkId) return;
+    if (!currentNetworkId) return;
     setLoading(true);
 
     ScenariosService.listConnectionScenarios({
-      netId: mainContext.currentNetworkId,
+      netId: currentNetworkId,
       limit: pagination.pageSize,
       offset: pagination.pageSize! * (pagination.current! - 1),
     })
@@ -282,7 +285,7 @@ export const ScenariosTab: FC = () => {
             }),
           }}
           rowClassName={(record) =>
-            record.id && mainContext.createdScenariosIds.includes(record.id)
+            record.id && createdScenariosIds.includes(record.id)
               ? 'new-scenario'
               : ''
           }

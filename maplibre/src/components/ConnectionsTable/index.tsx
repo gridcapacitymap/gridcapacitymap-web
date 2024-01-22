@@ -1,12 +1,9 @@
-import { FC, Key, useEffect, useMemo, useState } from 'react';
+import { FC, Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { Table, Col, Row, Space, TablePaginationConfig } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
-import { useMainContext } from '../../context/MainContext';
-import {
-  ColumnWithKeyType,
-  IConnectionRequestStatus,
-} from '../../helpers/interfaces';
+import { IConnectionRequestStatus } from '../../types/subsystem';
+import { ColumnWithKeyType } from '../../types';
 import { Footer } from './components/Footer';
 import { ColumnsSettingModal } from '../ColumnsSettingModal';
 import { ExpandedRow } from './components/ExpandedRow';
@@ -17,13 +14,16 @@ import {
   ConnectionStatusEnum,
   ConnectionsService,
   GeoFeature_PointGeometry_,
+  PaginatedResponse_ConnectionRequestApiSchema_,
 } from '../../client';
 import { CreateScenarioModal } from '../CreateScenarioModal';
-import { showMessage } from '../../helpers/message';
+import { showMessage } from '../../utils/message';
 import { ProjectIdColumn } from './components/ProjectIdColumn';
 import { BusNumberColumn } from './components/BusNumberColumn';
 import SkeletonTable from '../SkeletonTable';
 import { FilterValue } from 'antd/es/table/interface';
+import { useQuery } from '@tanstack/react-query';
+import { useMainContext } from '../../hooks/useMainContext';
 
 enum columnKeysEnum {
   projectId = 'projectId',
@@ -60,16 +60,18 @@ const defaultFilters: ConnectionRequestsTableFilters = {
 };
 
 export const ConnectionsTable: FC = () => {
-  const mainContext = useMainContext();
+  const {
+    busesGeojson,
+    currentNetworkId,
+    selectedConnectionRequests,
+    setSelectedConnectionRequests,
+    currentScenarioConnectionRequests,
+  } = useMainContext();
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [pagination, setPagination] =
     useState<TablePaginationConfig>(defaultPagination);
   const [filters, setFilters] =
     useState<ConnectionRequestsTableFilters>(defaultFilters);
-  const [connectionRequests, setConnectionRequests] = useState<
-    ConnectionRequestApiSchema[]
-  >([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
   const allColumns = useMemo(
@@ -89,7 +91,7 @@ export const ConnectionsTable: FC = () => {
         dataIndex: ['connectivity_node', 'id'],
         align: 'right',
         filters:
-          mainContext.busesGeoSource.data.features
+          busesGeojson.features
             .filter((b: GeoFeature_PointGeometry_) => b.properties.number)
             .map((b: GeoFeature_PointGeometry_) => ({
               text: b.properties.number,
@@ -146,7 +148,7 @@ export const ConnectionsTable: FC = () => {
         align: 'right',
       },
     ],
-    [mainContext.busesGeoSource]
+    [busesGeojson]
   );
 
   const defaultHiddenColumns = [
@@ -159,47 +161,59 @@ export const ConnectionsTable: FC = () => {
   const [showedColumnKeys, setShowedColumnKeys] =
     useState<columnKeysEnum[]>(defaultColumns);
 
-  const fetchConnectionRequests = () => {
-    if (!mainContext.currentNetworkId) return;
-    setLoading(true);
+  const fetchConnectionRequests = useCallback(
+    async (
+      netId: string,
+      pagination: TablePaginationConfig,
+      filters: ConnectionRequestsTableFilters
+    ): Promise<PaginatedResponse_ConnectionRequestApiSchema_> => {
+      const offset =
+        pagination.pageSize && pagination.current
+          ? pagination.pageSize * (pagination.current - 1)
+          : 0;
 
-    const offset =
-      pagination.pageSize && pagination.current
-        ? pagination.pageSize * (pagination.current - 1)
-        : 0;
-
-    ConnectionsService.getConnectionRequests({
-      netId: mainContext.currentNetworkId,
-      limit: pagination.pageSize,
-      offset,
-      busId: filters[columnKeysEnum.busNumber],
-      status: filters[columnKeysEnum.status],
-      connectionKind: filters[columnKeysEnum.connectionKind],
-      connectionEnergyKind: filters[columnKeysEnum.connectionType],
-    })
-      .then((res) => {
-        setConnectionRequests(res.items);
-        setPagination((prev) => ({ ...prev, total: res.count }));
-      })
-      .catch((e) => showMessage('error', e))
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(
-    () => fetchConnectionRequests(),
-    [
-      mainContext.currentNetworkId,
-      pagination.current,
-      pagination.pageSize,
-      filters,
-    ]
+      return await ConnectionsService.getConnectionRequests({
+        netId,
+        limit: pagination.pageSize,
+        offset,
+        busId: filters[columnKeysEnum.busNumber],
+        status: filters[columnKeysEnum.status],
+        connectionKind: filters[columnKeysEnum.connectionKind],
+        connectionEnergyKind: filters[columnKeysEnum.connectionType],
+      });
+    },
+    []
   );
 
+  const {
+    isLoading,
+    error,
+    data: connectionRequests = [],
+  } = useQuery({
+    queryKey: [
+      'paginatedConnectionRequests',
+      filters,
+      currentNetworkId,
+      pagination.current,
+      pagination.pageSize,
+    ],
+    queryFn: () =>
+      fetchConnectionRequests(currentNetworkId!, pagination, filters).then(
+        (res) => {
+          setPagination((prev) => ({ ...prev, total: res.count }));
+          return res.items;
+        }
+      ),
+    enabled: Boolean(currentNetworkId),
+  });
+
   useEffect(() => {
-    setSelectedRowKeys(
-      mainContext.selectedConnectionRequestsUnified.map((c) => c.id)
-    );
-  }, [mainContext.selectedConnectionRequestsUnified]);
+    error && showMessage('error', error);
+  }, [error]);
+
+  useEffect(() => {
+    setSelectedRowKeys(selectedConnectionRequests.map((c) => c.id));
+  }, [selectedConnectionRequests]);
 
   const handleTableChange = (
     pagination: TablePaginationConfig,
@@ -210,8 +224,8 @@ export const ConnectionsTable: FC = () => {
   };
 
   const handleSelectionChange = (keys: Key[]) => {
-    mainContext.setSelectedConnectionRequestsUnified([
-      ...mainContext.selectedConnectionRequestsUnified.filter(
+    setSelectedConnectionRequests([
+      ...selectedConnectionRequests.filter(
         (sc) => !connectionRequests.some((c) => c.id === sc.id)
       ),
       ...connectionRequests.filter(({ id }) => keys.includes(id)),
@@ -246,20 +260,18 @@ export const ConnectionsTable: FC = () => {
       <SkeletonTable
         rowCount={8}
         active={true}
-        loading={loading && !connectionRequests?.length}
+        loading={isLoading && !connectionRequests?.length}
         columns={visibleColumns.map((x) => ({ key: x.key }))}
       >
         <Table
           rowKey="id"
-          loading={loading}
+          loading={isLoading}
           columns={visibleColumns}
           dataSource={connectionRequests}
           size="small"
           footer={() => (
             <Footer
-              selectedRequestQuantity={
-                mainContext.selectedConnectionRequestsUnified.length
-              }
+              selectedRequestQuantity={selectedConnectionRequests.length}
             />
           )}
           rowSelection={{
@@ -269,10 +281,9 @@ export const ConnectionsTable: FC = () => {
             selectedRowKeys: selectedRowKeys,
             preserveSelectedRowKeys: true,
             getCheckboxProps: (record) => ({
-              disabled:
-                mainContext.currentScenarioConnectionRequestsUnified.some(
-                  (c) => c.id === record.id
-                ),
+              disabled: currentScenarioConnectionRequests.some(
+                (c) => c.id === record.id
+              ),
             }),
           }}
           expandable={{

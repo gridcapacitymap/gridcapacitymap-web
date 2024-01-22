@@ -208,7 +208,7 @@
     }
   },
   {
-    "id": "buses-labels",
+    "id": "buses_labels",
     "source": "powergrid/geo/buses",
     "type": "symbol",
     "minzoom": 6,
@@ -228,7 +228,7 @@
     "id": "branches_directions_icon",
     "source": "powergrid/geo/branches",
     "type": "symbol",
-    "minzoom": 4,
+    "minzoom": 5,
     "layout": {
       "symbol-placement": "line-center",
       "icon-size": ["interpolate", ["linear"], ["zoom"], 2, 0.2, 10, 0.5],

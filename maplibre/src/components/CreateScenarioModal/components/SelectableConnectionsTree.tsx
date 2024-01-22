@@ -1,9 +1,9 @@
 import { FC, Key, ReactNode, useEffect, useMemo, useState } from 'react';
-import { useMainContext } from '../../../context/MainContext';
 import { ConnectionRequestApiSchema } from '../../../client';
-import { COLOR_RED } from '../../../helpers/dataConverting';
+import { COLOR_RED } from '../../../utils/dataConverting';
 import { Col, Row, Space, Tooltip, Tree, Typography } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
+import { useMainContext } from '../../../hooks/useMainContext';
 
 const { Text } = Typography;
 
@@ -24,7 +24,11 @@ type Prop = {
 export const SelectableConnectionsTree: FC<Prop> = ({
   onPreSelectedIdsChange,
 }) => {
-  const mainContext = useMainContext();
+  const {
+    selectedConnectionRequests,
+    connectionRequestWarnings,
+    currentScenarioConnectionRequests,
+  } = useMainContext();
 
   const [checkedIds, setCheckedIds] = useState<string[]>([]);
   const [halfCheckedIds, setHalfCheckedIds] = useState<string[]>([]);
@@ -32,7 +36,7 @@ export const SelectableConnectionsTree: FC<Prop> = ({
   const BUS_TREE_KEY_PREFIX = 'bus/';
 
   const connectionIdsPerBusKey = useMemo<Record<string, string[]>>(() => {
-    return mainContext.selectedConnectionRequestsUnified.reduce(
+    return selectedConnectionRequests.reduce(
       (connectionIdsPerBusName: Record<string, string[]>, c) => {
         const busKey = `${BUS_TREE_KEY_PREFIX}${c.connectivity_node.id}`;
 
@@ -46,12 +50,12 @@ export const SelectableConnectionsTree: FC<Prop> = ({
       },
       {}
     );
-  }, [mainContext.selectedConnectionRequestsUnified]);
+  }, [selectedConnectionRequests]);
 
   const ConnectionsPerBusTreeData = useMemo<
     SelectableTreeItem[]
   >((): SelectableTreeItem[] => {
-    return mainContext.selectedConnectionRequestsUnified.reduce(
+    return selectedConnectionRequests.reduce(
       (
         connectionsPerBus: SelectableTreeItem[],
         selectedConnection: ConnectionRequestApiSchema
@@ -63,10 +67,10 @@ export const SelectableConnectionsTree: FC<Prop> = ({
         );
 
         const caseConnectionHasWarnings =
-          mainContext.connectionRequestWarnings[selectedConnection.id] &&
-          Object.values(
-            mainContext.connectionRequestWarnings[selectedConnection.id]
-          ).some((w) => w !== null);
+          connectionRequestWarnings[selectedConnection.id] &&
+          Object.values(connectionRequestWarnings[selectedConnection.id]).some(
+            (w) => w !== null
+          );
 
         const itemToPush: SelectableTreeItemChild = {
           key: selectedConnection.id,
@@ -76,9 +80,7 @@ export const SelectableConnectionsTree: FC<Prop> = ({
                 <Space direction="vertical">
                   {(
                     Object.values(
-                      mainContext.connectionRequestWarnings[
-                        selectedConnection.id
-                      ]
+                      connectionRequestWarnings[selectedConnection.id]
                     ).filter((w) => w !== null) as string[]
                   ).map((w) => (
                     <span key={w}>{w}</span>
@@ -94,7 +96,7 @@ export const SelectableConnectionsTree: FC<Prop> = ({
             selectedConnection.project_id
           ),
           disabled: Boolean(
-            mainContext.currentScenarioConnectionRequestsUnified.find(
+            currentScenarioConnectionRequests.find(
               (sc) => sc.id === selectedConnection.id
             )
           ),
@@ -106,47 +108,42 @@ export const SelectableConnectionsTree: FC<Prop> = ({
             itemToPush
           );
         } else {
-          const increasePerEnergyKind =
-            mainContext.selectedConnectionRequestsUnified
-              .filter(
-                (c) =>
-                  c.connectivity_node.id ===
-                  selectedConnection.connectivity_node.id
-              )
-              .reduce(
-                (powerIncreasePerEnergyKind: Record<string, number>, c) => {
-                  if (
-                    Object.prototype.hasOwnProperty.call(
-                      powerIncreasePerEnergyKind,
-                      c.connection_energy_kind
-                    )
-                  ) {
-                    powerIncreasePerEnergyKind[c.connection_energy_kind] =
-                      powerIncreasePerEnergyKind[c.connection_energy_kind] +
-                      c.power_increase;
-                  } else {
-                    powerIncreasePerEnergyKind[c.connection_energy_kind] =
-                      c.power_increase;
-                  }
-                  return powerIncreasePerEnergyKind;
-                },
-                {}
-              );
+          const increasePerEnergyKind = selectedConnectionRequests
+            .filter(
+              (c) =>
+                c.connectivity_node.id ===
+                selectedConnection.connectivity_node.id
+            )
+            .reduce((powerIncreasePerEnergyKind: Record<string, number>, c) => {
+              if (
+                Object.prototype.hasOwnProperty.call(
+                  powerIncreasePerEnergyKind,
+                  c.connection_energy_kind
+                )
+              ) {
+                powerIncreasePerEnergyKind[c.connection_energy_kind] =
+                  powerIncreasePerEnergyKind[c.connection_energy_kind] +
+                  c.power_increase;
+              } else {
+                powerIncreasePerEnergyKind[c.connection_energy_kind] =
+                  c.power_increase;
+              }
+              return powerIncreasePerEnergyKind;
+            }, {});
 
-          const caseBusConnectionsHaveWarnings =
-            mainContext.selectedConnectionRequestsUnified
-              .filter(
-                (c) =>
-                  c.connectivity_node.id ===
-                  selectedConnection.connectivity_node.id
-              )
-              .some(
-                (connection) =>
-                  mainContext.connectionRequestWarnings[connection.id] &&
-                  Object.values(
-                    mainContext.connectionRequestWarnings[connection.id]
-                  ).some((w) => w !== null)
-              );
+          const caseBusConnectionsHaveWarnings = selectedConnectionRequests
+            .filter(
+              (c) =>
+                c.connectivity_node.id ===
+                selectedConnection.connectivity_node.id
+            )
+            .some(
+              (connection) =>
+                connectionRequestWarnings[connection.id] &&
+                Object.values(connectionRequestWarnings[connection.id]).some(
+                  (w) => w !== null
+                )
+            );
 
           connectionsPerBus.push({
             key: `${BUS_TREE_KEY_PREFIX}${selectedConnection.connectivity_node.id}`,
@@ -184,9 +181,9 @@ export const SelectableConnectionsTree: FC<Prop> = ({
       [] as SelectableTreeItem[]
     );
   }, [
-    mainContext.connectionRequestWarnings,
-    mainContext.selectedConnectionRequestsUnified,
-    mainContext.currentScenarioConnectionRequestsUnified,
+    connectionRequestWarnings,
+    selectedConnectionRequests,
+    currentScenarioConnectionRequests,
   ]);
 
   const onCheck = (checked: string[]) => {
@@ -201,9 +198,7 @@ export const SelectableConnectionsTree: FC<Prop> = ({
       if (checkedIds.includes(busKey) && !checked.includes(busKey)) {
         const scenarioConnectionKeys = checkedOfCurrentBusKey.filter(
           (checkedId) =>
-            mainContext.currentScenarioConnectionRequestsUnified.find(
-              (c) => c.id === checkedId
-            )
+            currentScenarioConnectionRequests.find((c) => c.id === checkedId)
         );
 
         if (scenarioConnectionKeys.length === checkedOfCurrentBusKey.length) {

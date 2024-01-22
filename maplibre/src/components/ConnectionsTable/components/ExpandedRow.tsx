@@ -1,8 +1,9 @@
 import { FC, useState } from 'react';
-import { IFormatToShow, ISetStateOnChange } from '../../../helpers/interfaces';
+import { IFormatToShow } from '../../../types/pickedCard';
+import { ISetStateOnChange } from '../../../types';
 import { Button, Card, Tree } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import { propertiesToTreeData } from '../../../helpers/dataConverting';
+import { propertiesToTreeData } from '../../../utils/dataConverting';
 import { ConnectionRequestApiSchema } from '../../../client';
 
 interface IProps {

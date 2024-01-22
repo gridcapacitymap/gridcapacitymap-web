@@ -2,12 +2,12 @@ body {
   margin: 0;
 }
 
-.h-100vh {
-  height: 100vh;
-}
-
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-y-hidden {

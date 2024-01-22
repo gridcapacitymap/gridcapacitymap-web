@@ -3,7 +3,6 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Col, Divider, Layout, Menu, Row, Space, Tabs } from 'antd';
 
 import { ConnectionsTable } from './components/ConnectionsTable';
-import { MapComponent } from './components/MapComponent';
 import { PickedElementCard } from './components/PickedElementCard';
 import { ScenariosTab } from './components/ScenariosTab';
 import { CollapseButtons, TwoColLayout } from './components/CollapseButtons';
@@ -14,27 +13,35 @@ import { useAuth } from 'react-oidc-context';
 import { AuthModal } from './auth/AuthModal';
 
 import './App.css';
-import { isMobile } from './helpers/checkups';
+import { isMobile } from './utils/checkups';
 import { NetworkSettingModal } from './components/NetworkSettingModal';
 import { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
+import { MapComponent } from './components/MapComponent';
+import { CurrentScenarioTab } from './components/CurrentScenarioTab';
 
 const { Content, Header } = Layout;
 
-enum gridMapTab {
+enum GridMapTab {
   connections = 'connections',
   scenarios = 'scenarios',
+  currentScenario = 'current_scenario',
 }
 
 const tabs = [
   {
-    key: gridMapTab.connections,
+    key: GridMapTab.connections,
     label: 'Connections',
     children: <ConnectionsTable />,
   },
   {
-    key: gridMapTab.scenarios,
+    key: GridMapTab.scenarios,
     label: 'Scenarios',
     children: <ScenariosTab />,
+  },
+  {
+    key: GridMapTab.currentScenario,
+    label: 'Current Scenario',
+    children: <CurrentScenarioTab />,
   },
 ];
 
@@ -95,7 +102,8 @@ export const App: FC = () => {
           style={{
             backgroundColor: '#F7F7F7',
             borderBottom: '1px solid #EEE',
-            height: 39,
+            boxSizing: 'border-box',
+            height: 40,
             lineHeight: '40px',
             paddingInline: '8px',
           }}
@@ -122,7 +130,7 @@ export const App: FC = () => {
         <Content
           style={{
             padding: 0,
-            height: 'calc(100vh - 40px)',
+            height: 'calc(100dvh - 40px)',
             backgroundColor: 'white',
           }}
         >
@@ -130,7 +138,10 @@ export const App: FC = () => {
             <Col
               span={layoutSize[0]}
               className="overflow-y-auto"
-              style={{ boxShadow: 'inset -8px 0 4px -8px rgba(0,0,0,0.4)' }}
+              style={{
+                borderRight: '1px solid #EEE',
+                boxSizing: 'border-box',
+              }}
             >
               <Tabs
                 style={{ margin: '8px' }}
@@ -149,7 +160,7 @@ export const App: FC = () => {
                 }}
               />
             </Col>
-            <Col span={layoutSize[1]} className="overflow-y-hidden">
+            <Col span={layoutSize[1]} className="overflow-hidden">
               <MapComponent />
               <PickedElementCard />
             </Col>
